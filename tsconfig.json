@@ -1,0 +1,36 @@
+{
+	"ts-node": {
+		"transpileOnly": true
+	},
+	"compilerOptions": {
+		"target": "ES2019",
+		"module": "commonjs",
+		"lib": [
+			"dom",
+			"es2020"
+		],
+		"outDir": "../compiled",
+		"strict": false,
+		"noImplicitAny": false,
+		"moduleResolution": "node",
+		"typeRoots": [
+			"./node_modules/@types",
+			"./app/@types"
+		],
+		"esModuleInterop": true,
+		"resolveJsonModule": true,
+		"forceConsistentCasingInFileNames": true,
+		"allowJs": true,
+		"checkJs": true
+	},
+	"include": [
+		"app/**/*.ts",
+		"index.ts",
+		"instanceManager.ts",
+		"eventServer.ts",
+		"config.js",
+		"package.json",
+		"shell.ts",
+		"yarn.lock"
+	]
+}
