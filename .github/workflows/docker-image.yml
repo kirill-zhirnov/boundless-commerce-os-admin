@@ -38,3 +38,12 @@ jobs:
         push: true
         target: nginx-static
         tags: ${{ secrets.DOCKERHUB_USERNAME }}/boundless-commerce-admin-static:latest
+
+    - name: Build and push Events-Listener
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./.docker/node.Dockerfile
+        push: true
+        target: event-server
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/boundless-commerce-events-listener:latest
