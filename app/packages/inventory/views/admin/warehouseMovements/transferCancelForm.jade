@@ -1,0 +1,19 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('inventory/admin/warehouseMovements/formCancel') data-form="" method="post")
+		!=gHtml.pk(data.pk)
+
+		p(class="text-center")
+			!=__("All products will be returned to warehouse, where it was taken.")
+
+		div(class="form-group")
+			input(type='hidden' name="errors" value="")
+
+		div(class="text-center")
+			div(class="btn-group")
+				button(type="submit" class="btn btn-danger")
+					!=__("Cancel transfer")
+
+				button(type="button" class="btn btn-default" data-modal-close="")
+					!=__("Close")

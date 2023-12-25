@@ -1,0 +1,22 @@
+extends /blocks/modal
+
+block body
+	form(data-form="" autocomplete="off" action=url("orders/admin/setup/sms/smspilot") method="POST")
+		input(type='hidden' name='service_id' value=attrs.service_id)
+
+		div(class="form-group")
+			!=bs.label(__('API key'), 'apiKey')
+			!=' '
+			!=bs.textField(attrs, 'apiKey')
+
+		div(class="form-group")
+			!=bs.label(__('Sender'), 'from')
+			!=' '
+			!=bs.textField(attrs, 'from', {placeholder: 'INFORM'})
+		p.text-end
+			a(href="https://smspilot.ru/" target="_blank")
+				!=bs.icon('new-window')
+				=' '
+				='smspilot.ru'
+
+		!=widget('system.formButtons.@c', buttons)

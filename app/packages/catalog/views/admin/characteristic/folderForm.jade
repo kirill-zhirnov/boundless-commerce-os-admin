@@ -1,0 +1,10 @@
+extends /blocks/modal.jade
+block body
+    form(action=url('catalog/admin/characteristic/folderForm?groupId=#{params.groupId}') method="post" data-form="")
+        !=gHtml.pk(pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(attrs, 'title')
+
+        =widget('system.formButtons.@c', buttons)

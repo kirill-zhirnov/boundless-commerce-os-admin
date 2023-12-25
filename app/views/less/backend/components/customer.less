@@ -1,0 +1,77 @@
+.customer-grid {
+	.grid-header {
+		.filter {
+			.multi-line-filter {
+				padding-top: 20px;
+			}
+		}
+	}
+
+	.table {
+		.column-user {
+			width: 35%;
+
+			.wrapper {
+				position: relative;
+
+				.registered {
+					position: absolute;
+					top: 5px;
+					right: 5px;
+				}
+
+				.left-right {
+					display: flex;
+					flex-direction: row;
+					justify-content: space-between;
+
+					p {
+						&:nth-last-of-type(1) {
+							margin-bottom: 0;
+						}
+					}
+				}
+			}
+		}
+
+		.column-address {
+			width: 25%;
+		}
+
+		.column-buttons {
+			max-width: 130px;
+			white-space: normal;
+
+			.btn {
+				& + .btn {
+					margin: 10px 0 0 0;
+				}
+			}
+		}
+	}
+}
+
+.customer-form {
+	.tab-pane {
+		&#orders {
+			.orders {
+				tr {
+					th {
+						text-align: center;
+					}
+
+					td {
+						text-align: center;
+						vertical-align: middle;
+
+						p {
+							&:nth-last-of-type(1) {
+								margin-bottom: 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

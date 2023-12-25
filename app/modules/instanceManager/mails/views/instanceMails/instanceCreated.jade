@@ -1,0 +1,49 @@
+div(id="shop-created")
+	h1 Thank you 😉!
+	h2 Admin-side for your shop has been successfully created!
+
+	p(class="text-center cta-wrapper")
+		a(href=urls.backendHref class="cta-btn") Visit control panel
+
+	h4 Use the following credentials to sign in:
+	div.credentials
+		div.row
+			b URL:
+			p
+				a(href=urls.backend)
+					=urls.backend
+
+			.clear
+
+		div.row
+			b Email:
+			p=email
+
+			.clear
+
+		div.row
+			b Password:
+			p=authConf.userPass
+
+			.clear
+
+	h4 Help:
+	p
+		a(href="https://help.boundless-commerce.com/books/user-guide" target="_blank") User Guide
+	p If you have any questions - please contact us:
+		=' '
+		a(href="mailto:info@boundless-commerce.com") info@boundless-commerce.com
+
+	h4 API access:
+	p Create API-tokens in the control panel: Settings -> Access tokens.
+	p
+		='Our API client at NPM:'
+		=' '
+		a(href="https://www.npmjs.com/package/boundless-api-client" target="_blank") Boundless API client
+
+	p
+		='Looking for an Agency or Professional developer?'
+		=' '
+		a(href="mailto:info@boundless-commerce.com") Contact us!
+
+	p Thank you!

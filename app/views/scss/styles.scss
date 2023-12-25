@@ -1,0 +1,47 @@
+@import '~bootstrap';
+@import 'variables';
+@import 'fonts';
+
+@import 'base';
+@import 'pageLayout';
+
+@import 'pageHeader';
+
+@import 'logo';
+@import 'buttons';
+@import 'ico';
+@import 'cart';
+@import 'user';
+
+@import 'pageMain';
+
+@import 'leftSidebar';
+@import 'menuWork';
+@import 'hamburgerMenu';
+@import 'adminMenu';
+@import 'forms';
+@import 'fontAwesome';
+
+@import 'generalContent';
+@import 'content';
+@import 'links';
+
+@import './components/alertsContainer';
+@import './components/bulkButtons';
+@import './components/topNav';
+@import './components/toTop';
+@import './components/backgrid';
+@import './components/jstree';
+@import './components/settings';
+@import './components/pagination';
+@import './components/customAttrs';
+@import './components/analyticsWarning';
+
+//pages
+@import './pages/productForm';
+@import './pages/orderForm';
+@import './pages/dashboard';
+@import './pages/paymentMethod';
+
+//layouts
+@import './layouts/default';

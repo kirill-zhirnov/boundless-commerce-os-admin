@@ -1,0 +1,29 @@
+if _.isArray(breadCrumbs) && breadCrumbs.length > 0
+	ol.breadcrumb(itemprop="breadcrumb" itemscope itemtype="http://schema.org/BreadcrumbList")
+		li(class="breadcrumb-item" itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem")
+			a(itemprop="item" href=url('/'))
+				span(itemprop="name")
+					=__('Home')
+
+			meta(itemprop="position" content="1")
+
+		each item, i in breadCrumbs
+			- var attrs = {};
+			if item.url
+				- attrs['itemprop'] = "itemListElement";
+				- attrs['itemscope'] = '';
+				- attrs['itemtype'] = 'http://schema.org/ListItem';
+
+			li(class="breadcrumb-item " + (item.isActive) ? 'active' : '')&attributes(attrs)
+				if item.url
+					a(itemprop="item" href=item.url)
+						span(itemprop="name")
+							=item.title
+
+					meta(itemprop="position" content=i + 2)
+				else
+					span
+						=item.title
+
+	if append
+		!=append

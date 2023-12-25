@@ -1,0 +1,12 @@
+div(class="label-remove form-group")
+	div(class="d-flex align-items-baseline gap-1")
+		div(class="checkbox pull-left form-check")
+			label(class='form-check-label')
+				input(type="checkbox" name="removeAfter" checked=data['remove_after'] ? 'checked' : undefined class='form-check-input')
+				!=__("Automatically remove from products")
+
+		div(class="day-input" style=data['remove_after'] ? "" : "display: none;")
+			label(class="control-label form-label")
+				!=__("аfter") + " "
+				input(size='1' name='days' value=data['remove_after'] class="form-control form-control-sm")
+				!=" " + __("days")

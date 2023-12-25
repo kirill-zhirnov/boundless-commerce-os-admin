@@ -1,0 +1,15 @@
+extends /blocks/tabs.jade
+
+block nav
+	+tabLi(activeMenu.block.key, activeMenu.block.config.title)(class="active")
+
+	each item, key in menu
+		if key !== activeMenu.block.key
+			+tabLi(key, item.title)&attributes({'data-tab-url': url('cms/admin/navigation/menu', {item : key})})
+block content
+	+tabBody(activeMenu.block.key)(class="active")
+		!=widget('cms.menuItemTree.@c', {data: activeMenu})
+
+	each item, key in menu
+		if key !== activeMenu.block.key
+			+tabBody(key)(class=className)

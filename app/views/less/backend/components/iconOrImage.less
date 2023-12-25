@@ -1,0 +1,111 @@
+.icon-or-img {
+	background: #f8f8f8;
+	padding: 10px;
+	position: relative;
+
+	.preview {
+		position: relative;
+		margin: 0 auto 15px auto;
+
+		.no-image {
+			padding-top: 50%;
+			background-size: 25%;
+		}
+
+		.loading {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(0,0,0,0.5) url(../../../../../public/images/loading.gif) no-repeat 50% 50%;
+		}
+
+		.content {
+			.icon {
+				text-align: center;
+				font-size: 100px;
+			}
+
+			.image {
+				img {
+					display: block;
+					max-width: 100%;
+					height: auto;
+					margin: 0 auto;
+
+				}
+			}
+		}
+
+		.overlay {
+			display: none;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: rgba(0,0,0,0.5);
+			justify-content: flex-end;
+			align-items: flex-end;
+
+			a {
+				color: #fff !important;
+				margin: 5px;
+			}
+		}
+
+		&:hover {
+			.overlay {
+				display: flex;
+			}
+		}
+	}
+
+	.icons {
+		position: relative;
+		padding: 15px 0 0 0;
+
+		.close {
+			position: absolute;
+			top: -8px;
+			right: -5px;
+			font-size: 16px;
+		}
+
+		.iconpicker {
+			margin-bottom: 15px;
+		}
+	}
+
+	.drop-instructions {
+		margin-bottom: 0;
+	}
+
+	.landing {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border: 7px dashed rgba(0, 0, 0, 0.3);
+		background-color: @state-warning-bg;
+		font-size: 21px;
+		padding: 10px;
+		text-align: center;
+
+		display: none;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&.dz-drag-hover {
+		.landing {
+			display: flex;
+		}
+	}
+
+	> .dz-preview {
+		display: none;
+	}
+}

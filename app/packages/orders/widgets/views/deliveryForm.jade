@@ -1,0 +1,108 @@
+!=gHtml.pk(pk)
+
+div(class="form-group")
+	!=bs.label(__('Title'), 'title')
+	!=bs.textField(attrs, 'title')
+
+	p(class="form-text")
+		=__('The title will be shown to your customer as a shipping method title.')
+
+div(class="form-group")
+	!=bs.label(__('Description'), 'description')
+	!=bs.textArea(attrs, 'description', {placeholder: __('You can use <b>HTML tags</b>.')})
+
+!=bs.label(__('Image'), 'image')
+.row
+	.col-sm-3
+		div(
+			class="uploaded-img img-bg"
+			class=(attrs.img) ? "" : "no-image"
+			style=(attrs.img) ? "background-image: url(" + attrs.img + ")" : ""
+		)
+	.col-sm-9
+		div(class="admin-dropzone")
+			div(class="dropzone-uploader dropzone")
+
+!=gHtmlActive.hiddenField(attrs, 'tariff')
+//div(class="tariff-options")
+//	!=bs.radioButtonList(attrs, 'tariff', options.tariff)
+
+div(data-tariff="single" style=attrs.tariff === 'single' ? "" : "display: none;")
+	div(class="form-group")
+		!=bs.label(__('Price'), 'singlePrice')
+
+		.input-group
+			!=bs.textField(attrs, 'singlePrice', {type: 'number', min: "0", lang: "en", step: "0.01", placeholder:'10'})
+			.input-group-text
+				!=locale.getCurrencySymbol()
+
+//div(data-tariff="byEdost" class="edost-options-form well well-sm" style=attrs.tariff === 'byEdost' ? "" : "display: none;")
+//	h4
+//		!=bs.icon('globe')
+//		=' '
+//		=__('Access for edost.ru')
+//
+//	div(class="form-group")
+//		!=bs.label(__('Shipping company'), 'edostProvider')
+//		!=bs.dropDownList(attrs, 'edostProvider', options.edostProviders, i18n)
+//
+//	div(class="form-group tariff-list pickup" style=attrs.edostCustomPickup ? '' : 'display: none;')
+//		!=bs.label(__('Tariff'), 'edostCustomPickup')
+//		!=bs.dropDownList(attrs, 'edostCustomPickup', options.edostCustomPickupTariffs, i18n)
+//
+//	div(class="form-group tariff-list courier" style=attrs.edostCustomCourier ? '' : 'display: none;')
+//		!=bs.label(__('Tariff'), 'edostCustomCourier')
+//		!=bs.dropDownList(attrs, 'edostCustomCourier', options.edostCustomCourierTariffs, i18n)
+//
+//	div(class="form-group")
+//		!=bs.label(__('Shop Id'), 'edostId')
+//		!=bs.textField(attrs, 'edostId')
+//
+//	div(class="form-group")
+//		!=bs.label(__('Password for API'), 'edostPass')
+//		!=bs.textField(attrs, 'edostPass')
+
+//div(data-tariff="byOwnRates" class="location-settings-group" style=attrs.tariff === 'byOwnRates' ? "" : "display: none;")
+//	div(class="form-group")
+//		!=bs.label(__('In which country you want to ship by this shipping method?'), '')
+//
+//	div(class="form-inline form-group")
+//		div(class="form-group")
+//			!=bs.dropDownList({country_search:defaultCountry}, 'country_search', options.country, i18n)
+//			=' '
+//			button(type="button" class="btn btn-default add-country")
+//				!=bs.icon('plus')
+//				=' '
+//				=__('Add country')
+//
+//	input(type="hidden" name="country_rate[__tmp]" value="")
+//	input(type="hidden" name="country_delivery_time[__tmp]" value="")
+//	input(type="hidden" name="country_id[__tmp]" value="")
+//	input(type="hidden" name="city_id[__tmp][__tmp]" value="")
+//	input(type="hidden" name="rate[__tmp][__tmp]" value="")
+//	input(type="hidden" name="delivery_time[__tmp][__tmp]" value="")
+//	input(type="hidden" name="all_city[__tmp]" value="")
+//	input(type="hidden" name="exclude_city_id[__tmp][__tmp]" value="")
+//
+//	ul(class="countries list-group")
+//		each countryItem in countries
+//			!=renderCountryBlock(countryItem)
+
+//.form-group
+//	!=bs.label(__('VAT'), 'tax')
+//	!=bs.dropDownList(attrs, 'tax', options.tax)
+//
+//	p.form-text
+//		=p__('shipping', 'Vat will be used in receipt.')
+
+- var classes = [];
+if _.isUndefined(attrs.sort) || attrs.sort === null || attrs.sort == ''
+	- classes.push('none')
+
+div(class="form-group sort-group" class=classes)
+	!=bs.label(__('Sort'), 'sort')
+	!=bs.textField(attrs, 'sort')
+	p.form-text
+		=__('Delivery methods are shown to customers sorted by sort field.')
+
+!=widget('system.formButtons.@c', buttons)

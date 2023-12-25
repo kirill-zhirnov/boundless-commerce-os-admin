@@ -1,0 +1,285 @@
+// mars products list was moved to separate mixin, since it is used in mars, marsfull and landing's products list (same for all themes).
+#mars-products-list (@highlited-color; @price-s-color) {
+	@product-mobile-width: 45%;
+	@product-xs-width: 30%;
+
+	@product-sm-width: 161px;
+	@product-sm-margin: 12.5px;
+
+	@product-md-width: 205px;
+	@product-md-margin: 20px;
+
+	@product-lg-width: 254px;
+	@product-lg-margin: 20px;
+
+	.products-list {
+		&.view-list {
+			.products {
+				.list-unstyled();
+
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: space-between;
+				align-items: flex-start;
+				align-content: flex-start;
+
+				&:after {
+					display: block;
+					content: "";
+					width: @product-mobile-width;
+				}
+
+				@media (min-width: @screen-xs-min) {
+					&:after {
+						width: @product-xs-width;
+					}
+				}
+
+				@media (min-width: @screen-sm-min) {
+					&:after {
+						display: none;
+						content: none;
+					}
+
+					justify-content: flex-start;
+					margin-left: (@product-sm-margin * -1);
+					margin-right: (@product-sm-margin * -1);
+				}
+
+				@media (min-width: @screen-md-min) {
+					margin-left: (@product-md-margin * -1);
+					margin-right: (@product-md-margin * -1);
+				}
+
+				@media (min-width: @screen-lg-min) {
+					margin-left: (@product-lg-margin * -1);
+					margin-right: (@product-lg-margin * -1);
+				}
+
+				.product-item {
+					width: @product-mobile-width;
+					z-index: 1;
+					border: 2px solid @front-product-border;
+					background: #fff;
+					padding: 5px;
+					margin: 15px 0;
+
+					@media (min-width: @screen-xs-min) {
+						width: @product-xs-width;
+						border-width: 3px;
+					}
+
+					@media (min-width: @screen-sm-min) {
+						width: @product-sm-width;
+						margin-left: @product-sm-margin;
+						margin-right: @product-sm-margin;
+
+						&:hover {
+							border-color: @theme-color;
+						}
+					}
+
+					@media (min-width: @screen-md-min) {
+						padding: 15px;
+						width: @product-md-width;
+						margin-left: @product-md-margin;
+						margin-right: @product-md-margin;
+					}
+
+					@media (min-width: @screen-lg-min) {
+						padding: 25px;
+						width: @product-lg-width;
+						margin-left: @product-lg-margin;
+						margin-right: @product-lg-margin;
+					}
+
+					.wrapper {
+						position: relative;
+
+						@basket-height: 30px;
+						padding: 0 0 (@basket-height + 10px) 0;
+
+						@media (min-width: @screen-md-min) {
+							padding: 0;
+						}
+
+						.img {
+							display: block;
+							overflow: hidden;
+							margin: 0 0 10px 0;
+							position: relative;
+
+							@media (min-width: @screen-sm-min) {
+								margin-bottom: 25px;
+							}
+
+							@media (min-width: @screen-md-min) {
+								margin-bottom: 35px;
+							}
+
+							.no-image {
+								width: 100%;
+								padding-top: 100%;
+								background-size: 40%;
+							}
+
+							img {
+								display: block;
+								max-width: 100%;
+								height: auto;
+							}
+
+							.product-tags {
+								#products #tags();
+
+								top: 5px;
+								left: 5px;
+							}
+						}
+
+						.to-basket {
+							width: 100%;
+							height: @basket-height;
+							position: absolute;
+							right: 0;
+							bottom: 0;
+
+							.btn {
+								display: flex;
+								justify-content: center;
+								align-items: center;
+								height: 100%;
+								border-radius: 0;
+								border: 0;
+								font-size: 13px;
+
+								.text {
+									margin-left: 3px;
+								}
+
+								.glyphicon {
+									top: 0;
+								}
+							}
+
+							@media (min-width: @screen-md-min) {
+								width: 50px;
+								height: 50px;
+
+								.btn {
+									font-size: inherit;
+
+									.text {
+										display: none;
+									}
+								}
+							}
+						}
+
+						.title {
+							margin: 0 0 10px 0;
+
+							a {
+								display: block;
+								height: 100%;
+								font-weight: normal;
+								font-size: 14px;
+								color: #000000;
+								text-decoration: none;
+								overflow: hidden;
+								line-height: 23px;
+							}
+
+							@media (min-width: @screen-sm-min) {
+								margin-bottom: 15px;
+							}
+
+							@media (min-width: @screen-md-min) {
+								min-height: 50px;
+
+								a {
+									font-size: 16px;
+								}
+							}
+						}
+
+						.offer {
+							@media (min-width: @screen-md-min) {
+								margin: 0 60px 0 0;
+							}
+
+							.price {
+								.formatted-price {
+									display: flex;
+									flex-direction: column;
+									justify-content: center;
+									align-items: flex-start;
+
+									@media (min-width: @screen-md-min) {
+										min-height: 50px;
+									}
+
+									.current {
+										display: inline-block;
+										font-size: 14px;
+										order: 0;
+
+										@media (min-width: @screen-sm-min) {
+											font-size: 16px;
+										}
+
+										@media (min-width: @screen-md-min) {
+											font-size: 18px;
+										}
+									}
+
+									s {
+										margin: 0;
+										color: @price-s-color;
+										order: 1;
+									}
+
+									.from {
+										display: none;
+									}
+
+									&.has-old {
+										.current {
+											color: @highlited-color;
+										}
+									}
+								}
+							}
+
+							.availability {
+								display: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	//adjust width for right column
+	.right-column {
+		.products-list.view-list {
+			.products {
+				.product-item {
+					@media (min-width: @screen-sm-min) {
+						width: 140px;
+					}
+
+					@media (min-width: @screen-md-min) {
+						width: 205px;
+					}
+
+					@media (min-width: @screen-lg-min) {
+						width: 255px;
+					}
+				}
+			}
+		}
+	}
+}

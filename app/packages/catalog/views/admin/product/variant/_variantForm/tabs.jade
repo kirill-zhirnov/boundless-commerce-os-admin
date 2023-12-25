@@ -1,0 +1,13 @@
+extends /blocks/tabs.jade
+
+include ./variant
+include ./characteristics
+
+block nav
+    +tabLi('product-variant', __('Variant'))(class="active")
+    +tabLi('product-variant-characteristics', __('Redefine characteristics'))
+block content
+    +tabBody('product-variant')(class="active")
+        +variantForm(forms.variant)
+    +tabBody('product-variant-characteristics')
+        +characteristicsForm(forms.characteristics)

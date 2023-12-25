@@ -1,0 +1,63 @@
+.link-find-and-insert {
+	background: #f8f8f8;
+	margin: 0 0 15px 0;
+	padding: 5px;
+
+	.form-control {
+	}
+
+	.sub-links {
+		margin: 5px 0 0 0;
+		display: flex;
+		justify-content: flex-start;
+
+		.undo-replaced {
+			margin-left: auto;
+			color: @text-muted;
+		}
+	}
+
+	.selector {
+		margin: 12px 0 0 0;
+		position: relative;
+
+		.close-me {
+			position: absolute;
+			right: 5px;
+			top: 0;
+			color: @text-muted;
+		}
+
+		.type-selector {
+			display: flex;
+			align-items: flex-start;
+			margin: 0 0 12px 0;
+
+			> label {
+				margin: 0 20px 0 0;
+			}
+
+			.links {
+				display: flex;
+				align-items: flex-start;
+				flex-wrap: wrap;
+				margin: -5px;
+				max-width: 250px;
+
+				.radio {
+					min-width: 110px;
+					margin: 5px;
+				}
+			}
+		}
+
+		.type-body {
+			.email,
+			.phone,
+			.whats-app,
+			.telegram {
+				max-width: 300px;
+			}
+		}
+	}
+}

@@ -1,0 +1,11 @@
+extends /blocks/modal.jade
+
+block body
+	form(data-form="" autocomplete="off" action=url("system/admin/cleanUp/index"))
+		div.form-group
+			strong=__("Be carefull your database will be cleaned up!")
+		div.form-group
+			!=bs.label(__('To clean database type "clean":'), 'verificationWord')
+			!=bs.textField({}, 'verificationWord', {placeholder: 'clean'})
+
+		!=widget('system.formButtons.@c', buttons)

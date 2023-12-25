@@ -1,0 +1,12 @@
+include ./mixin
+
+div(class="blog-list" itemscope itemtype="http://schema.org/Blog")
+	if articles[1] && articles[1].length > 0
+		.articles-list
+			each article in articles[1]
+				+article(article)
+
+		!=widget('system.pagination.@c', {collection : articles, data : {basicUrl : url('cms/blog/index')}})
+	else
+		p.text-center
+			=__('There are no articles.')

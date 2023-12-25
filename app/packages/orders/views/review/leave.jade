@@ -1,0 +1,4 @@
+.row
+	.col-md-6.offset-md-3.col-sm-8.offset-sm-2
+		- var data = {app: 'orders/leaveReview', props: {order: order, orderItems: orderItems, reviews: reviews, attrs: attrs}};
+		!=widget('system.vueApp.@c', {data: data})

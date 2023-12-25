@@ -1,0 +1,79 @@
+.layout-default {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+
+	&__main {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	#content {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+	}
+
+	.navbar-logo {
+		&__logo {
+			display: block;
+			max-width: 150px;
+			margin: 1rem 0;
+		}
+
+		&__logo-img {
+			display: block;
+		}
+	}
+}
+
+.layout-v-center {
+	.layout-default {
+		#content {
+			justify-content: center;
+		}
+	}
+}
+
+.no-header {
+	.layout-default {
+		.page-header {
+			display: none;
+		}
+	}
+}
+
+//durty hack, dont have time:
+#layout-default {
+	.nanobar {
+		width:100%;
+		height:4px;
+		z-index:9999;
+		top:0;
+
+		.bar {
+			width:0;
+			height:100%;
+			transition:height .3s;
+			background: $c-bg-purple-100;
+
+			position: relative;
+
+			&.active {
+				&:after {
+					content: "";
+					display: block;
+					position:absolute;
+					right:0px;
+					width:100px;
+					height:100%;
+					box-shadow:0 0 10px $c-bg-purple-100,0 0 5px $c-bg-purple-100;
+					opacity:1.0;
+					transform:rotate(3deg) translate(0px,-4px);
+				}
+			}
+		}
+	}
+}

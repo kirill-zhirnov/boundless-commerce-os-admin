@@ -1,0 +1,19 @@
+.opened
+	.container
+		div.controls
+			a(href=url('admin'))
+				!=bs.icon('wrench')
+				=' '
+				=__('Visit admin')
+
+			a(href=url('theme/admin/customize/theme', {id: id}) class="customize")
+				!=bs.icon('pencil')
+				=' '
+				=__('Customize theme')
+
+		a(href="#" class="hide-me")
+			!=bs.icon('remove')
+
+.closed
+	a(href="#" class="open-me")
+		!=bs.icon('chevron-down')

@@ -1,0 +1,23 @@
+if user
+	if user.isGuest
+		a(href=url('@login'), class="btn btn-outline-secondary login")
+			if guestIcon
+				!=guestIcon
+
+			=__('Login')
+	else
+		.dropdown
+			a(href="#" class="user__btn" data-bs-toggle="dropdown" aria-expanded="false" id=dropDownId)
+				.user__img
+				.user__name
+					=(langs.loggedIn !== null) ? langs.loggedIn : user.email
+				.user__menu-down
+
+			ul(class="dropdown-menu user__menu" aria-labelledby=dropDownId)
+				if _.isArray(menu)
+					each item in menu
+						li.user__menu-item
+							a(href=item.url class="user__menu-link")&attributes(item.attrs || {})
+								if item.icon
+									span(class=item.icon)
+								!=item.title

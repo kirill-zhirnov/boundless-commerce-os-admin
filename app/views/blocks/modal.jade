@@ -1,0 +1,19 @@
+mixin modalHeaderClose
+	button(type="button" class="btn-close" aria-label="Close" data-modal-close="")
+
+mixin modalHeaderTitle(title)
+	h5(class="modal-title")=title
+
+block wrapper
+	.modal-dialog
+		.modal-content
+			.modal-header
+				block header
+					+modalHeaderTitle
+					+modalHeaderClose
+
+			.modal-body
+				block body
+
+			.modal-footer
+				block footer

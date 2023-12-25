@@ -1,0 +1,6 @@
+extends /blocks/modal
+
+block body
+	section(data-form-group=url("catalog/admin/characteristic/form?groupId=#{params.groupId}"))
+		!=widget('catalog.characteristicForm.@c', {data: forms.characteristic})
+		!=widget('system.formButtons.@c', buttons)

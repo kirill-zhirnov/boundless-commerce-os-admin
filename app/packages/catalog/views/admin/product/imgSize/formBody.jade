@@ -1,0 +1,70 @@
+mixin productImgSizeBody(data)
+	h4
+		!=bs.icon('camera')
+		=' '
+		=__('Photos from camera')
+	.row
+		.col-sm-6.text-center
+			label(class="s2-3")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value : '2/3'})
+				div=__('Vertical image (%s)', ['2/3'])
+
+		.col-sm-6.text-center
+			label(class="s3-2")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '3/2'})
+				div=__('Horizontal image (%s)', ['3/2'])
+
+	h4
+		!=bs.icon('phone')
+		=' '
+		=__('Photos from mobile phone')
+	.row
+		.col-sm-6.text-center
+			label(class="s3-4")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '3/4'})
+				div=__('Vertical image (%s)', ['3/4'])
+
+		.col-sm-6.text-center
+			label(class="s4-3")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '4/3'})
+				div=__('Horizontal image (%s)', ['4/3'])
+
+	h4
+		=__('Photos from instagram')
+	.row
+		.col-sm-6.text-center
+			label(class="s4-5")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '4/5'})
+				div=__('Vertical image (%s)', ['4/5'])
+
+		.col-sm-6.text-center
+			label(class="s5-4")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '5/4'})
+				div=__('Horizontal image (%s)', ['5/4'])
+
+	h4
+		=__('Square images')
+	.row
+		.col-sm-6.text-center
+			label(class="s1-1")
+				!=gHtmlActive.radioButton(data.attrs, 'size', {value: '1/1'})
+				div=__('Square image')
+
+	h4
+		=p__('resize', 'Scale image')
+
+	.row
+		.col-sm-6
+			.radio.form-check
+				label(class="form-check-label")
+					!=gHtmlActive.radioButton(data.attrs, 'size', {value: 'sc'})
+					=' '
+					=p__('resize', 'Save my images proportion')
+
+		.col-sm-6
+			.radio.form-check
+				label(class="form-check-label")
+					!=gHtmlActive.radioButton(data.attrs, 'size', {value: 'scf'})
+					=' '
+					=p__('resize', 'Save my images proportion and fill to square')
+	br

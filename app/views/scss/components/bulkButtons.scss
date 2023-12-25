@@ -1,0 +1,69 @@
+body > .bulk-buttons {
+	background: $c-bg-black-12;
+	border-top: 1px solid $c-btn-bg-purple-100;
+	bottom: 0;
+	color: #fff;
+	display: none;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	z-index: 10;
+
+	.general-content-wrapper {
+		padding-left: 12px;
+		padding-right: 12px;
+
+		@include media-breakpoint-up(lg) {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			padding-left: 272px;
+			padding-right: 32px;
+		}
+	}
+
+	.general-content-subwrapper {
+		align-items: center;
+
+		display: flex;
+		justify-content: flex-start;
+
+		&::before,
+		&::after {
+			display: none;
+		}
+
+		.cancel {
+			margin-right: 24px;
+		}
+
+		> b {
+			margin-right: 6px;
+
+			@include media-breakpoint-up(xs) {
+				display: none;
+			}
+		}
+	}
+
+	.buttons {
+		align-items: center;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+
+		> .btn,
+		> .btn-group,
+		> .dropdown {
+			margin: 5px 6px;
+		}
+
+		.dropdown-toggle {
+			&::after {
+				display: none;
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+p Hello,
+
+p.
+	Unfortunately, we were not able to charge your account and had to suspend your instance.
+	If you want to restore your store - please make a payment in the next 30 days.
+
+p
+	strong Instance:
+	=' '
+	a(href="https://" + instanceInfo.primary_host target="_blank")
+		!=instanceInfo.primary_host
+
+div.text-center
+	a.cta-btn(href="https://" + instanceInfo.primary_host + "/system/sellios/account/index") Pay now
+
+p Thank you!

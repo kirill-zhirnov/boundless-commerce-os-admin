@@ -1,0 +1,14 @@
+div(id="layout" data-layout=layout)
+	div(id="logo-wrapper")
+		a(href="https://boundless-commerce.com/", id="logo" target="_blank")
+			img(src=src=getGlobalStaticUrl('/images/logo.png', true, true) width=244 height=52 alt="Boundless commerce")
+
+	div(id="content-wrapper")
+		!=content
+
+	footer#footer
+		='Best regards,'
+		br
+		='Boundless commerce team.'
+		br
+		a(href="https://boundless-commerce.com/" target="_blank") boundless-commerce.com

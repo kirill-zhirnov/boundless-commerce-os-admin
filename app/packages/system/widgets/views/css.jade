@@ -1,0 +1,20 @@
+if staticCss
+	each link in staticCss
+		link(href=link rel="stylesheet")
+
+link(rel="icon" href=getGlobalStaticUrl('/images/favicon.ico', true, true) type="image/x-icon")
+
+
+//if favIcon.newFavIconsList
+//	link(rel="apple-touch-icon" sizes="180x180" href=favIcon.newFavIconsList['apple-touch-icon.png'])
+//	link(rel="icon" type="image/png" sizes="32x32" href=favIcon.newFavIconsList['favicon-32x32.png'])
+//	link(rel="icon" type="image/png" sizes="16x16" href=favIcon.newFavIconsList['favicon-16x16.png'])
+//	link(rel="manifest" href="/site.webmanifest")
+//	link(rel="mask-icon" href=favIcon.newFavIconsList['safari-pinned-tab.svg'] color="#5bbad5")
+//	meta(name="msapplication-TileColor" content="#2d89ef")
+//	meta(name="msapplication-TileImage" content=favIcon.newFavIconsList['mstile-144x144.png'])
+//	meta(name="theme-color" content="#ffffff")
+//	link(rel="shortcut icon" href=favIcon.newFavIconsList['favicon.ico'] type="image/x-icon")
+//else if favIcon.oldFav
+//	link(rel="shortcut icon" href=favIcon.oldFav type="image/x-icon")
+

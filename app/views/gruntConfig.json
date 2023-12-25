@@ -1,0 +1,12 @@
+{
+  "assets" : [
+    {
+      "expand" : true,
+      "cwd": "node_modules/bootstrap/fonts/",
+      "src": "**",
+      "dest" : "public/fonts/",
+      "flatten": true,
+      "filter" : "isFile"
+    }
+  ]
+}

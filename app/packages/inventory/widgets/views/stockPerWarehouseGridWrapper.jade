@@ -1,0 +1,10 @@
+extends ../../../system/widgets/views/gridHtmlWrapper
+
+block commonFilterBody
+    div(class="container-fluid")
+        div(class="row")
+            div(class="")
+                div(class="form-group")
+                    !=bs.label(__('Choose warehouse'), 'location_id')
+                    =' '
+                    !=bs.dropDownList(attrs, 'location_id', options.location, i18n)

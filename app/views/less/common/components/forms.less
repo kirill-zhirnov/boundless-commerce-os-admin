@@ -1,0 +1,36 @@
+.form-buttons() {
+	text-align: center;
+}
+
+.form-error {
+	margin-top: @padding-base-vertical;
+	color: @state-danger-text;
+}
+
+.form-group.has-error {
+	.input-group {
+		.input-group-btn {
+			.btn {
+				border-color: @state-danger-text;
+			}
+		}
+	}
+}
+
+form {
+	.buttons {
+		.form-buttons();
+	}
+}
+
+section[data-form-group] {
+	.buttons {
+		.form-buttons();
+	}
+}
+
+//.form-inline-margin {
+//	.form-group + .form-group {
+//		margin-left: @padding-base-horizontal;
+//	}
+//}

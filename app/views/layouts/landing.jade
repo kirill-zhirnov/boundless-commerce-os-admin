@@ -1,0 +1,12 @@
+div(id="layout" data-layout=layout)
+	include /blocks/editModeSwitcher
+
+	!=widget('orders.callToOrder.@c', {data:{affix:false,container:'wrapper'}})
+
+	div(class="hidden container")
+		!=widget('system.alerts.@c')
+
+	block landing
+
+	footer
+		a(href="https://sellios.ru" target="_blank") Работает на Sellios

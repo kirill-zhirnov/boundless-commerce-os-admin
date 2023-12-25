@@ -1,0 +1,17 @@
+extends ../../../system/widgets/views/gridHtmlWrapper
+
+block commonFilterBody
+    div(class="container-fluid small multi-line-filter")
+        div(class="row")
+            //div(class="col-md-4")
+            //    div(class="form-group")
+            //        !=bs.label(__('Movement reason'), 'reason_id')
+            //        =' '
+            //        !=bs.dropDownList(attrs, 'reason_id', options.reason, null, {class: 'form-control-sm'})
+            input(type="hidden" name="hide_reserve" value="")
+            div(class="")
+                div(class="checkbox form-check")
+                    label(class="form-check-label")
+                        !=gHtmlActive.checkbox(attrs, 'hide_reserve')
+                        =' '
+                        =__('Do not show operations with reserve')

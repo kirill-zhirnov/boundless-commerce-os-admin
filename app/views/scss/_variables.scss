@@ -1,0 +1,152 @@
+// Colors
+// Text
+$c-t-base: #14141C;
+$c-t-white: #FFFFFF;
+$c-t-purple-100: #BA86DA;
+$c-t-black-48: #8F8F92;
+$c-t-black-32: #B3B3B6;
+
+
+// Background
+$c-bg-body: #FFFFFF;
+$c-bg-base: #14141C;
+$c-bg-white: #FFFFFF;
+$c-bg-gray-light: #F7F8FA;
+$c-bg-gray: #EBEEF4;
+$c-bg-black-12: #E2E2E3;
+$c-bg-purple-100: #BA86DA;
+
+// Border
+$c-bd: #EDEDED;
+
+// Buttons
+$c-btn-base: #14141C;
+$c-btn-white: #FFFFFF;
+
+$c-btn-bg-green: #42E0C5;
+$c-btn-bg-purple-12: #F6F0FA;
+$c-btn-bg-purple-100: #BA86DA;
+$c-btn-bg-gray-light: #F7F8FA;
+
+//Links
+$c-link-purple: #A45FCE;
+
+//Buttons
+
+//Icons
+$icons-base: (
+	chevron-left: (
+		base
+	),
+	menu: (
+		base
+	),
+	chevron-down: (
+		gray
+	),
+	arrow-up-circle: (
+		//base,
+		white
+	),
+	help-circle: (
+		base,
+		purple
+	),
+	key: (
+		base
+	),
+	log-out: (
+		base
+	),
+
+	// Элементы бокового меню
+	home: (
+		base,
+		white
+	),
+	shopping-cart: (
+		base,
+		white
+	),
+	grid: (
+		base,
+		white
+	),
+	package: (
+		base,
+		white
+	),
+	users: (
+		base,
+		white
+	),
+	percent: (
+		base,
+		white
+	),
+	settings: (
+		base,
+		white
+	),
+	tshirt-v-outline: (
+		base,
+		white
+	),
+	folder: (
+		base,
+		white
+	),
+	layers: (
+		base,
+		white
+	),
+	store-outline: (
+		base,
+		white
+	),
+	tag: (
+		base,
+		white
+	),
+	group: (
+		base,
+		white
+	),
+	filter: (
+		base,
+		white
+	),
+	excel: (
+		base,
+		white,
+		green
+	),
+	upload: (
+		base,
+		white
+	),
+	union: (
+		base
+	),
+	square-rss: (
+		base
+	),
+	rss: (
+		base
+	)
+);
+
+
+//page header height
+$global-page-header-height: (
+	'xs': 56px,
+	'md': 64px
+);
+
+//components z-indices
+$z-index-alerts: 9000;
+$z-index-global-page-header: 106;
+$z-index-top-nav: 106;
+$z-index-admin-menu: 1032;
+$z-index-hamburger-menu: 105;
+$z-index-to-top: 10;

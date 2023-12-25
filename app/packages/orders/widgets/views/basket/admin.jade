@@ -1,0 +1,17 @@
+a.cart__link(href=url('orders/admin/orders/form'))
+	.cart__icon
+		.cart__notify
+			=basket.qty || 0
+
+	if basket.qty
+		.cart__detailed
+			.text=__('Create an order')
+			.total-price
+				.total-price__sum
+					=locale.formatMoney(basket.total)
+
+a.btn.custom-btn.custom-btn_purple-100(href=url('orders/admin/orders/form'))
+	if basket.qty
+		=__('Process')
+	else
+		=__('Create a new order')

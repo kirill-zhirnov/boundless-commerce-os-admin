@@ -1,0 +1,12 @@
+if emailIsSent
+	div(class="alert alert-success")
+		=__("Email with recovery link was successfully sent to")
+		=" "
+		b=email
+		=". "
+		=__("Please check your mail.")
+else
+	div(class="alert alert-danger")
+		p=__("Your recovery email was not sent. Please try again")
+		p(class="text-center")
+			a(href=url("auth/restore/email") class="btn btn-warning")=__("Try again")

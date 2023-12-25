@@ -1,0 +1,32 @@
+extends /blocks/modal.jade
+block body
+    form(action=url('catalog/admin/import/csvDelimiter') method="post" data-form="")
+        !=gHtml.hiddenField('importId', importId)
+
+        div(class="row")
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label(__('Delimiter'), 'delimiter')
+                    !=bs.dropDownList(attrs, 'delimiter', options.delimiter, i18n)
+
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label(__('Encoding'), 'encoding')
+                    !=bs.dropDownList(attrs, 'encoding', options.encoding, i18n)
+
+        hr
+        h5=__('Advanced settings:')
+        div(class="row")
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label(__('Quote symbol'), 'quote', {class : 'small'})
+                    !=bs.dropDownList(attrs, 'quote', options.quote, i18n, {class : 'form-select-sm'})
+
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label(__('Escape symbol'), 'escape', {class : 'small'})
+                    !=bs.dropDownList(attrs, 'escape', options.escape, i18n, {class : 'form-select-sm'})
+
+        hr
+
+        =widget('system.formButtons.@c', buttons)

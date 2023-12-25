@@ -1,0 +1,45 @@
+mixin photoswipeMarkup(buttons)
+	if !buttons
+		- buttons = ['close', 'zoom', 'fs'];
+
+	div(class="pswp" tabindex="-1" role="dialog" aria-hidden="true")
+		div(class="pswp__bg")
+		div(class="pswp__scroll-wrap")
+			div(class="pswp__container")
+				div(class="pswp__item")
+				div(class="pswp__item")
+				div(class="pswp__item")
+
+			div(class="pswp__ui pswp__ui--hidden")
+				div(class="pswp__top-bar")
+					div(class="pswp__counter")
+
+					each alias in buttons
+						case alias
+							when 'close'
+								button(class="pswp__button pswp__button--close" title=__("Close (Esc)"))
+
+							when 'share'
+								button(class="pswp__button pswp__button--share" title=__("Share"))
+
+							when 'fs'
+								button(class="pswp__button pswp__button--fs" title=__("Toggle fullscreen"))
+
+							when 'zoom'
+								button(class="pswp__button pswp__button--zoom" title=__("Zoom in/out"))
+
+					div(class="pswp__preloader")
+						div(class="pswp__preloader__icn")
+							div(class="pswp__preloader__cut")
+								div(class="pswp__preloader__donut")
+
+
+				div(class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap")
+					div(class="pswp__share-tooltip")
+
+				button(class="pswp__button pswp__button--arrow--left" title=__("Previous (arrow left)"))
+
+				button(class="pswp__button pswp__button--arrow--right" title=__("Next (arrow right)"))
+
+				div(class="pswp__caption")
+					div(class="pswp__caption__center")

@@ -1,0 +1,5 @@
+!=bs.icon('shopping-cart')
+=' '
+a(href=url('orders/basket/index'))
+    =__('Shopping cart')
+span=__('%sqty, %s', [model.qty, locale.formatMoney(model.total)])

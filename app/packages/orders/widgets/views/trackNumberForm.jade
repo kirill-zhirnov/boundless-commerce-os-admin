@@ -1,0 +1,36 @@
+mixin trackNumberItem(id, value)
+    div(class="form-group")&attributes(attributes)
+        div(class="input-group")
+            !=bs.textField({}, 'track_number[' + id + ']', {placeholder: __('Track number'), value:value})
+            div(class="input-group-text")
+                a(class="rm" href="#")
+                    !=bs.icon('remove')
+
+mixin externalTrackNumberItem(id, props)
+    div(class="form-group")&attributes(attributes)
+        div(class="input-group")
+            div(class="input-group-text")
+                =props.shipping_title
+            !=bs.textField({}, '', {value:props.track_number, readonly:true})
+
+div(class="row")
+    div(class="col-md-6 offset-md-3")
+        div(class="list-wrapper")
+            +trackNumberItem('__tmp', '')(class="none sample")
+
+            each value,id in externalTrackNumbers
+                +externalTrackNumberItem(id, value)
+
+            each value,id in attrs.track_number
+                +trackNumberItem(id, value)
+
+            +trackNumberItem('new0', '')(class="is-new")
+
+        p(class="text-end")
+            a(href="#" class="btn btn-sm btn-default add")
+                !=bs.icon('plus')
+                =' '
+                =__('Add track number')
+
+br
+br

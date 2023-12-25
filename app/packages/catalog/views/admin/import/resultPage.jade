@@ -1,0 +1,46 @@
+ol(class="breadcrumb")
+	li(class="breadcrumb-item")
+		a(href=url('catalog/admin/import/index'))
+			=__('Import')
+
+	li(class="breadcrumb-item active")
+		=__('Import result')
+
+if productImportLog.status == 'success'
+	!=bs.alert('success', __('Import was successfully completed.'))
+
+	- var res = productImportLog.result;
+	.well
+		p
+			b
+				!=__('Products') + ':<br/>'
+			=p__('import', 'Created') + ': ' + res.inserted + ', '
+			=p__('import', 'Updated') + ': ' + res.updated + ', '
+			=__('Skipped by tariff limit') + ': ' + res.skipped
+		p
+			b
+				!=__('Categories') + ':<br/>'
+			=p__('import', 'Created') + ': ' + res.categoryInserted + ', '
+			=p__('import', 'Updated') + ': ' + res.categoryUpdated
+
+		p
+			b
+				!=__('Variants') + ':<br/>'
+			=p__('import', 'Created') + ': ' + res.appendedVariants + ', '
+			=p__('import', 'Updated') + ': ' + res.updatedVariants
+		p
+			b
+				!=__('Product images') + ':<br/>'
+			=__('Uploaded') + ': ' + res.imagesUploaded + ', '
+			=__('Skipped by tariff limit') + ': ' + res.imagesSkipped
+else
+	!=bs.alert('danger', __('Import was completed with an error.'))
+
+p(class="text-center")
+	a(href=url('catalog/admin/product/index', {import_log_id: productImportLog.log_id}) class="btn btn-outline-secondary")
+		=__('View imported products')
+	=' '
+	a(href=url('catalog/admin/import/index') class="btn btn-outline-secondary")
+		!=gHtml.faIcon('cloud-upload')
+		=' '
+		=__('Import another file')

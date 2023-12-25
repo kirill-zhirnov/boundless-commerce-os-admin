@@ -1,0 +1,13 @@
+!=bs.alert('primary', __('Your tariff: %s, Price: %s, Instance ID: %s. To manage subscription, please visit the application page in the WIX interface.', [tariff.title, locale.formatMoney(tariff.amount, {precision: 2}), instanceInfo.instance_id]))
+
+div.mb-3.mt-5
+	h5.mb-3
+		=__('Consumed Resources:')
+	p.mb-0
+		=__('Disk Space: %s', [consumedSpace.s3])
+	p.mb-0
+		=__('Database Size: %s', [consumedSpace.db])
+	p.mb-0
+		=__('API Requests: N/A')
+p.small.text-muted
+	=__('There might be a delay in the Resource consumption calculations')

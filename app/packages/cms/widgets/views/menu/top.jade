@@ -1,0 +1,29 @@
+mixin menuIterator(items)
+	each item in items
+		- var classes = [];
+		if item.isActive
+			- classes.push('active')
+
+		if item.highlight
+			- classes.push('highlighted')
+
+		if item.css_class
+			- classes.push(item.css_class)
+
+		li(class=classes)
+			- var aClasses = [];
+
+			if aClass
+				- aClasses.push(aClass)
+
+			a(href=item.url class=aClasses)
+				=item.title
+
++menuIterator(menu)
+
+if __editMode && menu.length == 0
+	li.add-new
+		a(href="#")
+			!=bs.icon('plus')
+			=" "
+			=__('Add menu item')

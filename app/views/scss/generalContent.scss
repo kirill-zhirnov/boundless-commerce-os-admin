@@ -1,0 +1,42 @@
+.general-content {
+	align-self: stretch;
+	background: $c-bg-gray-light;
+	flex-grow: 1;
+	max-width: 100%;
+	min-height: calc(100vh - 64px);
+	padding: 0;
+
+	@include media-breakpoint-up(lg) {
+		padding: 24px;
+	}
+	@include media-breakpoint-up(xl) {
+		padding: 32px;
+	}
+}
+
+.general-content-wrapper {
+	padding-left: 0;
+
+	@include media-breakpoint-up(lg) {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding-left: 272px;
+		padding-right: 32px;
+	}
+
+	.general-content-subwrapper {
+		margin: 0 auto;
+		max-width: 1320px;
+		width: 100%;
+	}
+}
+
+html.is-short-menu .general-content-wrapper {
+	@include media-breakpoint-up(xl) {
+		padding-left: 112px;
+		padding-right: 32px;
+	}
+}

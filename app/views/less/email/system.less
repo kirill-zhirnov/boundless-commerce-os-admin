@@ -1,0 +1,357 @@
+html.email#layout-email-system, html.email#layout-email-mailChimp {
+	@border-color : #333333;
+	@vertical-padding: 16px;
+	@horizontal-padding: 20px;
+	@text-color: #404040;
+	@bold-color: #202020;
+	@table-bg-accent: #f9f9f9;
+	@font-size-base: 16px;
+
+	.font-mixin() {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: @font-size-base;
+		line-height: 125%;
+		color: @text-color;
+	}
+
+	.h-styles(@font-size: 20px) {
+		font-family: Helvetica, Arial, sans-serif;
+		font-size: @font-size;
+		line-height: 100%;
+		color: @bold-color;
+		text-align: left;
+		display: block;
+		margin: 0 0 @vertical-padding 0 !important;
+		padding: 0;
+	}
+
+	body {
+		width: 100% !important;
+		height: 100% !important;
+		margin: 0;
+		padding: 20px 0;
+		background-color: #f9f9f9;
+		.font-mixin();
+
+		h1 {
+			.h-styles(32px);
+		}
+
+		h2 {
+			.h-styles(28px);
+		}
+
+		h3 {
+			.h-styles(26px);
+		}
+
+		h4 {
+			.h-styles(22px);
+		}
+
+		h5 {
+			.h-styles(20px);
+		}
+
+		h6 {
+			.h-styles(18px);
+		}
+
+		p {
+			.font-mixin();
+			padding: 0 0 @vertical-padding 0;
+			margin: 0;
+
+			&.lead {
+				font-size: floor((@font-size-base * 1.5));
+				font-weight: 300;
+
+			}
+		}
+
+		a {
+			color: #369;
+			font-weight: normal;
+			text-decoration: underline;
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+
+		ul {
+			margin: 14px 0;
+			padding: 0 0 0 40px;
+
+			> li {
+				margin: 0 0 @vertical-padding 0;
+				padding: 0;
+			}
+		}
+
+		.cta-btn {
+			display: inline-block;
+			color: #fff;
+			background: #C490E4;
+			border-radius: 4px;
+			font-weight: 600;
+			font-size: 18px;
+			padding: 15px;
+			margin: 0;
+			text-decoration: none;
+		}
+
+		.yell {
+			color: darken(#FFD002, 10%);
+		}
+
+		.text-center {
+			text-align: center;
+		}
+
+		table {
+			border-collapse: collapse;
+			padding: 0;
+			margin: 0 0 @vertical-padding 0 !important;
+
+			&.table-striped {
+				> tbody > tr:nth-of-type(odd) {
+					background-color: @table-bg-accent;
+				}
+			}
+		}
+
+		#layout {
+			width: 600px;
+			margin: 0 auto;
+			background-color: #FFFFFF;
+			border-radius: 10px;
+
+			#logo-wrapper {
+				border-bottom: 3px solid #f9f9f9;
+				margin: 0 0 0 0 !important;
+				padding: 15px 0 15px 0;
+
+				#logo {
+					display: block;
+					width: 170px;
+					margin: 0 auto;
+					text-decoration: none;
+
+					img {
+						display: block;
+						max-width: 100%;
+						height: auto;
+					}
+				}
+			}
+
+			#content-wrapper {
+				padding: 20px 15px;
+
+				p {
+					&:last-child {
+						margin-bottom: 0;
+						padding-bottom: 0;
+					}
+				}
+			}
+
+			#footer {
+				padding: 20px 15px;
+				border-top: 3px solid #f9f9f9;
+			}
+		}
+	}
+
+	.clear {
+		clear: both;
+		height: 0;
+		margin: 0;
+		padding: 0;
+	}
+
+	.red-text {
+		color: #c1272d;
+	}
+
+	.support-img {
+		width: 371px;
+		height: 115px;
+		background: url('../../../../public/images/email/intercom-mail.png') no-repeat;
+		margin: 0 auto 16px  auto;
+	}
+
+	#shop-created {
+		h1 {
+			text-align: center;
+		}
+
+		h2 {
+			text-align: center;
+		}
+
+		h4 {
+			font-size: 18px;
+		}
+
+		.cta-wrapper {
+			padding: 24px 0 40px 0;
+		}
+
+		.credentials {
+			font-size : 12px;
+			margin: 0 0 @vertical-padding 0;
+
+			.row {
+				padding: 0;
+				margin: 0 0 8px 0;
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				b {
+					display: block;
+					width: 130px;
+					text-align: right;
+					float: left;
+				}
+
+				p {
+					display: block;
+					margin: 0 0 0 10px;
+					float: left;
+					padding: 0;
+				}
+			}
+		}
+
+		.about-support {
+			padding: 0 0 16px 0;
+		}
+	}
+
+	.icon-help {
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		background: url('../../../../public/images/email/icon-help.png') no-repeat;
+		vertical-align: middle;
+		margin: 0 10px 0 0;
+	}
+
+	.icon-manual {
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		background: url('../../../../public/images/email/icon-manual.png') no-repeat;
+		vertical-align: middle;
+		margin: 0 10px 0 0;
+	}
+
+	.icon-bonus {
+		display: inline-block;
+		width: 35px;
+		height: 35px;
+		background: url('../../../../public/images/email/icon-bonus.png') no-repeat;
+		vertical-align: middle;
+		margin: 0 10px 0 0;
+	}
+
+	#shop-removed {
+		h1 {
+			text-align: center;
+			font-size: 24px;
+		}
+
+		h3 {
+			text-align: center;
+			font-size: 20px;
+		}
+
+		#price {
+			text-align: center;
+
+			span {
+				font-weight: bold;
+				font-size: 20px;
+			}
+		}
+
+		#service {
+			text-align: center;
+			font-size: 18px;
+		}
+
+		#present {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+		}
+	}
+
+	.social-sign {
+		margin: 0 0 @vertical-padding 0;
+
+		> a {
+			display: block;
+			height: 32px;
+			padding: 0 0 0 42px;
+			line-height: 32px;
+			float: left;
+			margin: 0 @horizontal-padding 0 0;
+
+			//&.fb {
+			//	background: url('../../../../public/images/icons/facebook.png') no-repeat;
+			//	background-size: contain;
+			//}
+			//
+			//&.telegram {
+			//	background: url('../../../../public/images/icons/telegram.png') no-repeat;
+			//	background-size: contain;
+			//}
+
+			&.vk {
+				background: url('../../../../public/images/icons/vk.png') no-repeat;
+				background-size: contain;
+			}
+		}
+	}
+
+	#features-overview {
+		.benefits {
+			list-style: none;
+			padding: 0;
+
+			> li {
+				padding: 0 0 0 110px;
+				background-size: 80px;
+				background-repeat: no-repeat;
+				min-height: 80px;
+				margin-bottom: 25px;
+
+				h5 {
+					line-height: 80px;
+					font-weight: 400;
+				}
+
+				&.tpls {
+					background-image: url('../../../../public/images/icons/sellios/markup_icon.png');
+				}
+
+				&.seo {
+					background-image: url('../../../../public/images/icons/sellios/graphic.png');
+				}
+
+				&.marketing {
+					background-image: url('../../../../public/images/icons/sellios/cloud.png');
+				}
+
+				&.support {
+					background-image: url('../../../../public/images/icons/sellios/support.png');
+				}
+			}
+		}
+	}
+}

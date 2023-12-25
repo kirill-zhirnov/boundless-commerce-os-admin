@@ -1,0 +1,17 @@
+extends /blocks/tabs.jade
+
+include ../../../product/imgSize/formBody
+
+block nav
+	+tabLi('sort', __('Sort'))(class="active")
+	+tabLi('imgProportion', __('Image size for products'))
+
+block content
+	+tabBody('sort')(class="active")
+		!=widget('catalog.categorySettingsForm.@c', {data : forms.category})
+
+	+tabBody('imgProportion')
+		.row
+			.col-sm-6.offset-sm-3
+				form(data-form="" name="productImgSize" class="product-img-size")
+					+productImgSizeBody(forms.productImgSize)

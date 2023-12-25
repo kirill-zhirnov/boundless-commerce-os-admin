@@ -1,0 +1,60 @@
+mixin rmOption()
+	a(href="#" class="rm")&attributes(attributes)
+		!=gHtml.faIcon('remove')
+
+mixin caseItem(item)
+	div(class="form-group")
+		!=gHtml.faIcon('arrows', {class: 'move'})
+		!=gHtml.hiddenField('caseSort[]', item.id, {class: 'sort'})
+		!=gHtml.hiddenField('isCaseNew[' + item.id + ']', item.isNew, {class: 'is-new'})
+		!=bs.textField({}, 'case[' + item.id + ']', {id: undefined,value: item.value,class: 'case',placeholder: __('Red, Green, etc')})
+		+rmOption()
+
+!=gHtml.pk(pk)
+
+.form-group
+	!=bs.label(__('Attribute Title'), 'title')
+	!=bs.textField(attrs, 'title', {placeholder: __('Size, Color, etc.')})
+
+.form-group
+	!=bs.label(__('JSON key'), 'alias')
+	!=bs.textField(attrs, 'alias', {placeholder: __('e.g. "size" - a short summary of the attribute')})
+	.form-text
+		=__('The Key is useful for API usage. The key should be unique across all catalog.')
+
+if hasParentField
+	.form-group
+		!=bs.label(__('Group'), 'parent_id')
+		!=bs.dropDownList(attrs, 'parent_id', options.parent, ['', __('No')])
+
+.form-group
+	!=bs.label(__('Attribute Type'), 'type')
+
+	if isInVariant
+		!=bs.value(attrs, 'type', options.type)
+		!=gHtmlActive.hiddenField(attrs, 'type')
+		!=bs.alert('warning', __('Type cannot be changed since there is a variant with this characteristic.'), {class: 'small'})
+	else
+		!=bs.radioButtonList(attrs, 'type', options.type)
+
+.cases-group
+	!=bs.label(__('Options'), '')
+	fieldset
+		each item, i in caseItems
+			+caseItem(item)
+
+//-put hidden fields to have in express symbolic keys (not array).
+!=gHtml.hiddenField('isCaseNew[tmp]', '')
+!=gHtml.hiddenField('case[tmp]', '')
+
+.form-group
+	!=bs.label(__('Hint'), 'help')
+	!=bs.textArea(attrs, 'help', {placeholder: __('Explanations about the attribute')})
+
+if showSort
+	.form-group
+		!=bs.label(__('Sort'), 'sort')
+		!=bs.textField(attrs, 'sort')
+
+if showButtons
+	!=widget('system.formButtons.@c', buttons)

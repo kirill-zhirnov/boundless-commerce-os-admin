@@ -1,0 +1,36 @@
+extends /blocks/tabs
+
+block nav
+	+tabLi('index', __('Tax Options'), true)
+	li.nav-item(role="presentation")
+		a.nav-link(href=url('system/admin/tax/classes')) Tax Classes
+
+block content
+	+tabBody('index')(class="active")
+		.row
+			.col-md-8.offset-md-2.col-lg-6.offset-lg-3
+				form(action=url('system/admin/tax/index') method="post" data-form="" autocomplete="off")
+					.form-group
+						.form-check
+							!=gHtmlActive.checkbox(data.attrs, 'turnedOn', {id: 'tax-options-turnedOn'})
+							=' '
+							!=bs.label(__('Turn on Tax calculations'), 'tax-options-turnedOn')
+
+					.form-group
+						!=bs.label(__('Prices entered with tax'), 'tax-options-pricesEnteredWithTax')
+						div
+							!=bs.radioButtonList(data.attrs, 'pricesEnteredWithTax', data.options.pricesEnteredWithTax)
+
+					.form-group
+						!=bs.label(__('Calculate tax based on'), 'calculateTaxBasedOn')
+						!=bs.dropDownList(data.attrs, 'calculateTaxBasedOn', data.options.taxBasedOn)
+
+					.form-group
+						!=bs.label(__('Tax title in invoice (for customers)'), 'taxTitle')
+						!=bs.textField(data.attrs, 'taxTitle')
+
+					.buttons
+						button(type="submit" class="btn btn-primary save")
+							i.fa.fa-floppy-o
+							=' '
+							=__('Save')

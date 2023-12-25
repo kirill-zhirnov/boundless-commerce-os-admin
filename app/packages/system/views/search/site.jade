@@ -1,0 +1,89 @@
+include /mixins/common
+
+div(class="site-search")
+	form(autocomplete="off" method="get" action=url('system/search/site') data-get-form="")
+		.form-group
+			.input-group
+				!=bs.textField(attrs, 'query', {placeholder: __('Query'), required: '1'})
+
+				button(type="submit" class="btn btn-action")
+					!=gHtml.faIcon('search')
+					=' '
+					=__("Search")
+
+	if result.length > 0
+		ul(class="results list-unstyled")
+			each item, i in result
+				case item.type
+					when 'product'
+						li(class="type-product")
+							div(class="i")
+								=i + 1 + '.'
+
+							div(class="thumb")
+								a(href=item.url class="img thumbnail")
+									if item.img_path
+										!=gHtml.img(item.thumb.s)
+									else
+										div(class="no-image")
+
+							div(class="text")
+								div(class="text-wrapper")
+									h5
+										a(href=item.url)
+											=item.title
+
+									p(class="offer")
+										if item.price
+											span(class="price")
+												+formatPrices(item.price, item.price_old)
+
+										if item.inStock
+											span(class="in-stock")
+												=__('In stock')
+										else
+											span(class="out-of-stock")
+												=__('Out of stock')
+
+									+productLabels(item)(class="inline")
+									//if _.isArray(item.labels) && item.labels.length != 0
+									//	ul(class='product-tag-list')
+									//		each label in item.labels
+									//			li
+									//				div(class="product-tag" style="color: " + label.text_color + "; background-color: " + label.color)
+									//					!=bs.icon(label.icon)
+									//					!=" "
+									//					!=label.title
+
+									if item.inStock && item.price
+										a(href="#" data-to-basket=item.item_id class="btn btn-action btn-sm")
+											!=bs.icon('shopping-cart')
+											=' '
+											=__('Add to Cart')
+
+					when 'article'
+						li(class="type-text")
+							div(class="i")
+								=i + 1 + '.'
+
+							div(class="text")
+								a(href=item.url)
+									=item.title
+								p
+									=item.announcement
+
+					when 'page'
+					when 'manufacturer'
+					when 'category'
+						li(class="type-text")
+							div(class="i")
+								=i + 1 + '.'
+
+							div(class="text")
+								a(href=item.url)
+									=item.title
+
+	else
+		if attrs.query && String(attrs.query).length > 0
+			p(class="text-center empty-result")
+				=__('Your search did not match.')

@@ -1,0 +1,77 @@
+.backend, .admin-modal {
+	.products-elector {
+		.jstree {
+			.jstree-container-ul {
+				> .jstree-node {
+					max-width: 260px;
+				}
+			}
+		}
+
+		.filter {
+			.input-group {
+				input {
+					border-bottom-left-radius: 0;
+				}
+
+				button {
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+
+		.table {
+			border-top: 0;
+			margin-bottom: 10px;
+
+			th {
+				text-align: center;
+			}
+
+			td {
+				&.col-product {
+					cursor: pointer;
+					paddingg-top: 4px;
+					paddingg-bottom: 4px;
+
+					.product {
+						display: flex;
+						align-items: flex-start;
+
+						img {
+							max-width: 40px;
+							height: auto;
+							margin: 0 10px 0 0;
+						}
+					}
+				}
+
+				&.col-sku {
+					cursor: pointer;
+					text-align: center;
+				}
+
+				&.col-price {
+					cursor: pointer;
+					text-align: center;
+					white-space: nowrap;
+				}
+			}
+		}
+
+		.pagination-widget {
+			text-align: center;
+
+			.pagination {
+				margin: 0;
+
+				li {
+					> a,
+					> span {
+						font-size: @font-size-small;
+					}
+				}
+			}
+		}
+	}
+}

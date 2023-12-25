@@ -1,0 +1,53 @@
+mixin commodityGroupForm(data)
+	form(data-form="" name="group" autocomplete="off")
+		!=gHtml.pk(data.pk)
+
+		div(class="form-group")
+			!=bs.label(__('Product Type Title'), 'title', {placeholder: __('Electronics, Clothing, Food, etc.')})
+			!=bs.textField(data.attrs, 'title')
+
+		//div(class="form-group")
+		//    !=bs.label(__('Product type'), 'type')
+		//    !=bs.radioButtonList(data.attrs, 'type', data.options.type)
+		//div(class="form-group")
+		//    !=bs.label(__('Unit of measurement'), 'unit_id')
+		//    !=bs.radioButtonList(data.attrs, 'unit_id', data.options.unit)
+
+		.row
+			.col-sm-6
+				//.checkbox
+				//	label
+				//		!=gHtmlActive.checkbox(data.attrs, 'yml_export')
+				//		=' '
+				//		=__('Export products in this commodity group to Yandex.market')
+
+				.checkbox.form-check
+					label(class="form-check-label")
+						!=gHtmlActive.checkbox(data.attrs, 'is_default')
+						=' '
+						=__('Use by default')
+
+			.col-sm-6
+				if data.trackInventory
+					.checkbox.form-check
+						label(class="form-check-label")
+							!=gHtmlActive.checkbox(data.attrs, 'track_inventory')
+							=' '
+							=__('Track products inventory')
+						.form-text
+							=__('Enable inventory management for products that are related to the Product Type.')
+
+				.checkbox.form-check
+					label(class="form-check-label")
+						!=gHtmlActive.checkbox(data.attrs, 'physical_products')
+						=' '
+						=__('Physical products')
+					.form-text
+						=__('Customers will enter their shipping address or choose a shipping method when buying products that are related to the Product Type.')
+
+			//	.form-group
+			//		!=bs.label(__('VAT'), 'vat')
+			//		!=' '
+			//		!=bs.dropDownList(data.attrs, 'vat', data.options.vat)
+
+		br

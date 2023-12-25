@@ -1,0 +1,123 @@
+extends ../../../system/widgets/views/gridHtmlWrapper
+
+block grid
+	.grid
+		.grid-header
+			.d-flex.align-items-center.first-row
+				.common-buttons(data-role="common")
+
+				.right-side.ms-auto.d-flex.align-items-center
+					form.filter(method="get" autocomplete="off" action="")
+						.d-flex.align-items-center
+							a(
+								href=url('catalog/admin/product/clearRm')
+								class="small clear-rm m-1 link-purple"
+								data-c-nav="off"
+								style=(attrs.rmStatus !== '1' ? "display: none;" : '')
+							)
+								!=gHtml.faIcon('eraser')
+								=' '
+								=__('Clear trash')
+
+							+gridRmStatus
+
+					+gridExportLinks
+
+		.grid-body.row
+			.col-xxl-3.d-none.d-xxl-block
+				.category-filter-app
+			.grid-block.col-xxl-9
+				form#products-extra-filters.filter.small.d-none.d-sm-block.mb-3(method="get" autocomplete="off" action="")
+					.row
+						.col-md-2.col-sm-4.d-xxl-none
+							.form-group
+								!=bs.label(__('Category'), 'category_id')
+								=' '
+								!=bs.dropDownList(attrs, 'category_id', options.category, [], {class: 'form-select-sm'})
+
+						.col-xxl-3.col-md-2.col-sm-4
+							.form-group
+								!=bs.label(__('Product Type'), 'group_id')
+								=' '
+								!=bs.dropDownList(attrs, 'group_id', options.group, ['', __('All')], {class: 'form-select-sm'})
+
+						.col-xxl-3.col-md-2.col-sm-4
+							.form-group
+								!=bs.label(__('Manufacturer'), 'manufacturer_id')
+								=' '
+								!=bs.dropDownList(attrs, 'manufacturer_id', options.manufacturer, ['', __('All')], {class: 'form-select-sm'})
+
+						.col-md-2.col-sm-4
+							.form-group
+								!=bs.label(__('Label'), 'label_id')
+								=' '
+								!=bs.dropDownList(attrs, 'label_id', options.label, ['', __('All')], {class: 'form-select-sm'})
+
+						.col-md-2.col-sm-4
+							.form-group
+								!=bs.label(__('Available qty'), 'available_qty')
+								=' '
+								!=bs.textField(attrs, 'available_qty', {class: 'form-control-sm', placeholder: __('8 or <8 or >8')})
+
+						.col-md-2.col-sm-4
+							.form-group
+								!=bs.label(__('Is published'), 'status')
+								=' '
+								!=bs.dropDownList(attrs, 'status', options.status, ['', __('All')], {class: 'form-select-sm'})
+
+					.second-row(style="display: none")
+						.row
+							.col-md-2
+								.form-group
+									!=bs.label(__('Import'), 'import_log_id')
+									=' '
+									!=bs.dropDownList(attrs, 'import_log_id', options.import, ['', __('All')], {class: 'form-select-sm'})
+
+							.col-md-2
+								.form-group
+									!=bs.label(__('Product Id'), 'product_id')
+									=' '
+									!=bs.textField(attrs, 'product_id', {class: 'form-control-sm', type: 'number'})
+
+							.col-md-2
+								.form-group
+									!=bs.label(__('Has variants'), 'has_variants')
+									=' '
+									!=bs.dropDownList(attrs, 'has_variants', options.hasVariants, ['', __('All')], {class: 'form-select-sm'})
+
+							.col-md-2
+								.form-group
+									!=bs.label(__('Collections'), 'collection')
+									=' '
+									!=bs.dropDownList(attrs, 'collection_id', options.collection, ['', __('All')], {class: 'form-select-sm'})
+
+					a.toggle-row.link-purple(href="#")
+						span.show-filters
+							!=gHtml.faIcon('sort-desc')
+							=' '
+							=__('Show all filters')
+
+						span.hide-filters
+							!=gHtml.faIcon('sort-asc')
+							=' '
+							=__('Hide filters')
+
+				p.d-sm-none.text-end
+					+toggleFiltersBtn('#products-extra-filters')
+
+				.additional-sort.text-end.small
+					ul.list-inline
+						li.list-inline-item
+							strong
+								=__('Sort by:')
+
+						li.list-inline-item
+							a(href="created_at" data-c-nav="off" class="item")
+								=__('Date creation')
+								=' '
+								b.sort-caret
+						li.list-inline-item
+							a(href="product_id" data-c-nav="off" class="item")
+								=__('Product Id')
+								=' '
+								b.sort-caret

@@ -1,0 +1,21 @@
+extends /blocks/modal.jade
+block body
+    form(action=url('inventory/admin/warehouse/form') method="post" data-form="")
+        !=gHtml.pk(pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(attrs, 'title')
+
+        div(class="form-group")
+            !=bs.label(__('Address'), 'address')
+            !=bs.textArea(attrs, 'address')
+
+        if scenario == 'update'
+            div(class="form-group")
+                !=bs.label(__('Sort'), 'sort')
+                !=bs.textField(attrs, 'sort')
+                .form-text
+                    =__('It needs to manage an order of deduction if a product exists on few warehouses.')
+
+        =widget('system.formButtons.@c')

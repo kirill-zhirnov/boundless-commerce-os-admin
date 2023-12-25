@@ -1,0 +1,20 @@
+.analytics-warning {
+	z-index: 1200;
+
+	&__card {
+		position: fixed;
+		bottom: 10px;
+		right: 10px;
+		z-index: 100;
+		max-width: 300px;
+		opacity: 0;
+
+		&_visible {
+			opacity: 1;
+		}
+
+		&_hidden {
+			display: none;
+		}
+	}
+}

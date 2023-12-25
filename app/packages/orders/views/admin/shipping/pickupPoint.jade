@@ -1,0 +1,26 @@
+extends /blocks/modal.jade
+
+block body
+    if _.isArray(points) && points.length > 0
+        form(autocomplete="off" class="choose-pickup-point-form")
+            each item in points
+                div(class="list-group")
+                    label(class="list-group-item")
+                        h5(class="list-group-item-heading")
+                            input(type="radio" name="point" value=item.point_id)
+                            =' '
+                            =item.title
+
+                        p(class="list-group-item-text")
+                            address
+                                =item.address
+
+                            !=bs.icon('time')
+                            =' '
+                            =item.work_schedule
+                            !='<br/><br/>'
+                            !=bs.icon('phone')
+                            =' '
+                            =item.phone
+    else
+        !=bs.alert('warning', __('There are not pick up points which suitable for your condition. Try to choose another payment method.'))

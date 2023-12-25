@@ -1,0 +1,8 @@
+mixin propsForm(data)
+    form(method="post" data-form="" autocomplete="off" name="props")
+        div(class="container-fluid")
+            div(class="row")
+                div(class="col-md-6")
+                    div(class="form-group")
+                        !=bs.label(__('Layout'), 'layout')
+                        !=bs.dropDownList(data.attrs, 'layout', data.options.layout, ['', __('Use default layout')])

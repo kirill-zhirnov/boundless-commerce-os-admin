@@ -1,0 +1,26 @@
+.delivery-grid {
+	.column-title {
+		.logo {
+			display: inline-block;
+			width: 64px;
+			height: 64px;
+			vertical-align: middle;
+			background-repeat: no-repeat;
+			background-size: contain;
+			background-position: 50% 50%;
+			margin: 0 @padding-small-horizontal 0 0;
+		}
+
+		.shipping-selfPickup {
+			.logo {
+				background-image: url("../../../../../public/images/icons/dolly.png");
+			}
+		}
+
+		.shipping-custom {
+			.logo:not(.img) {
+				background-image: url("../../../../../public/images/icons/transport.png");
+			}
+		}
+	}
+}

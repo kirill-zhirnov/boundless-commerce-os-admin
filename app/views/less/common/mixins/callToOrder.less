@@ -1,0 +1,27 @@
+#orders {
+	#call-to-order-container(@content-right : 15px; @animation-name: 'call-to-order-show-from-right') {
+		@keyframes @animation-name {
+			from {
+				right: -500px;
+			}
+
+			to {
+				right: @content-right;
+			}
+		}
+
+		.call-to-order {
+			&.opened {
+				.content {
+					animation: @animation-name 0.2s forwards;
+				}
+			}
+
+			.container {
+				.content {
+					right: @content-right;
+				}
+			}
+		}
+	}
+}

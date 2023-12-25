@@ -1,0 +1,19 @@
+if gridData.isLocked
+    !=bs.alert('warning', __('Items cannot be changed since order was shipped or completed. You can change it by changing order status.'))
+
+!=gHtml.hiddenField('discount_amount[__tmp]')
+!=gHtml.hiddenField('discount_percent[__tmp]')
+!=gHtml.hiddenField('qty[__tmp]')
+!=gHtml.pk(pk)
+
+div(class="form-group none item-errors-group")
+    !=gHtml.hiddenField('item_errors')
+
+if !gridData.isLocked
+    div(class="form-group has-feedback add-to-basket-group")
+        div(class="input-group")
+            span(class="input-group-text")
+                !=bs.icon('search')
+            !=bs.textField({}, 'add', {placeholder : __('Add item to order: Product name or SKU'), class:'add-to-basket input-lg'})
+
+!=widget('orders.adminOrderItemsGrid.@c', {data:gridData})

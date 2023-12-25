@@ -1,0 +1,22 @@
+- var byStatuses = statistics.statByStatuses;
+table(class="table table-bordered table-stripped")
+	tr
+		th=__('Order status')
+		th=__('Statistics')
+	each row in statistics.statuses
+		tr
+			td(style="background-color: #" + row.background_color)
+				=row.title
+
+			td
+				if byStatuses[row.status_id]
+					p
+						=__('Orders total:') + ' ' + locale.formatMoney(byStatuses[row.status_id].total_orders)
+					p
+						=p__('user', 'Orders sum') + ': ' + locale.formatMoney(byStatuses[row.status_id].sum_price)
+
+					div
+						=__('Discount sum') + ': ' + locale.formatMoney(byStatuses[row.status_id].sum_discount)
+				else
+					.text-center
+						='-'

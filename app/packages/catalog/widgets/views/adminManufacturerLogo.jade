@@ -1,0 +1,23 @@
+- var displayLogo = ""
+- var displayMessage = "display: none;"
+- var logoUrl = ""
+
+if !logo
+	- displayLogo = "display: none;"
+	- displayMessage = ""
+	- logoUrl = ""
+else
+	- logoUrl = logo.smallThumb.src
+
+p(class="nologo text-center" style=displayMessage)=__("There is no image")
+
+div(class="logo-wrapper" style=displayLogo)
+	div(class="img" style="background-image: url(" + logoUrl + ")")
+	p(class="text-center")
+		button(class="btn btn-default rm btn-sm")
+			!=bs.icon('remove')
+			!=" "
+			!=__("Remove")
+
+div(class="admin-dropzone")
+	div(class="dropzone-uploader dropzone")

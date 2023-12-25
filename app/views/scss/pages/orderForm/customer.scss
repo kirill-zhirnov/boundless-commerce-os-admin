@@ -1,0 +1,48 @@
+.order-customer {
+	&__block-title {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 0 0 1.5rem 0;
+
+		label {
+			font-weight: 700;
+		}
+
+		button {
+			margin-left: auto;
+		}
+	}
+
+	&__title {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 0 0 0.75rem 0;
+	}
+
+	&__customer-info {
+		margin: 0 0 1.5rem 0;
+	}
+
+	&__address-item {
+		margin: 0 0 1.5rem 0;
+	}
+
+	&__address-title {
+		display: flex;
+		align-items: center;
+		justify-content: flex-start;
+		margin: 0 0 0.75rem 0;
+	}
+
+	&__address-details {
+		position: relative;
+	}
+
+	&__copy-address {
+		position: absolute;
+		right: 0;
+		top: 0;
+	}
+}

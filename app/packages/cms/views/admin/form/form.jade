@@ -1,0 +1,54 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('cms/admin/form/form', {pk: pk}) method="POST" data-form="")
+		table.table.table-striped.table-bordered.table-hover
+			each field in attrs.fields
+				tr
+					td=field.title
+					td
+						case field.type
+							when 'file'
+								a(href=url('cms/admin/form/downloadAttachment', {value : field.value_id}) target="_blank")
+									!=bs.icon('save-file')
+									=' '
+									=field.json_value.fileName
+									=' (' + formatIo.size(field.json_value.size) + ')'
+
+							default
+								=field.text_value
+
+		.row
+			.col-md-6
+				if attrs.person_id
+					p.small.text-muted
+						!=bs.icon('user')
+						=' '
+						if attrs.registered_at
+							a(href=url('customer/admin/customer/form', {pk : attrs.person_id}) data-modal='')
+								=attrs.person
+						else
+							=attrs.person
+
+				p
+					=__('Page:')
+					=' '
+					a(href=attrs.page_url target="_blank")
+						=attrs.page_url
+
+			.col-md-6
+				p.text-end
+					!=bs.icon('time')
+					=' '
+					=attrs.created_at
+
+		.form-group
+			!=bs.label(__('Status'), 'status')
+			!=bs.dropDownList(attrs, 'status', options.status)
+
+		.form-group
+			!=bs.label(__('Comment'), 'comment')
+			textarea(class="form-control" name="comment")
+				!=attrs.comment
+
+		!=widget('system.formButtons.@c', buttons)

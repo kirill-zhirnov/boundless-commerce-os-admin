@@ -1,0 +1,51 @@
+if transactions.length === 0
+	!=bs.alert('warning', __('There are no transactions'))
+	
+else
+	table(class="table table-bordered table-striped table-hover")
+		tr
+			th
+				!=__('Total sum')
+			th
+				!=__('Mark-up')
+			th
+				!=__('Status')
+			th
+				!=__('External id')
+			th
+				!=__('Customer')
+			th
+				!=__('Date')
+		
+		each t in transactions
+			tr
+				td
+					!=locale.formatMoney(t.total_amount)
+				td
+					!=locale.formatMoney(t.mark_up_amount)
+					
+				case t.status
+					when 'completed'
+						td(class="bg-success")
+							!=p__('trx', "Completed")
+					when 'cancelled'
+						td(class="bg-warning")
+							!=p__('trx', "Cancelled")
+					when 'exception'
+						td(class="bg-danger")
+							!=p__('trx', "Cancelled")
+				td
+					!=t.external_id
+				td
+					if t.person_first_name || t.person_last_name
+						!=t.person_first_name ? t.person_first_name + ' ' : ''
+						!=t.person_last_name ? t.person_last_name : ''
+					else if t.person_email
+						!=t.person_email
+					else
+						!=t.person_id
+				td
+					!=t.date
+					!=" "
+					!=t.time
+	

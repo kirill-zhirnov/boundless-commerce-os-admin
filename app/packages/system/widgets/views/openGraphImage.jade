@@ -1,0 +1,20 @@
+p
+	a(href="https://yandex.ru/support/webmaster/open-graph/intro-open-graph.xml?lang=ru" target="_blank")
+		!=bs.icon('info-sign')
+		=' '
+		=__('Read details about OpenGraph.')
+
+
+div(class="open-graph-form")
+	if !attrs.img || attrs.img == ''
+		p(class="noimg text-center")=__("There is no image")
+		div(class="img" style="display: none;")
+	else
+		div(class="img" style='background-image: url(' + attrs.img + ')')
+
+	div(class="admin-dropzone")
+		div(class="dropzone-uploader dropzone")
+		
+	div(class="form-group")
+		!=bs.label(__('Description'), 'ogDescription')
+		!=bs.textArea(attrs, 'ogDescription', {rows:3})

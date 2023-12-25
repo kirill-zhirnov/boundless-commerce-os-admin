@@ -1,0 +1,11 @@
+h3=__('Images')
+.images
+	if _.isArray(images)
+		each img, index in images
+			.item
+				!=gHtml.img({src: img})
+				a.rm(href="#" data-index=index)
+					!=gHtml.faIcon('times-circle')
+
+.admin-dropzone
+	.dropzone-uploader.dropzone

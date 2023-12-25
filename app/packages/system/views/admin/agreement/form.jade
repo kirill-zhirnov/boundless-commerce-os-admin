@@ -1,0 +1,5 @@
+form(method="post" action=url("system/admin/agreement/form") data-form="")
+	.form-group
+		!=bs.textArea(data.attrs, 'agreement', {rows:20})
+
+	!=widget('system.formButtons.@c', data.buttons)

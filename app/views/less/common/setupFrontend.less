@@ -1,0 +1,50 @@
+@import "../bootstrapV3/variables.less";
+@import "./components/forms.less";
+@import "./components/for.less";
+//@import "./mixins/basic.less";
+@import "./components/variables";
+@import "./components/loading";
+
+//Variables, which will be defined by server side: @theme-url
+
+.list-striped {
+	> li:nth-of-type(odd) {
+		background-color: @table-bg-accent;
+	}
+}
+
+.list-hover {
+	> li:hover {
+		background-color: @table-bg-hover;
+	}
+}
+
+.none {
+	display: none;
+}
+
+#re-render-loading {
+	position: absolute;
+	display: none;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: url("../../../../public/images/big-loading.gif") no-repeat 50% 50%;
+	background-size: 200px 200px;
+}
+
+
+//@import "./components/basicFrontend";
+//@import "./components/blocks";
+//@import "./components/checkout";
+//@import "./components/callToOrder";
+//@import "./mixins/chooseVariant";
+//@import "./mixins/callToOrder";
+//@import "./mixins/products";
+//@import "./components/fonts";
+//@import "./components/landing";
+@import "./components/jQuery";
+@import "./components/dropzone";
+@import "./components/imageTags";
+//@import "./components/utils";

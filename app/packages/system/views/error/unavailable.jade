@@ -1,0 +1,10 @@
+p.lead.text-center
+	!=gHtml.faIcon('ban')
+	=' '
+	=__('The store has been suspended due to a payment problem. If you are an admin, please')
+	=' '
+	a(href=url('system/sellios/account/index'))
+		u
+			=__('go to the account page')
+	=' '
+	=__('and resolve the problem.')

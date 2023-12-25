@@ -1,0 +1,60 @@
+mixin icon(item)
+	if item.faIcon
+		!=gHtml.faIcon(item.faIcon, {class: 'me-3'})
+	else if item.customIcon
+		span(class=item.customIcon)
+
+mixin subMenu(subMenu, parentTitle)
+	ul.menu-work-dropdown
+		li.menu-work-dropdown__item.menu-work-dropdown__item_title
+			!=parentTitle
+
+		each item in subMenu
+			- var liClasses = ['menu-work-dropdown__item'];
+			- var aClasses = ['menu-work-dropdown__link'];
+
+			if item.isActive
+				- liClasses.push('is-active')
+
+			if item.type == 'hr'
+				li.menu-work__hr
+			else
+				li(class=liClasses)
+					- var attrs = (item.attrs) ? item.attrs : {};
+					a(href=item.url class=aClasses)&attributes(attrs)
+						+icon(item)
+						=item.title
+
+mixin adminMenu(menu)
+	ul()&attributes(attributes)
+		each item, i in menu
+			- var liClasses = ['menu-work__item'];
+			- var aClasses = ['menu-work__link'];
+
+			if item.children
+				- liClasses.push('menu-work__item_dropdown');
+				if item.isActive
+					- liClasses.push('is-opened');
+
+			if item.isActive
+				- liClasses.push('is-active')
+
+			li(class=liClasses data-index=i)
+				if item.url
+					- var attrs = (item.attrs) ? item.attrs : {};
+					a(href=item.url class=aClasses)&attributes(attrs)
+						.menu-work__link-wrapper
+							+icon(item)
+							span.menu-work__text=item.title
+				else
+					if item.children
+						a(href="#" class=aClasses)
+							.menu-work__link-wrapper
+								+icon(item)
+								span.menu-work__text=item.title
+					else
+						span=item.title
+
+				if item.children
+					.menu-work-dropdown__wrapper
+						+subMenu(item.children, item.title)

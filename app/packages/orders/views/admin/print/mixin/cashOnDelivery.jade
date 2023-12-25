@@ -1,0 +1,48 @@
+mixin cashOnDelivery(data)
+	each order in data.orders
+		div(class="cash-on-delivery print-block")
+			img(class="bg-img" src=data.bgImgSrc)
+
+			.money-transfer
+				.amount-int
+					=order.sumInt
+
+				.amount-fraction
+					=order.sumFraction
+
+				.amount-word
+					=order.sumWord
+
+				.cod-checkbox X
+
+				.recipient
+					.name
+						=data.shopInfo.fullname
+
+					.address-line-1
+						=data.shopInfo.address.line1
+
+					.address-line-2
+						=data.shopInfo.address.line2
+						=data.shopInfo.address.rest ? data.shopInfo.address.rest : ''
+
+					.postcode
+						=data.shopInfo.postcode
+
+				.sender
+					.name
+						=order.last_name + " " + order.first_name
+
+					.address-line-1
+						=order.address.line1
+
+					.address-line-2
+						=order.address.line2
+						=order.address.rest ? order.address.rest : ''
+
+					.postcode
+						=order.postcode
+
+			.sender-details
+
+			hr

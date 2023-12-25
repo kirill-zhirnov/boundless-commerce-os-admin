@@ -1,0 +1,26 @@
+.admin-dropzone {
+	.dropzone {
+		border: 7px dashed rgba(0, 0, 0, 0.3);
+		background-color: @state-warning-bg;
+		font-family: @font-family-sans-serif;
+		margin-bottom: @padding-large-vertical * 3;
+		min-height: inherit;
+
+		&:hover, &.dz-drag-hover {
+			background-color: darken(@state-warning-bg, 20%);
+		}
+
+		.dz-message {
+			font-size: @font-size-large;
+			margin: 0;
+		}
+
+		.dz-preview {
+			background-color: transparent;
+
+			.dz-error-mark {
+				background-color: @alert-danger-text;
+			}
+		}
+	}
+}

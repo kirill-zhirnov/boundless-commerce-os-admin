@@ -1,0 +1,117 @@
+@import "./imageUploadAndResize/modal";
+
+.img-upload-resize {
+	background: #f8f8f8;
+	padding: 10px;
+	position: relative;
+
+	.preview {
+		position: relative;
+		margin: 0 auto 15px auto;
+		border: 1px solid #cccccc;
+
+		&.empty {
+			.no-image {
+				display: block;
+			}
+		}
+
+		.no-image {
+			display: none;
+			padding-top: 50%;
+			background-size: 25%;
+		}
+
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+		}
+
+		.loading {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background: rgba(0,0,0,0.5) url(../../../../../public/images/loading.gif) no-repeat 50% 50%;
+		}
+
+		.overlay {
+			display: none;
+			justify-content: flex-end;
+			align-items: flex-end;
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			background-color: rgba(0,0,0,0.5);
+
+			a {
+				color: #fff !important;
+				margin: 5px;
+			}
+		}
+	}
+
+	&.loaded {
+		.preview {
+			.loading {
+				display: none;
+			}
+
+			&:hover,
+			&.always-show-overlay {
+				.overlay {
+					display: flex;
+				}
+			}
+
+			&:hover {
+				.overlay {
+					background-color: rgba(0,0,0,0.5) !important;
+				}
+			}
+		}
+
+		.drop-instructions {
+			display: block;
+		}
+	}
+
+	.drop-instructions {
+		display: none;
+	}
+
+	.landing {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border: 7px dashed rgba(0, 0, 0, 0.3);
+		background-color: @state-warning-bg;
+		font-size: 21px;
+		padding: 10px;
+		text-align: center;
+
+		display: none;
+		justify-content: center;
+		align-items: center;
+	}
+
+	&.dz-drag-hover {
+		.landing {
+			display: flex;
+		}
+	}
+
+	> .dz-preview {
+		display: none;
+	}
+}
+
+.form-group.has-error > .img-upload-resize {
+	background-color: @state-danger-bg;
+}

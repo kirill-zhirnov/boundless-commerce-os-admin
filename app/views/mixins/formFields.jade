@@ -1,0 +1,61 @@
+mixin field(field, formId)
+	- _.defaults(field, {attrs:{}})
+
+	.form-group&attributes(attributes)
+		case field.type
+			when 'text'
+				!=bs.label(field.title)
+				input(type='text' name='field-' + field.field_id class="form-control" required=field.is_required)&attributes(field.attrs)
+
+			when 'email'
+				!=bs.label(field.title)
+				input(type='email' name='field-' + field.field_id class="form-control" required=field.is_required)&attributes(field.attrs)
+
+			when 'radio'
+				!=bs.label(field.title)
+				each val in field.list_values
+					.radio.form-check
+						label(class="form-check-label")
+							input(type="radio" name='field-' + field.field_id value=val required=field.is_required class="form-check-input")&attributes(field.attrs)
+							=val
+
+			when 'select'
+				!=bs.label(field.title)
+				select(class="form-select" name='field-' + field.field_id required=field.is_required)&attributes(field.attrs)
+					option(value='')
+						=__('Select')
+
+					each val in field.list_values
+						option(value=val)
+							=val
+
+			when 'checkbox'
+				.checkbox.form-check
+					label(class="form-check-label")
+						input(type="checkbox" name='field-' + field.field_id class="form-check-input")&attributes(field.attrs)
+						=' '
+						=field.title
+
+			when 'checkbox-list'
+				!=bs.label(field.title)
+				each val in field.list_values
+					.checkbox.form-check
+						label(class="form-check-label")
+							input(type="checkbox" name='field-' + field.field_id value=val class="form-check-input")&attributes(field.attrs)
+							=' '
+							=val
+
+
+			when 'textarea'
+				!=bs.label(field.title)
+				textarea(class="form-control" name='field-' + field.field_id required=field.is_required)&attributes(field.attrs)
+
+			when 'file'
+				- var uploadUrl = url('cms/form/uploadField', {formId:formId});
+				!=bs.label(field.title)
+				input(
+					type='file'
+					name='field-' + field.field_id
+					required=field.is_required
+					data-upload=uploadUrl
+				)&attributes(field.attrs)

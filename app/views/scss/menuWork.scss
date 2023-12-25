@@ -1,0 +1,171 @@
+.menu-work {
+	display: flex;
+	flex-direction: column;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+
+	&__item {
+		background: $c-bg-white;
+		border-radius: 10px;
+		flex-shrink: 0;
+		font-weight: 500;
+		transition: background-color 0.35s ease-in-out;
+
+		&:not(:last-child) {
+			margin: 0 0 8px 0;
+		}
+
+		&:hover,
+		&.is-active {
+			background: $c-bg-gray-light;
+
+			.menu-work__link-wrapper {
+				color: $c-t-base;
+			}
+		}
+
+		&_dropdown {
+			position: relative;
+			transition: all 0.35s ease-in-out;
+
+			.menu-work__link-wrapper {
+				&::before {
+					background: url('../../../assets/images/icons/chevron-down-gray.svg') center center / 100% 100% no-repeat;
+					content: '';
+					height: 17px;
+					position: absolute;
+					right: 12px;
+					top: 50%;
+					transform: translate(0, -50%);
+					transition: transform 0.35s ease-in-out;
+					width: 17px;
+				}
+			}
+
+			.menu-work-dropdown__wrapper {
+				left: -100%;
+				max-height: 0;
+				opacity: 0;
+				position: absolute;
+				top: -999px;
+				transition: opacity 0.35s ease-in-out, height 0.35s ease-in-out, max-height 0.35s ease-in-out;
+			}
+
+			&.is-opened {
+				background: $c-bg-gray-light;
+
+				.menu-work__link:hover {
+					background: $c-bg-gray;
+					border-radius: 10px;
+				}
+
+				.menu-work__link-wrapper::before {
+					transform: translate(0, -50%) rotate(180deg);
+				}
+
+				.menu-work-dropdown__wrapper {
+					left: initial;
+					max-height: initial;
+					opacity: 1;
+					position: relative;
+					top: initial;
+				}
+			}
+		}
+	}
+
+	&__link {
+		display: block;
+		padding: 8px 12px;
+		text-decoration: none;
+		transition: background-color 0.35s ease-in-out;
+	}
+
+	&__link-wrapper {
+		align-items: center;
+		color: $c-t-base;
+		display: flex;
+		padding: 8px 12px;
+		position: relative;
+
+		.ico {
+			margin: 0 12px 0 0;
+			transition: background 0.35s ease-in-out;
+		}
+	}
+
+	&__hr {
+		border-top: 1px solid #e9ebed;
+		margin: 10px 0;
+	}
+}
+
+.menu-work-dropdown {
+	list-style-type: none;
+	margin: 0;
+	padding: 0 12px 8px 12px;
+
+	&__wrapper {
+		z-index: 9;
+	}
+
+	&__item {
+		border-radius: 10px;
+		font-weight: 500;
+		padding: 8px 12px;
+		transition: background-color 0.35s ease-in-out;
+
+		&:not(:last-child) {
+			margin: 0 0 8px 0;
+		}
+
+		&:hover {
+			background: $c-bg-gray;
+		}
+
+		&.is-active {
+			background: $c-bg-gray;
+
+			//.menu-work-dropdown__link {
+			//	color: $c-t-white;
+			//}
+		}
+
+		&_delimiter {
+			background: $c-bg-black-12;
+			font-size: 0;
+			height: 1px;
+			line-height: 0;
+			padding: 0;
+			width: 100%;
+		}
+
+		&_title {
+			color: $c-t-black-32;
+			display: none;
+			padding: 16px 12px;
+			text-transform: uppercase;
+
+			&:hover {
+				background: $c-bg-white;
+			}
+		}
+	}
+
+	&__link {
+		align-items: center;
+		color: $c-t-base;
+		display: flex;
+		text-decoration: none;
+		transition: color 0.35s ease-in-out;
+
+		&:hover {
+			color: $c-t-base;
+		}
+
+		.ico {
+			margin: 0 12px 0 0;
+		}
+	}
+}

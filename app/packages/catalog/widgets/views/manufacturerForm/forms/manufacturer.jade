@@ -1,0 +1,8 @@
+mixin manufacturerForm(data)
+	form(data-form="" name="manufacturer" autocomplete="off")
+		!=gHtml.pk(data.pk)
+
+		!=widget('system.vueApp.@c', {data: {app: 'catalog/manufacturer/title', props: data}})
+
+		div(class="form-group")
+			!=gHtmlActive.textArea(data.attrs, 'description', {'data-visual-editor': ""})

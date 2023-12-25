@@ -1,0 +1,10 @@
+include ./adminMenu/mixins
+
+//-.left-sidebar__overlay
+.left-sidebar__wrapper
+	//-.left-sidebar__hide-btn
+		a.btn.btn_icon-square(href="#")
+			span.ico.ico_size_20.ico_chevron-left
+
+	+adminMenu(generalMenu.menu)(class="menu-work")
+	+adminMenu(settingsMenu.menu)(class="menu-work settings")

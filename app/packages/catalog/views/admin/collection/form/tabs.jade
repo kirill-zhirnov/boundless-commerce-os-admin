@@ -1,0 +1,21 @@
+extends /blocks/tabs.jade
+include ./collection.jade
+
+block nav
+	+tabLi('collection', __('Collection'), true)
+
+	- var btnAttrs = {}
+	if !forms.collection.pk
+		-btnAttrs.disabled = true;
+
+	+tabLi('products', __('Products'), false, btnAttrs)
+
+block content
+	+tabBody('collection', true)
+		+collectionForm(forms.collection)
+
+		!=widget('system.formButtons.@c', buttons)
+
+	+tabBody('products')
+		if forms.collection.pk
+			!=widget('catalog.collectionProductsList.@c', {data: forms.collection})

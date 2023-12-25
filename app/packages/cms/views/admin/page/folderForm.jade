@@ -1,0 +1,13 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('cms/admin/page/folderForm') method="post" data-form="" autocomplete="off")
+		!=gHtml.pk(pk)
+
+		div(class="form-group")
+			!=bs.label(__('Title'), 'title')
+			!=bs.textField(attrs, 'title')
+		div(class="form-group")
+			!=bs.label(__('Parent'), 'parent_id')
+			!=bs.dropDownList(attrs, 'parent_id', options.parent)
+
+		=widget('system.formButtons.@c', buttons)

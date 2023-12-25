@@ -1,0 +1,12 @@
+nav(id="admin-nav" class="s-nav" role="navigation")
+	div(class="color-wrapper")
+		div(class="container")
+			div(class="normal")
+				a(id="logo" class="nav-left" href=url('@admin-dashboard'))
+					img(src=getGlobalStaticUrl('/images/logo.png') width="70" height="30" alt=__('Dashboard'))
+
+				+hamburger()(class="nav-right")
+				+adminViewHelp()(class="nav-right")
+				!=widget('auth.loginNavBar.@c', {className: 'nav-right'})
+				!=widget('orders.basket.@c', {tagName:'div', className: 'admin-top-basket nav-right', data:{tpl:'admin'}})
+				+adminViewSite()(class="nav-right")

@@ -1,0 +1,19 @@
+extends /blocks/modal
+
+block body
+	form.add-tax-class(action=url('system/admin/tax/addClass') method="post" data-form="" autocomplete="off")
+		.form-group
+			!=bs.label(__('Title'), 'add-tax-class-title')
+			!=bs.textField(data.attrs, 'title', {id: 'add-tax-class-title', required: '1'})
+
+		.form-group
+			.form-check
+				!=gHtmlActive.checkbox(data.attrs, 'is_default', {id: 'add-tax-class-is_default'})
+				=' '
+				!=bs.label(__('Make default'), 'add-tax-class-is_default')
+
+		.buttons
+			button(type="submit" class="btn btn-primary save")
+				i.fa.fa-floppy-o
+				=' '
+				=__('Save')

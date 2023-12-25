@@ -1,0 +1,6 @@
+extends /blocks/modal.jade
+block body
+	- data.showButtons = true
+	- data.showSort = false
+	- data.action = url('catalog/admin/commodityGroup/characteristic/quickForm', {groupId: data.groupId, productId: data.productId})
+	!=widget('catalog.characteristicForm.@c', {data: data})

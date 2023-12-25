@@ -1,0 +1,18 @@
+include ./tabs/commodityGroup
+extends /blocks/tabs.jade
+
+block nav
+	- var buttonConf = {};
+
+	if forms.group.scenario === 'insert'
+		- buttonConf.disabled = true;
+		- buttonConf.enableIfPk = '';
+
+	+tabLi('group', __('Type Settings'), true)
+	+tabLi('characteristics', __('Attributes'), false, buttonConf)&attributes({
+		'data-tab-url': urlPk('catalog/admin/characteristic/index/?groupId={pk}', forms.group.pk)
+	})
+block content
+	+tabBody('group', true)
+		+commodityGroupForm(forms.group)
+	+tabBody('characteristics')

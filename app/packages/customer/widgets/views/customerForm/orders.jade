@@ -1,0 +1,63 @@
+- var total = userOrders[0], orders = userOrders[1];
+
+if total.totalEntries
+	table(class="table table-striped table-condensed table-hover orders")
+		tr
+			th=__('Order')
+			th=__('Shipping')
+			th=__('Total')
+			th
+
+		each row in orders
+			tr
+				td.order(style={'background-color': '#' + row.status_background_color})
+					p.id #
+						=row.order_id
+
+					p.status
+						=row.status_title
+
+					p.time.small
+						!=gHtml.faIcon('clock-o')
+						=' '
+						=row.date + ' ' + row.time
+
+				td.shipping
+					p
+						if row.shipping_type == 'no'
+							=__('No shipping')
+						else
+							=row.delivery_title
+
+					if row.delivery_sub_type == 'pickupPoint'
+						p.sub-type.small
+							=__('to the point of self-delivery')
+
+				td.total
+					p
+						=row.total_price_formatted
+
+					if row.payment_method_title
+						p.payment-method.small
+							=row.payment_method_title
+
+					p.paid.text-muted.small
+						if is_paid == 1
+							=__('Paid')
+						else
+							=__('Awaiting for payment')
+
+				td.view
+					a(href=url('orders/admin/orders/form', {pk: row.order_id}) target="_blank")
+						!=gHtml.faIcon('external-link')
+						=' '
+						=__('View')
+		tr
+			th(colspan="4" style="text-align: left;")
+				=__('Total orders:')
+				=' '
+				=total.totalEntries
+
+
+else
+	!=bs.alert('warning', __('User does not have orders.'))

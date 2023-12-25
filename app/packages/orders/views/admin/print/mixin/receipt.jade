@@ -1,0 +1,100 @@
+mixin receipt(data)
+	each order in data.orders
+		.print-block.receipt
+			h2
+				=__('Order')
+				=' #'
+				=order.order.order_id
+				=' '
+				=order.order.formatted_date
+			hr(size="3")
+			- var company = [];
+			if data.company.name
+				- company.push(data.company.name);
+
+			if data.company.company
+				- company.push(data.company.company);
+
+			if company.length > 0
+				p=company.join(', ')
+
+			if data.company.taxNumber
+				p
+					=__('Tax identification number')
+					=': '
+					=data.company.taxNumber
+
+			table(class="col-sm-12 table table-bordered table-striped")
+				thead
+					tr
+						th=__('Product')
+						th(class="text-center")=__('Price')
+						if +order.total.itemsDiscount !== 0
+							th(class="text-center")=__('Discount')
+						th(class="text-center")=__('Quantity')
+						th(class="text-center")=__('Total')
+				tbody
+					each item in order.items.items
+						tr
+							td
+								p
+									=item.title
+
+								.small
+									i
+										=__('SKU')
+										=": "
+										=item.sku
+							td(class="text-center" style="white-space:nowrap;")=locale.formatMoney(item.basic_price)
+							if +order.total.itemsDiscount !== 0
+								td(class="text-center" style="white-space:nowrap;")=locale.formatMoney(item.discount_total_amount)
+							td(class="text-center")= item.qty
+							td(class="text-center" style="white-space:nowrap;")= locale.formatMoney(item.total)
+
+					if +order.services.total.qty !== 0
+						tr
+							td(colspan="6")
+								b
+									=__('Services')
+						each service in order.services.items
+							tr
+								td
+									=service.title
+									br
+									.small
+										=service.delivery_title
+
+								td(class="text-center" style="white-space:nowrap;")=locale.formatMoney(service.total_price)
+								if +order.total.itemsDiscount !== 0
+									td(class="text-center")='--'
+								td(class="text-center")=service.qty
+								td(class="text-center" style="white-space:nowrap;")=locale.formatMoney(service.final_price)
+
+					if order.order.discount_for_order
+						tr
+							th(colspan=(+order.total.itemsDiscount !== 0) ? 4 : 3 class="text-end")=__('Discount')
+							th.text-center(style="white-space:nowrap;")
+								=locale.formatMoney(order.order.discount_for_order * -1)
+
+					if order.order.payment_mark_up
+						tr
+							td(colspan=(+order.total.itemsDiscount !== 0) ? 4 : 3)
+								=__('Payment method')
+								br
+								.small
+									=order.order.payment_method_title
+									br
+									=__('Payment markup (%s%%)', [Number(order.order.payment_method_mark_up)])
+
+							td(class="text-center" style="white-space:nowrap;")
+								=locale.formatMoney(order.order.payment_mark_up)
+
+					tr
+						th(colspan=(+order.total.itemsDiscount !== 0) ? 3 : 2 class="text-end")=p__('basket-row', 'Total:')
+						th(class="text-center")=+order.services.total.qty + +order.items.total.qty
+						th(class="text-center" style="white-space:nowrap;")
+							=locale.formatMoney(order.order.total_price)
+
+			div.signature=__("Signature")
+
+			hr

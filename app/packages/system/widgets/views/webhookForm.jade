@@ -1,0 +1,29 @@
+!=gHtml.pk(pk)
+
+-var secretStyle='display: none;'
+-if (attrs.sign) secretStyle = ''
+
+.form-group
+	!=bs.label(__('Name of the WebHook'), 'name')
+	!=bs.textField(attrs, 'name')
+
+.form-group
+	!=bs.label(__('Url'), 'url')
+	!=bs.textField(attrs, 'url', {type: 'url', placeholder:__('http://')})
+
+.row
+	.col-md-6
+		.form-group
+			.checkbox.form-check
+				label(class='form-check-label' style='margin-top: 23px; margin-bottom: 23px;')
+					!=gHtmlActive.checkbox(attrs, 'sign')
+					=' '
+					=__('Sign request')
+	.col-md-6
+		div(class='form-group secret-field' style=secretStyle)
+			!=bs.label(__('Secret'), 'secret')
+			!=bs.textField(attrs, 'secret', {required: true})
+
+p(class='text-muted description')=__('Signature will be sent to your server along with the webhook data')
+
+!=widget('system.formButtons.@c', buttons)

@@ -1,0 +1,10 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('catalog/admin/import/yml/setup') method="post" data-form="")
+		!=gHtml.hiddenField('importId', importId)
+
+		div(class="form-group")
+			!=bs.label(__("Detect product's variant by:"), 'detect_variants_by')
+			!=bs.radioButtonList(attrs, 'detect_variants_by', options.detectVariants)
+
+		!=widget('system.formButtons.@c', buttons)

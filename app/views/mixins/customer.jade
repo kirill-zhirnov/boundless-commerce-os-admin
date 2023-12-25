@@ -1,0 +1,11 @@
+mixin personFullName(person)
+	- var out = [];
+	if person.personProfile
+		if person.personProfile.first_name
+			- out.push(person.personProfile.first_name);
+
+		if person.personProfile.last_name
+			- out.push(person.personProfile.last_name);
+
+	!=out.join(' ')
+

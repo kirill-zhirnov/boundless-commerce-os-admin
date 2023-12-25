@@ -1,0 +1,9 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('cms/admin/page/form') data-form="" autocomplete="off")
+		!=gHtml.pk(data.pk)
+		!=gHtml.hiddenField('inline', inline)
+
+		include ./pageForm/tabs.jade
+
+		!=widget('system.formButtons.@c', data.buttons)

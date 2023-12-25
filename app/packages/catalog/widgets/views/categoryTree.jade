@@ -1,0 +1,68 @@
+if isEmptyCategories
+	div
+		p.lead=__('Categories is empty, please add one:')
+		p.text-center
+			a(class="btn btn-success btn-lg m-2" href=url("catalog/admin/category/form/edit"))
+				span(class="fa fa-plus" aria-hidden="true")
+				=' '
+				span=__('Add a category')
+else
+	p
+		a(class="btn custom-btn custom-btn_purple-100" href=url("catalog/admin/category/form/edit"))
+			span(class="fa fa-plus" aria-hidden="true")
+			span=__('Add')
+
+	form.categories-filter.filter(autocomplete="off")
+		.row
+			.col-lg-3.col-md-4.col-sm-4
+				.form-group
+					!=bs.textField(filter.attrs, 'title', {placeholder:__('Search by title')})
+
+			.col-lg-4.col-md-5.col-sm-5
+				.form-group
+					.checkbox.form-check
+						label(class="form-check-label")
+							!=gHtmlActive.checkbox(filter.attrs, 'inMenu')
+							=' '
+							=__('Show only visible in menu')
+
+			.col-lg-4.offset-lg-1.col-md-3.col-sm-3
+				.form-group.clearfix
+					.pull-right.filters-at-right
+						a(href=url('catalog/admin/category/clearRm') class="small clear-rm" style="display: none;" data-c-nav="off")
+							!=gHtml.faIcon('eraser')
+							=' '
+							=__('Clear trash')
+
+						.show-trash
+							.checkbox.form-check
+								label(class="form-check-label")
+									!=gHtmlActive.checkbox(filter.attrs, 'rmStatus')
+									span(class="ico ico_size_17 ico_union")
+									=__('Show archived')
+
+	.row
+		.col-md-3.col-sm-2
+			//p
+			//	a(href="#" class="btn btn-default filter-toggle")
+			//		span(class="glyphicon glyphicon-search" aria-hidden="true")
+			//		span=__('Show filters')
+		.col-md-6.col-sm-8
+			div(class="tree-view box")
+				p
+					a(class="btn btn-outline-secondary btn-sm select-all" href="#")
+						!=gHtml.faIcon('check')
+						=' '
+						span(class="text")=__('Select all')
+
+		.col-md-3.col-sm-12
+			p.text-muted.small.tinted-box
+				!=gHtml.faIcon('info-circle')
+				=' '
+				=__('Use drag and drop to sort the list.')
+
+			//p.small.text-end
+			//	a(href=url('catalog/admin/settings/form'))
+			//		!=gHtml.faIcon('cogs')
+			//		=' '
+			//		=__('General category settings')

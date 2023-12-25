@@ -1,0 +1,35 @@
+form(data-form="" action=url("catalog/admin/filter/form") autocomplete="off")
+	!=gHtml.pk(pk)
+
+	p
+		a.btn.btn-outline-secondary(href=url('catalog/admin/filter/index', grid))
+			!=gHtml.faIcon('arrow-left')
+			=' '
+			=__('Return to the list')
+
+		div(class="container-fluid")
+			div(class="row")
+				div(class="col-md-6 offset-md-3")
+					div(class="form-group")
+						!=bs.label(__('Title'), 'title')
+						!=bs.textField(attrs, 'title')
+
+					//- .checkbox.form-check
+					//- 	label(class="form-check-label")
+					//- 		!=gHtmlActive.checkbox(attrs, 'show_category_filter')
+					//- 		=' '
+					//- 		=__('Show category selector')
+
+					.checkbox.form-check
+						label(class="form-check-label")
+							!=gHtmlActive.checkbox(attrs, 'is_default')
+							=' '
+							=__('Use by default for all categories')
+						p(class="form-text")
+							=__('Category may redefine filter by default')
+
+					if pk
+						.form-group
+							!=widget('catalog.adminFilterFields.@c', {data: {filter: filter}})
+
+					!=widget('system.formButtons.@c', buttons)

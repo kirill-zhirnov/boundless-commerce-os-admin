@@ -1,0 +1,38 @@
+.custom-attrs-form {
+	.sortable-placeholder {
+		background: #fcf8e3;
+		border: 1px solid rgba(0, 0, 0, 0.3);
+		border-radius: 4px;
+		height: 34px;
+		margin-bottom: 0.5rem;
+		margin-left: 28px;
+		margin-right: calc(0.75rem + 11px);
+	}
+	.attrs-options-item {
+		display: flex;
+		align-items: center;
+		.drag-me {
+			padding: 7px;
+			cursor: move;
+		}
+		&.ui-sortable-helper .drag-me {
+			cursor: grabbing !important;
+		}
+		a {
+			padding-left: 10px;
+		}
+	}
+}
+
+.unlisted-attr {
+	.unlisted-attr-value {
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		background: #f9f9f9;
+		padding: 5px;
+		overflow: auto;
+		pre {
+			margin: 0;
+		}
+	}
+}

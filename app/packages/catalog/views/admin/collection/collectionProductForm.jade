@@ -1,0 +1,33 @@
+extends /blocks/modal.jade
+
+block body
+	div(class="form-collection-product")
+		if !options.collection || options.collection.length === 0
+			p=__("You have no collections")
+
+		else if !products || products.length === 0
+			p=__("No products selected")
+
+		else
+			form(method="post" action=url('catalog/admin/collection/chooseCollection', {products: products}) data-form="@p-catalog/widgets/collectionProductForm.@c")
+				div(class="form-group")
+					h4=__('Choose collection:')
+
+					for collection in options.collection
+						div(class="checkbox form-check")
+							label(class="form-check-label")
+								input(type="checkbox" name="collections[]" value=collection[0] class="form-check-input")
+								!=collection[1]
+
+				input(type='hidden' name='action' value='')
+
+				div(class="text-center")
+					div(class="btn-group")
+						button(type="submit" class='btn btn-outline-secondary' name="actionAdd" value='add')
+							!=gHtml.faIcon('plus-circle')
+							!=" "
+							!=__("Add to collection")
+						button(type="submit" class='btn btn-outline-secondary' name="actionDel" value='del')
+							!=gHtml.faIcon('minus-circle')
+							!=" "
+							!=__("Remove from collection")

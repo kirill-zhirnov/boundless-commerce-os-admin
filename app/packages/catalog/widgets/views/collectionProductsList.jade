@@ -1,0 +1,44 @@
+if collection.length > 0
+	.row
+		.col-sm-6
+			p.small
+				!=gHtml.faIcon('info-circle')
+				=' '
+				=__('Use Drag and Drop to sort products.')
+
+		.col-sm-6
+			p.text-end
+				button(
+					class="btn btn-sm btn-outline-secondary rm-products"
+					type="button"
+					disabled="disabled"
+					data-url=url('catalog/collection/rmProduct')
+				)
+					!=gHtml.faIcon('trash')
+					=' '
+					=__('Remove selected products from collection')
+
+	ul
+		each item in collection
+			li(class="thumbnail" data-product=item.product_id)
+				if item.thumb && item.thumb.s
+					!=gHtml.img(item.thumb.s, true)
+				else
+					div(class="no-image")
+
+				div(class="caption small")
+					!=item.title
+
+				label(class="tick-box")
+					.form-check
+						input.form-check-input(type="checkbox" value=item.product_id)
+
+else
+	!=bs.alert('warning', __('The collection of products is empty. Add products to the collection from the products list, then you will be able to sort products there.'))
+
+	if showCreate
+		=' '
+		a(href=url('catalog/admin/product/simple/form', {collection: collectionRow.collection_id}) data-modal="" class="btn btn-default btn-sm")
+			!=bs.icon('plus')
+			=' '
+			=__('Create product')

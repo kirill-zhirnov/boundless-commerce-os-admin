@@ -1,0 +1,10 @@
+extends /blocks/tabs.jade
+include ./forms/common
+
+block nav
+	+tabLi('common', __('Common settings'))(class="active")
+	+tabLi('box', __('Boxes'))&attributes({'data-tab-url': url('orders/admin/setup/deliveryBox/index')})
+block content
+	+tabBody('common')(class="active")
+		+commonForm(attrs)
+	+tabBody('box')

@@ -1,0 +1,56 @@
+mixin gridRmStatus
+	.show-trash.m-1
+		.form-check
+			!=gHtmlActive.checkbox(attrs, 'rmStatus', {id: 'grid-rm-status'})
+			label(class="form-check-label" for="grid-rm-status")
+				span.ico.ico_size_16.ico_union
+				=__('Show archived')
+
+mixin toggleFiltersBtn(filterSelector)
+	button.btn.btn-link.btn-link-purple(data-toggle-filter=filterSelector)
+		span.txt
+			=__('Show filters')
+		i.fa.fa-chevron-down.ms-1(aria-hidden="true")
+
+mixin gridExportLinks
+	if _.size(exportVal) > 0
+		- var exportTitle = '';
+		each alias in exportVal
+			case alias
+				when 'csv'
+					- exportTitle = __('Export to CSV')
+				when 'excel'
+					- exportTitle = __('Export to Excel')
+			a(href="#" class="btn btn_help custom-btn custom-btn_icon-green m-1" title=exportTitle data-export=alias)
+				span(class="ico ico_size_21 ico_excel _green")
+
+mixin grid
+	.grid
+		.grid-header
+			.d-flex.align-items-center.first-row
+				block commonButtons
+					.common-buttons(data-role="common")
+
+				.right-side.ms-auto.d-flex.align-items-center
+					block commonFilter
+						if commonFilter !== false
+							form(class="filter" method="get" autocomplete="off" action="")
+								block commonFilterBody
+									if commonFilter.showRmStatus
+										+gridRmStatus
+
+					block export
+						+gridExportLinks
+
+			block additionalFilter
+
+		block additionalSort
+
+
+block grid
+	if cssGridWrapper
+		div(class="row")
+			div(class=cssGridWrapper)
+				+grid
+	else
+		+grid

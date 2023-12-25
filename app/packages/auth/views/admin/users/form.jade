@@ -1,0 +1,30 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('auth/admin/users/form', {pk: pk}) method="post" data-form="")
+		!=gHtml.pk(pk)
+
+		.row
+			.form-group.col-md-6
+				!=bs.label(__('First name'), 'first_name')
+				!=bs.textField(attrs, 'first_name')
+			.form-group.col-md-6
+				!=bs.label(__('Last name'), 'last_name')
+				!=bs.textField(attrs, 'last_name')
+
+		.form-group
+			!=bs.label(__('Email'), 'email')
+			!=bs.textField(attrs, 'email', {type:'email'})
+
+		if scenario==='update'
+			.form-group
+				.checkbox.form-check
+					label(class='form-check-label')
+						!=gHtmlActive.checkbox(attrs, 'generate_pass')
+						=' '
+						=__('Create new password and send it by email')
+
+		.form-group
+			!=bs.label(__('Access level'), 'roles')
+			!=bs.checkboxList(attrs, 'roles', options.roles)
+
+		!=widget('system.formButtons.@c', buttons)

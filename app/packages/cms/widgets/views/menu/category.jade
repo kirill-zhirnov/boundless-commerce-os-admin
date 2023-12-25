@@ -1,0 +1,39 @@
+mixin menuIterator(items, level)
+	each item in items
+		if !item.in_menu
+			continue
+
+		- var classes = [];
+		- var hasChildren = false;
+		if !_.isUndefined(item.nodes) && item.nodes.length > 0 && level < 2
+			- hasChildren = true;
+
+		if hasChildren
+			- classes.push('has-children');
+
+		if item.isActive
+			- classes.push('active');
+
+			if hasChildren
+				- classes.push('open')
+
+		li(class=classes)
+			if item.isActive
+				b=item.title
+			else
+				a(href=item.url)
+					=item.title
+
+			if hasChildren
+				ul
+					+menuIterator(item.nodes, level + 1)
+
+ul
+	+menuIterator(menu, 1)
+
+	if __editMode && menu.length === 0
+		li.add-new
+			a(href=url('catalog/admin/category/inlineFormModal') data-modal='')
+				!=bs.icon('plus')
+				=" "
+				=__('Create category')

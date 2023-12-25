@@ -1,0 +1,5 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('auth/login/modal') method="post" data-form="")
+		include ./formFields

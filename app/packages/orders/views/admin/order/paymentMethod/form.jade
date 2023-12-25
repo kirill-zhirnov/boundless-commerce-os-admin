@@ -1,0 +1,11 @@
+extends /blocks/modal
+
+block body
+	form.order-payment-method(action=url('orders/admin/order/paymentMethod/form') data-form="")
+		!=gHtml.pk(data.pk)
+
+		.form-group
+			!=bs.label(__("Payment method:"), 'payment_method_id')
+			!=bs.radioButtonList(data.attrs, 'payment_method_id', data.options.paymentMethod)
+
+		!=widget('system.formButtons.@c', data.buttons)

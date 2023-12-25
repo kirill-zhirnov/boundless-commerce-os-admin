@@ -1,0 +1,16 @@
+extends /blocks/modal.jade
+include ./formBody
+
+block body
+	.row
+		.col-sm-10.offset-sm-1
+			form(
+				action=url('catalog/admin/product/imgSize/modal')
+				data-form=""
+				autocomplete="off"
+				class="product-img-size"
+			)
+				+productImgSizeBody(data)
+
+				- _.extend(data.buttons, {buttons: ['save']})
+				!=widget('system.formButtons.@c', data.buttons)

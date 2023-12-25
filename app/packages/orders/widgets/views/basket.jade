@@ -1,0 +1,20 @@
+if !basket || !_.isObject(basket)
+    - basket = {};
+
+- var qty = (basket.qty !== null) ? parseInt(basket.qty) : 0;
+
+- var classes = ['qty']
+if qty > 9
+    - classes.push('double')
+
+if icon
+    !=icon
+
+b(class=classes)
+    =qty
+
+p(class="title")
+    if qty > 0
+        =locale.formatMoney(basket.total)
+    else
+        =__('Cart')

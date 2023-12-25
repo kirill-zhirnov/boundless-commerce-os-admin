@@ -1,0 +1,23 @@
+mixin tryAgain
+    p(class="text-center")
+        a(href=url('catalog/admin/import/index') class="btn btn-default btn-lg")
+            !=bs.icon('repeat')
+            =' '
+            =__('Try again')
+
+if data.firstRows === false
+    !=bs.alert('danger', i18n.__('Cannot read file.'))
+    +tryAgain
+else if data.firstRows.length == 0
+    !=bs.alert('warning', i18n.__('Uploaded file is empty.'))
+    +tryAgain
+else
+    ol(class="breadcrumb")
+        li(class="breadcrumb-item")
+            a(href=url('catalog/admin/import/index'))
+                =__('Import catalog')
+
+        li(class="breadcrumb-item active")
+            =__('Setup import')
+
+    !=widget('catalog.importTableSetupForm.@c', {data:data})

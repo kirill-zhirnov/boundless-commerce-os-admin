@@ -1,0 +1,9 @@
+.form-group {
+	margin-bottom: 15px;
+
+	&.has-error {
+		.invalid-feedback {
+			display: block;
+		}
+	}
+}

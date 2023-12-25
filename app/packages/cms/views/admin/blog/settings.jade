@@ -1,0 +1,23 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('cms/admin/blog/settings') method='POST' data-form='')
+		div(class="form-group")
+			!=bs.label(p__('seoForm', 'Title'), 'title')
+			!=bs.textField(attrs, 'title')
+
+		div(class="form-group")
+			!=bs.label(__('Header (H1)'), 'mpHeader')
+			!=bs.textField(attrs, 'header')
+
+		div(class="form-group")
+			!=bs.label(__('Meta description'), 'description')
+			textarea(class='form-control' name="description" rows="3")
+				=attrs.description
+
+		div(class="form-group")
+			!=bs.label(__('Meta keywords', 'keywords'))
+			textarea(class='form-control' name="keywords" rows="3")
+				=attrs.keywords
+
+		!=widget('system.formButtons.@c', buttons)

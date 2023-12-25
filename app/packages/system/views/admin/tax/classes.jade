@@ -1,0 +1,17 @@
+extends /blocks/tabs
+
+block nav
+	li.nav-item(role="presentation")
+		a.nav-link(href=url('system/admin/tax/index')) Tax Options
+	+tabLi('classes', __('Tax Classes'), true)
+
+
+block content
+	+tabBody('classes')(class="active")
+		p
+			a.btn.btn-primary(href=url('system/admin/tax/addClass') data-modal="")
+				!=gHtml.faIcon('plus')
+				=' '
+				=__('Add Tax Class')
+
+		!=widget('system.taxClassesGrid.@c')

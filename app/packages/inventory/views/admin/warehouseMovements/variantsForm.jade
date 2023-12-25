@@ -1,0 +1,33 @@
+extends /blocks/modal.jade
+
+block body
+	form(autocomplete="off" class="choose-variant-form")
+		each item in variants
+			div(class="list-group")
+				label(class="list-group-item")
+					h5(class="list-group-item-heading")
+						input(type="radio" name="variant" value=item.item_id)
+						=' '
+						span(class="title")
+							!=item.product_title
+							!=", "
+							!=item.title
+						
+					div(class="small info")
+						div(class="sku")
+							span(class="sku")
+								!=item.sku
+							
+						div(class="qty")
+							!=__("Available qty: ")
+							span(class="available")
+								!=item.available_qty
+							!="; "
+							!=__("Reserved qty: ")
+							span(class="reserved")
+								!=item.reserved_qty
+						
+						div(class="price")
+							!=__("Price: ")
+							span(class="price" data-price=(item.price || 0))
+								!=locale.formatMoney(item.price)

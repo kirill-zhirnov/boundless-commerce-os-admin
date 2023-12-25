@@ -1,0 +1,37 @@
+extends /blocks/tabs.jade
+
+include ./tabs/robotsTab.jade
+include ./tabs/headerInjectionTab.jade
+include ./tabs/mainPageSeoTab.jade
+include ./tabs/semanticMarkup.jade
+
+block nav
+	//+tabLi('mainPageSeo', __('Main page'))
+	//+tabLi('favicon', __('Favicon'))
+	//+tabLi('openGraph', __('Open graph'))
+	//+tabLi('semanticMarkup', __('JSON-LD'))
+	//+tabLi('robots', __('Robots.txt'))
+	//+tabLi('headerInjectionForm', gHtml.escape(__('Header injection')))
+	+tabLi('seoTpl', __('SEO templates'), true)
+
+block content
+	//+tabBody('mainPageSeo', true)
+	//	.row
+	//		.col-md-8.offset-md-2
+	//			+mainPageSeoTab(forms.mainPageSeo)
+	//+tabBody('favicon')
+	//	.row
+	//		.col-md-8.offset-md-2
+	//			!=widget('cms.faviconForm.@c', {data: forms.favicon})
+	//+tabBody('openGraph')(class="")
+	//	.row
+	//		.col-md-8.offset-md-2
+	//			!=widget('system.openGraphImage.@c', {data: forms.openGraph})
+	//+tabBody('semanticMarkup')
+	//	+semanticMarkup(forms.semanticMarkup)
+	//+tabBody('robots')
+	//	+robotsTab(forms.robots)
+	//+tabBody('headerInjectionForm')
+	//	+headerInjectionTab(forms.headerInjection)
+	+tabBody('seoTpl', true)
+		!=widget('system.vueApp.@c', {data: {app: 'system/seoTpl', props: {form: forms.seoTpl}}})

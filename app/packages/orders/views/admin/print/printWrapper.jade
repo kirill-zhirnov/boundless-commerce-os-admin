@@ -1,0 +1,28 @@
+include ./mixin/addressLabel
+include ./mixin/cashOnDelivery
+include ./mixin/receipt
+include ./mixin/packingList
+
+doctype html
+html.print
+	head
+		!=widget('system.css')
+		link(rel="stylesheet" href=cssSrc)
+		
+		if orientation == 'landscape'
+			style(type="text/css").
+				@page {
+					size: A4 landscape;
+				}
+
+	body
+		each doc in data
+			case doc.formType
+				when 'addressLabel'
+					+addressLabel(doc)
+				when 'cod'
+					+cashOnDelivery(doc)
+				when 'receipt'
+					+receipt(doc)
+				when 'packingList'
+					+packingList(doc)

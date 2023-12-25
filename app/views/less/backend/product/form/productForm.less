@@ -1,0 +1,90 @@
+@padding-between-blocks: 30px;
+
+@import "./productForm/productTab";
+@import "./productForm/variantsTab";
+@import "./productForm/additionsTab";
+
+.product-form {
+	// margin: 50px 0 0 0;
+
+	// .tabs {
+	// 	height: 40px;
+	// 	// top: 51px;
+	// 	// left: 0;
+	// 	background: #fff;
+	// 	border-bottom: 1px solid #E5E5E5;
+
+	// 	width: 100%;
+	// 	margin: 0;
+
+	// 	@media (min-width: @screen-md-min) {
+	// 		left: calc(~"16.66666667% - 1px");
+	// 		width: 83.33333333%;
+	// 		border-left: 1px solid #cccccc;
+	// 	}
+
+	// 	display: flex;
+	// 	flex-direction: row;
+	// 	justify-content: flex-start;
+	// 	align-items: stretch;
+
+	// 	> li {
+	// 		width: 33%;
+	// 		border-right: 1px solid #E5E5E5;
+
+	// 		&:last-of-type {
+	// 			border-right: 0;
+	// 			width: 34%;
+	// 		}
+
+	// 		&.active {
+	// 			background: #f8f8f8;
+	// 		}
+
+	// 		&.error {
+	// 			background: @state-danger-bg !important;
+	// 		}
+
+	// 		a {
+	// 			display: flex;
+	// 			height: 100%;
+	// 			align-items: center;
+	// 			text-align: center;
+	// 			justify-content: center;
+	// 		}
+	// 	}
+	// }
+
+	.tabs-body {
+		margin: 0 0 15px 0;
+	}
+
+	.top-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		margin: 0 0 20px 0;
+
+		a {
+			font-size: @font-size-small;
+			color: @text-muted;
+			margin: 5px 10px;
+
+			&.help {
+				margin-left: auto;
+			}
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	.form-block {
+		margin-bottom: @padding-between-blocks;
+	}
+}

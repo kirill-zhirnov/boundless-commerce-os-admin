@@ -1,0 +1,29 @@
+mixin basicPaymentMarkup
+	!=gHtml.pk(pk)
+
+	.row
+		.col-sm-6
+			div(class="form-group")
+				!=bs.label(__('Title'), 'title')
+				!=bs.textField(attrs, 'title')
+				p.form-text=__('The title will be shown to your customer as a payment method title.')
+
+		.col-sm-3
+			div(class="form-group")
+				!=bs.label(__('Sort'), 'sort')
+				!=bs.textField(attrs, 'sort')
+
+		.col-sm-3
+			div(class="form-group")
+				!=bs.label(__('Mark-up (%)'), 'markUp')
+				!=bs.textField(attrs, 'markUp')
+
+	.checkbox.form-check.form-group
+		label(class="form-check-label")
+			!=gHtmlActive.checkbox(attrs, 'for_all_delivery')
+			=' '
+			=__('Use for all delivery methods')
+
+	div(class="form-group specify-delivery" class=(attrs.for_all_delivery == '1') ? 'none' : '')
+		!=bs.label(__('Use payment method only for delivery methods:'), 'delivery_id')
+		!=bs.checkboxList(attrs, 'delivery_id', options.delivery)

@@ -1,0 +1,18 @@
+extends /blocks/modal.jade
+block body
+    form(action=url('catalog/admin/service/form') method="post" data-form="" autocomplete="off")
+        !=gHtml.pk(pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(attrs, 'title', {required: ''})
+
+        if showPrice
+            div(class="form-group")
+                !=bs.label(__('Price'), 'price')
+                div(class="input-group")
+                    !=bs.textField(attrs, 'price', {required: ''})
+                    div(class="input-group-text")
+                        !=locale.getCurrencySymbol()
+
+        !=widget('system.formButtons.@c', buttons)

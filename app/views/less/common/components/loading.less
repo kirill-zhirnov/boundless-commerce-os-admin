@@ -1,0 +1,46 @@
+#nanobar(@background-color) {
+	.nanobar {
+		width:100%;
+		height:4px;
+		z-index:9999;
+		top:0;
+
+		.bar {
+			width:0;
+			height:100%;
+			transition:height .3s;
+			background: @background-color;
+
+			position: relative;
+
+			&.active {
+				&:after {
+					content: "";
+					display: block;
+					position:absolute;
+					right:0px;
+					width:100px;
+					height:100%;
+					box-shadow:0 0 10px @background-color,0 0 5px @background-color;
+					opacity:1.0;
+					transform:rotate(3deg) translate(0px,-4px);
+				}
+			}
+		}
+	}
+}
+
+#nanobar-frontend(@background-color) {
+	#nanobar(@background-color);
+
+	&.with-switcher-bar:not(#layout-checkout) {
+		.nanobar {
+			top: @switcher-bar-height;
+			
+			.bar.active:after {
+				transform: none;
+				box-shadow: none;
+			}
+		}
+	}
+}

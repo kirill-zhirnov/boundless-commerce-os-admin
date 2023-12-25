@@ -1,0 +1,31 @@
+.col-sm-6.offset-sm-3
+	div.form-group
+		button(class="btn btn-default btn-sm edit")
+			!=bs.icon('pencil')
+
+		!=bs.label(__('Primary domain'), 'domain')
+		!=bs.textField({domain: site.primary}, 'domain', {placeholder : 'example.com', readonly : true})
+
+	p.restore-default.text-end(style="display:none")
+		a(href=url('system/admin/domain/reset') class="small")
+			=__('Restore domain by default')
+
+	!=widget('system.formButtons.@c', buttons)
+
+	br
+
+	div.well.well-sm
+		div.form-group
+			!=bs.label(__('Internal domain'), 'internal')
+			!=bs.textField(site, 'internal', {readonly : true})
+
+		div.form-group
+			!=bs.label(__("A record for primary domain"), 'ip')
+			!=bs.textField(attrs, 'ip', {readonly : true})
+
+.col-sm-3
+	.well.well-sm.text-center
+		a(href=help.url class="small" target="_blank")
+			!=bs.icon('question-sign')
+			=' '
+			=help.title

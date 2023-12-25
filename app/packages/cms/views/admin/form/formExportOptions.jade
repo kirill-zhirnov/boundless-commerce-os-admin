@@ -1,0 +1,9 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('cms/admin/form/exportOptions', params) method="POST" data-form="")
+		.form-group
+			!=bs.label(__('Form name'), 'form_id')
+			!=bs.dropDownList(attrs, 'form_id', options.form, i18n)
+
+		!=widget('system.formButtons.@c', buttons)

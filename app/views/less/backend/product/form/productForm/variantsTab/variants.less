@@ -1,0 +1,147 @@
+.variants {
+	margin-bottom: 15px;
+
+	.top-lnks {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+
+		.help {
+			margin-left: auto;
+		}
+	}
+
+	@media (min-width: @screen-sm-min) {
+		&.has-variants {
+			border-bottom: 1px solid #dddddd;
+		}
+	}
+
+	.variants-row {
+		.table {
+			thead {
+				th {
+					text-align: center;
+
+					&.col-checkbox {
+						label {
+							margin: 0;
+						}
+					}
+				}
+			}
+
+			tbody {
+				td {
+					text-align: center;
+
+					&.col-image {
+						width: 66px;
+						img{
+							width: 50px;
+							height: 50px;
+						}
+					}
+					&.col-checkbox {
+						width: 30px;
+					}
+
+					&.col-btns {
+						white-space: nowrap;
+						width: 140px;
+						min-width: 138px;
+					}
+
+					&.col-price {
+						@width: 136px;
+
+						min-width: @width;
+						vertical-align: middle;
+
+						.price-old {
+							color: @text-muted;
+							font-size: @font-size-small;
+							text-decoration: line-through;
+							margin-top: 5px;
+						}
+
+						.form-group {
+							margin: 0 auto;
+							max-width: (@width - 16px);
+
+							.input-group {
+								input {
+									width: 50%;
+									height: 26px;
+									padding: 2px 5px;
+
+									&.old {
+										color: @text-muted;
+										text-decoration: line-through;
+									}
+								}
+							}
+						}
+					}
+
+					&.col-stock {
+						.qty-wrapper {
+							position: relative;
+
+							.set-qty {
+								position: absolute;
+								top: 0;
+								left: 0;
+								background: @well-bg;
+								border: 1px solid @well-border;
+								padding: 5px;
+								width: 110px;
+
+								.form-group {
+									margin-bottom: 10px;
+									text-align: left;
+
+									&:last-child {
+										margin-bottom: 0;
+									}
+
+									label {
+										font-size: @font-size-small;
+									}
+
+									input {
+										text-align: center;
+									}
+								}
+							}
+						}
+
+						.reserved {
+							color: @text-muted;
+							font-size: @font-size-small;
+							white-space: nowrap;
+							margin-top: 5px;
+						}
+					}
+
+					&.col-sku {
+						color: @text-muted;
+					}
+
+					.as-inp {
+						border: 1px solid transparent;
+						display: block;
+						padding: 0 2px;
+						text-decoration: none;
+						color: @text-color;
+						min-height: 22px;
+
+						&:hover {
+							border-color: #ccc;
+						}
+					}
+				}
+			}
+		}
+	}
+}

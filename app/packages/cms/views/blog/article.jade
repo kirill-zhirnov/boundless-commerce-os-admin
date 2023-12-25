@@ -1,0 +1,28 @@
+if isAllowEdit
+	p
+		a(href=url('cms/admin/blog/form', {
+			pk: article_id,
+			inline: '1'
+		}) data-modal="" class="btn btn-default btn-sm")
+			!=bs.icon('pencil')
+			=' '
+			=__('Edit')
+
+article(
+	class="blog-article clearfix"
+	itemprop="blogPosts"
+	itemscope
+	itemtype="http://schema.org/BlogPosting"
+
+)
+	meta(itemprop="headline" content=title)
+	link(itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" href=currentUrl)
+
+	if image
+		!=gHtml.img(_.extend(image.m, {'class':'article-image','itemprop':"image",'itemscope':'itemscope','itemtype':"https://schema.org/url",alt:title}))
+
+	p(class="small text-muted" itemprop="datePublished" content=dateISO)
+		!=date
+
+	div.article-body(itemprop="articleBody")
+		!=content

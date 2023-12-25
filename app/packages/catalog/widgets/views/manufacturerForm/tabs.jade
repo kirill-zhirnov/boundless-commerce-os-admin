@@ -1,0 +1,19 @@
+extends /blocks/tabs.jade
+include ./forms/manufacturer
+include ./forms/seo
+
+block nav
+	- var disabledAttrs = {};
+
+	+tabLi('manufacturer', __('Manufacturer'), true)
+	+tabLi('manufacturer-logo', __('Logo'))(class="logo-nav-tab")&attributes(_.extend({
+		'data-tab-url': urlPk('catalog/admin/manufacturerImage/form?pk={pk}', forms.manufacturer.pk)
+	}, disabledAttrs))
+	+tabLi('seo', __('SEO'))
+
+block content
+	+tabBody('manufacturer', true)
+		+manufacturerForm(forms.manufacturer)
+	+tabBody('manufacturer-logo')
+	+tabBody('seo')
+		+seoForm(forms.seo)

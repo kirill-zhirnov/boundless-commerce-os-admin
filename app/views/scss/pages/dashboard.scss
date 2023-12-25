@@ -1,0 +1,14 @@
+.dashboard .sales-over-time {
+	canvas {
+		height: 400px;
+		max-height: 400px;
+	}
+
+	.chart-statuses {
+		@include media-breakpoint-up(md) {
+			margin-bottom: 24px;
+			max-height: 380px;
+			overflow-y: auto;
+		}
+	}
+}

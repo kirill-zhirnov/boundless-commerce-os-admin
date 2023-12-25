@@ -1,0 +1,9 @@
+!=gHtml.pk(pk)
+
+div(class="form-group")
+    !=bs.label(__('Field type'), 'type')
+    !=bs.dropDownList(attrs, 'type', options.type, i18n)
+
+div(class="characteristic-wrapper mb-3")
+
+=widget('system.formButtons.@c', buttons)

@@ -1,0 +1,87 @@
+mixin productTitle(product)
+	h1(class="header" itemprop="name")
+		=product.title
+	!=widget('catalog.productAnalytics.@c', {data: {product: product}})
+
+mixin productImgGallery(images)
+	!=widget('catalog.productImgs.@c', {data: {images: images}})
+
+mixin productEditLink(product)
+	if product.isAllowEdit && !__editMode
+		p.text-end.small
+			a(href=url('catalog/admin/product/form', {
+				pk: product.product.product_id
+			}) target="_blank")
+				=__('Edit product')
+				=' '
+				!=gHtml.faIcon('external-link')
+
+mixin productChooseVariant(product, variants, settings)
+	- var props = {product: product, variants: variants, settings: settings};
+	!=widget('system.vueApp.@c', {data: {app: 'catalog/product/chooseVariant', props: props}})
+
+mixin schemaAdditionalProperty(name, value, cases)
+	if _.isArray(cases)
+		- value = _.pluck(cases, 'value')
+
+	div(itemprop="additionalProperty" itemscope itemtype="http://schema.org/PropertyValue")
+		meta(itemprop="name" content=name)
+		meta(itemprop="value" content=value)
+
+mixin productSchemaOrg(product, characteristics, breadCrumbs, variants, images)
+	- var schemaInStock = "http://schema.org/InStock";
+	- var schemaOutOfStock = "http://schema.org/OutOfStock";
+	meta(itemprop="productID" content=product.product_id)
+	meta(itemprop="brand" content=product.manufacturer_title)
+	if product.sku
+		meta(itemprop="sku" content=product.sku)
+
+	if _.isArray(breadCrumbs) && breadCrumbs.length > 0
+		meta(itemprop="category" content=_.pluck(breadCrumbs, 'title').join('/'))
+
+	if product.hasVariants
+		each variant in variants.variants
+			div(itemprop="offers" itemscope itemtype="http://schema.org/Offer")
+				meta(itemprop="price" content=variant.price)
+				meta(itemprop="priceCurrency" content=locale.currency.toUpperCase())
+				//-meta(itemprop="priceValidUntil" content=product.priceValidUntil)
+				if variant.sku
+					meta(itemprop="sku" content=variant.sku)
+				if variant.title
+					meta(itemprop="name" content=variant.title)
+				link(itemprop="availability" href=(variant.inStock) ? schemaInStock : schemaOutOfStock)
+				link(itemprop="url" href=product.canonicalUrl)
+	else
+		div(itemprop="offers" itemscope itemtype="http://schema.org/Offer")
+			meta(itemprop="price" content=product.price)
+			meta(itemprop="priceCurrency" content=locale.currency.toUpperCase())
+			link(itemprop="availability" href=(product.inStock) ? schemaInStock : schemaOutOfStock)
+			link(itemprop="url" href=product.canonicalUrl)
+			//-meta(itemprop="priceValidUntil" content=product.priceValidUntil)
+
+	if characteristics.size.weight
+		div(itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue")
+			meta(itemprop="value" content=characteristics.size.weight)
+			meta(itemprop="unitText" content=__('kg.'))
+
+	if characteristics.size.width
+		div(itemprop="width" itemscope itemtype="http://schema.org/QuantitativeValue")
+			meta(itemprop="value" content=characteristics.size.width)
+			meta(itemprop="unitText" content=__('cm.'))
+
+	if characteristics.size.height
+		div(itemprop="height" itemscope itemtype="http://schema.org/QuantitativeValue")
+			meta(itemprop="value" content=characteristics.size.height)
+			meta(itemprop="unitText" content=__('cm.'))
+
+	if characteristics.size.length
+		div(itemprop="depth" itemscope itemtype="http://schema.org/QuantitativeValue")
+			meta(itemprop="value" content=characteristics.size.length)
+			meta(itemprop="unitText" content=__('cm.'))
+
+	each row in characteristics.attrs
+		if row.isFolder
+			each item in row.children
+				+schemaAdditionalProperty(item.title, item.value, item.cases)
+		else
+			+schemaAdditionalProperty(row.title, row.value, row.cases)

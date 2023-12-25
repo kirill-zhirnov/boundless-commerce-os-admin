@@ -1,0 +1,9 @@
+.row
+	.col-md-8.offset-md-2.col-lg-6.offset-lg-3.col-xxl-4.offset-xxl-4
+		if wixInstance
+			!=bs.alert('primary', 'You can find the password in your mailbox.', {class: 'mb-4'})
+
+		.bg-light.rounded.p-3
+			h1.mb-3 Sign in
+			form(method="post" action=url('@login') data-form="" name="login")
+				include ./formFields

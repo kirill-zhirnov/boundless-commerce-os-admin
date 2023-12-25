@@ -1,0 +1,5 @@
+mixin headerInjectionTab(data)
+	form(data-form="" autocomplete="off" name="headerInjection")
+		div(class="form-group")
+			!=bs.label(__('Page header content injection:'), 'headerInjection')
+			!=bs.textArea(data.attrs, 'headerInjection', {rows:"12", placeholder:__('The HTML code, which will be inserted before </head>')})

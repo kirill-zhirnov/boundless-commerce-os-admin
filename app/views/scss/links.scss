@@ -1,0 +1,7 @@
+.link-purple {
+	color: $c-link-purple;
+
+	&:hover {
+		color: darken($c-link-purple, 10%);
+	}
+}

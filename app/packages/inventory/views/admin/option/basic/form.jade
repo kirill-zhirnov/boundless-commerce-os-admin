@@ -1,0 +1,19 @@
+extends /blocks/modal.jade
+block body
+    form(action=action method="post" data-form="")
+        !=gHtml.pk(pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(attrs, 'title')
+
+        div(class="form-group")
+            !=bs.label(__('Alias'), 'alias')
+            !=bs.textField(attrs, 'alias')
+
+        if scenario == 'update'
+            div(class="form-group")
+                !=bs.label(__('Sort'), 'sort')
+                !=bs.textField(attrs, 'sort')
+
+        =widget('system.formButtons.@c')

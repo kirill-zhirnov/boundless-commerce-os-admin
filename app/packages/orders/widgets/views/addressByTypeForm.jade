@@ -1,0 +1,48 @@
+.row
+	.form-group.col-md-6
+		!=bs.label(__('First name'), 'first_name')
+		!=bs.textField(attrs, 'first_name')
+
+	.form-group.col-md-6
+		!=bs.label(__('Last name'), 'last_name')
+		!=bs.textField(attrs, 'last_name')
+
+.form-group
+	!=bs.label(__('Company'), 'company')
+	!=bs.textField(attrs, 'company')
+
+.form-group
+	!=bs.label(__('Address line 1'), 'address_line_1')
+	!=bs.textField(attrs, 'address_line_1')
+
+.form-group
+	!=bs.label(__('Address line 2'), 'address_line_2')
+	!=bs.textField(attrs, 'address_line_2')
+
+.row
+	.form-group.col-md-6
+		!=bs.label(__('City'), 'city')
+		!=bs.textField(attrs, 'city')
+
+	.form-group.col-md-6
+		!=bs.label(__('Postcode/ZIP'), 'zip')
+		!=bs.textField(attrs, 'zip')
+
+.row
+	.form-group.col-md-6
+		!=bs.label(__('Country'), 'country_id')
+		!=bs.dropDownList(attrs, 'country_id', options.country, i18n)
+
+	.form-group.col-md-6
+		!=bs.label(__('State'), 'state')
+		!=bs.textField(attrs, 'state')
+
+.form-group
+	!=bs.label(__('Phone'), 'phone')
+	!=bs.textField(attrs, 'phone', {'data-masked': ''})
+
+.form-group
+	!=bs.label(__('Comment'), 'comment')
+	!=bs.textArea(attrs, 'comment')
+
+!=widget('system.formButtons.@c', buttons)

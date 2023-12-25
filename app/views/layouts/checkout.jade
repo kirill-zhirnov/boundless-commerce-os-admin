@@ -1,0 +1,61 @@
+- var layoutClass = "step-" + step;
+div(id="layout" class=layoutClass data-layout=layout data-layout-rerender="true")
+	block header
+		header(id="checkout-header")
+			nav(class="container")
+				.content
+					a(href=url('orders/basket/index') class="to-basket small")
+						!=bs.icon('chevron-left')
+						=' '
+						=__('Back to basket')
+
+					.logo-wrapper
+						block logo
+							include $userViews/layouts/blocks/header/logo
+
+					.support-phone
+						if decor.contact && decor.contact.link
+							a(href=decor.contact.link)
+								!=bs.icon('earphone')
+								=' '
+								=decor.contact.view
+
+	#content-wrapper
+		div(class="container")
+			include /blocks/systemInContainer
+
+			if user && user.isAdmin
+				.is-admin-warning.row
+					.col-lg-8.offset-lg-2.col-md-10.offset-md-1
+						- var adminMakeOrderUrl = url('orders/admin/orders/form');
+						- var adminMakeOrderWarn = __('You are making order as administrator for yourself. <a href="%s">Click here</a> to make order for customer in admin interface.', [adminMakeOrderUrl]);
+						!=bs.alert('warning', gHtml.faIcon('exclamation-triangle') + ' ' + adminMakeOrderWarn, {class: 'small'})
+
+			!=widget('orders.checkoutProgressBar.@c')
+
+			.row.main-row
+				.basket-col.col-sm-4.col-md-3.col-sm-push-8.col-md-push-9
+					!=widget('system.vueApp.@c', {data: {app: 'orders/checkout/basket'}})
+
+				.content-col.col-sm-8.col-md-9.col-sm-pull-4.col-md-pull-3
+					#content
+						!=content
+
+	block footer
+		div#footer-checkout
+			if decor.salesArguments || decor.footerLinks
+				.container
+					.row.ground-row
+						.content-col.col-sm-8.col-md-9
+							if decor.footerLinks
+								p.links
+									each link in decor.footerLinks
+										a(href=link.url target="_blank")
+											=link.title
+
+						.basket-col.col-sm-4.col-md-3
+							if decor.salesArguments
+								div.sales-arguments
+									!=decor.salesArguments
+
+			.hr

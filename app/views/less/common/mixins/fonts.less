@@ -1,0 +1,29 @@
+#font-h1() {
+	font-family: @front-headings-font-family;
+	font-weight: @front-headings-font-weight;
+	color: @front-headings-color;
+
+	@min-font-size: (@front-h1-font-size * 0.7);
+	#fluid-type(font-size, @screen-xs-min, @screen-lg-min, @min-font-size, @front-h1-font-size);
+	#fluid-type(line-height, @screen-xs-min, @screen-lg-min, (1.25 * @min-font-size), (@front-headings-line-height * @front-h1-font-size));
+}
+
+#font-h2() {
+	font-family: @front-headings-font-family;
+	font-weight: @front-headings-font-weight;
+	color: @front-headings-color;
+
+	@min-font-size: (@front-h2-font-size * 0.7);
+	#fluid-type(font-size, @screen-xs-min, @screen-lg-min, @min-font-size, @front-h2-font-size);
+	#fluid-type(line-height, @screen-xs-min, @screen-lg-min, (1.25 * @min-font-size), (@front-headings-line-height * @front-h2-font-size));
+}
+
+#font-h3() {
+	font-family: @front-headings-font-family;
+	font-weight: @front-headings-font-weight;
+	color: @front-headings-color;
+
+	@min-font-size: (@front-h3-font-size * 0.7);
+	#fluid-type(font-size, @screen-xs-min, @screen-lg-min, @min-font-size, @front-h3-font-size);
+	#fluid-type(line-height, @screen-xs-min, @screen-lg-min, (1.25 * @min-font-size), (@front-headings-line-height * @front-h3-font-size));
+}

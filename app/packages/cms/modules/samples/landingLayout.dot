@@ -1,0 +1,4 @@
+extends /layouts/landing.jade
+
+block landing
+	v:container(id="page-{{=it.pageId}}" type="landing")

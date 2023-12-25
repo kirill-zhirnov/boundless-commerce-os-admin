@@ -1,0 +1,16 @@
+div.col-md-6.offset-md-3
+	form(method="post" action=url("system/admin/analytics/settings") data-form="" autocomplete="off")
+		div.form-group
+			!=bs.label(__('Google analytics tracking Id'), 'gaId')
+			!=bs.textField(data.attrs, 'gaId', {placeholder : 'UA-XXXXXXXX-X'})
+
+		div.form-group
+			!=bs.label(__('Yandex Metrika Id'), 'yaId')
+			!=bs.textField(data.attrs, 'yaId', {placeholder : 'XXXXXXXX'})
+
+		!=widget('system.formButtons.@c', data.buttons)
+
+	br
+	br
+
+	!=bs.alert('warning', __('If you want to track ecommerce, you need to enable enhanced ecommerce in your GA account or Yandex Metrika.'))

@@ -1,0 +1,57 @@
+extends /blocks/modal.jade
+block body
+	form(data-form="" action=url('orders/admin/setup/delivery/formRusSnailMail'))
+		!=gHtml.pk(formData.pk)
+
+		div(class="form-group")
+			!=bs.label(__('Title'), 'title')
+			!=bs.textField(formData.attrs, 'title')
+
+			p(class="form-text")
+				=__('The title will be shown to your customer as a shipping method title.')
+
+		div(class="form-group")
+			!=bs.label(__('Description'), 'description')
+			!=bs.textArea(formData.attrs, 'description', {placeholder: __('You can use <b>HTML tags</b>.')})
+
+		.row
+			.col-sm-8
+				.well.well-sm
+					h4
+						!=bs.icon('globe')
+						=' '
+						=__('Access for edost.ru')
+
+					div(class="form-group")
+						!=bs.label(__('Shop Id'), 'edostId')
+						!=bs.textField(formData.attrs, 'edostId')
+
+					div(class="form-group")
+						!=bs.label(__('Password for API'), 'edostPass')
+						!=bs.textField(formData.attrs, 'edostPass')
+
+			.col-sm-4
+				div(class="form-group")
+					!=bs.label(__('Default price'), 'defaultPrice')
+					!=bs.textField(formData.attrs, 'defaultPrice')
+					p.form-text.small
+						=__('Default price is needed if edost.ru server is not used.')
+
+		.form-group
+			!=bs.label(__('VAT'), 'tax')
+			!=bs.dropDownList(formData.attrs, 'tax', formData.options.tax)
+
+			p.form-text
+				=p__('shipping', 'Vat will be used in receipt.')
+
+		- var classes = [];
+		if _.isUndefined(formData.attrs.sort) || formData.attrs.sort === null || formData.attrs.sort == ''
+			- classes.push('none')
+
+		div(class="form-group sort-group" class=classes)
+			!=bs.label(__('Sort'), 'sort')
+			!=bs.textField(formData.attrs, 'sort')
+			p.form-text
+				=__('Delivery methods are shown to customers sorted by sort field.')
+
+		!=widget('system.formButtons.@c', formData.buttons)

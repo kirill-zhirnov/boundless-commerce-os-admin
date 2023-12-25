@@ -1,0 +1,64 @@
+.orders-grid-widget {
+	.filter {
+		.second-row {
+			display: none;
+		}
+
+		.toggle-row {
+			.hide-filters {
+				display: none;
+			}
+		}
+
+		&.second-opened {
+			.toggle-row {
+				.show-filters {
+					display: none;
+				}
+
+				.hide-filters {
+					display: inline-block;
+				}
+			}
+		}
+	}
+
+	.column-order_id {
+		width: 150px;
+	}
+
+	.column-total {
+		max-width: 160px;
+	}
+
+	.column-country_id {
+		max-width: 200px;
+	}
+
+	.column-address {
+		p {
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	.column-customer {
+		p {
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+	td {
+		&.column-status {
+			font-size: @font-size-small;
+			text-align: center;
+		}
+
+		&.column-shipping {
+			text-align: center;
+		}
+	}
+}

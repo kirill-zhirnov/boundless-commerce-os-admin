@@ -1,0 +1,16 @@
+.row
+	.col-md-8.offset-md-2.col-lg-6.offset-lg-3.col-xxl-4.offset-xxl-4
+		.bg-light.rounded.p-3
+			h1.mb-3 Password restore
+			form(method="post" data-form="" name="restore" action=url("auth/restore/email"))
+				div(class="form-group")
+					!=bs.label(__('Enter your email address'), "email")
+					!=bs.textField({}, "email", {required : true, autofocus : true, type: 'email', autocomplete: 'email'})
+
+				.text-end.mb-2
+					button(type="submit" class="btn btn-primary")
+						!=gHtml.faIcon('refresh')
+						=' '
+						!=__('Restore password')
+
+				a(href=url('auth/login/form'))=__('Back to the login page')

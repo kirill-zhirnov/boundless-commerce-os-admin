@@ -1,0 +1,19 @@
+if !availableGateways.length
+	!=bs.alert('warning', __('You have already added all available payment gateways.'))
+
+.list-group
+	each gateway in availableGateways
+		a.list-group-item.list-group-item-action(
+			href="#"
+			class="alias-" + gateway.alias
+			data-id=gateway.payment_gateway_id
+		)
+			h5.mb-1
+				div.payment-gateway-logo
+				=gateway.title
+
+			p.description.mb-0
+				!=gateway.description
+
+.form-group
+	!=gHtml.hiddenField('payment_gateway_id', '')

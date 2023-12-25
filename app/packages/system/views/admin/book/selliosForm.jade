@@ -1,0 +1,24 @@
+extends /blocks/modal.jade
+
+block body
+    form(data-form="" action=url('system/admin/book/sellios') method="post")
+        div(class="row")
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label('Имя', 'name')
+                    !=bs.textField(attrs, 'name')
+
+            div(class="col-md-6")
+                div(class="form-group")
+                    !=bs.label('Телефон', 'phone')
+                    !=bs.textField(attrs, 'phone', {placeholder: '+79031234567'})
+
+        div(class="form-group")
+            !=bs.label('Домен', 'domain')
+            !=bs.textField(attrs, 'domain', {placeholder : 'www.your-domain.com'})
+
+        div(class="form-group")
+            !=bs.label('Комментарий', 'comment')
+            !=bs.textArea(attrs, 'comment', {placeholder : 'Ваши вопросы, комментарии и пожелания'})
+
+        !=widget('system.formButtons.@c', buttons)

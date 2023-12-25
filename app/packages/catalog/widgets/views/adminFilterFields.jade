@@ -1,0 +1,11 @@
+div(class="clearfix")
+	h4(class="pull-left")
+		=__('Filter fileds')
+
+	p(class="pull-right")
+		a(href=url('catalog/admin/filter/addField', {filter: filter}) data-modal="" class="btn btn-secondary btn-sm")
+			!=gHtml.faIcon('plus')
+			=' '
+			=__('Add filter field')
+
+div(class="tree-view")

@@ -1,0 +1,9 @@
+!=bs.alert('success', __('Your order #%s was successfully paid. Thank you!', [orderData.order.order_id]))
+
+!=widget('orders.order.@c', {data: orderData})
+
+p.text-center
+	a(class="btn btn-default" href=url("@client-dashboard"))
+		!=bs.icon('home')
+		=' '
+		!=__("My orders")

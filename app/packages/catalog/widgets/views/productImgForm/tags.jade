@@ -1,0 +1,10 @@
+ul.list-unstyled.image-tags
+	each tag in attrs.tags
+		li.image-tags__tag=tag.title
+			.tag-remove(data-id=tag.image_tag_id)
+				!=gHtml.faIcon('times')
+
+		if tag.isNew
+			!=gHtml.hiddenField('tag_titles[]', tag.title)
+		else
+			!=gHtml.hiddenField('tag_ids[]', tag.image_tag_id)

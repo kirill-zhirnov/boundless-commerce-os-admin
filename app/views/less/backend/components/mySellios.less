@@ -1,0 +1,147 @@
+.my-sellios {
+	.payment-form {
+		margin-bottom: 30px;
+
+		@tariff-width: 170px;
+		@tariff-gap: 10px;
+
+		@font-size-big: 125%;
+		@highlight-color: #c1272d;
+		@highlight-color-selected: #ece959;
+
+		.tariffs-group {
+			.tariffs {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				justify-content: center;
+				margin: -10px 0 30px 0;
+
+				@media (min-width: @screen-xs-min) {
+					justify-content: space-between;
+				}
+
+				.tariff {
+					cursor: pointer;
+					box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+					color: #000;
+					text-decoration: none;
+					width: 80%;
+					margin: 10px 0;
+
+					@media (min-width: @screen-xs-min) {
+						width: 48%;
+					}
+
+					@media (min-width: @screen-sm-min) {
+						width: 32%;
+					}
+
+					&.selected {
+						border-color: #337ab7;
+
+						.title {
+							border-color: #337ab7;
+							background: #337ab7;
+							color: #fff;
+
+							.price {
+								.old {
+									color: #fff;
+								}
+
+								&.discount {
+									.final {
+										color: @highlight-color-selected;
+									}
+								}
+							}
+
+							.calc {
+								color: #fff;
+							}
+
+							.you-save {
+								color: @highlight-color-selected;
+							}
+						}
+					}
+
+					.title {
+						border: 1px solid #ddd;
+						border-bottom: 0;
+						background: #f5f5f5;
+						border-top-left-radius: 4px;
+						border-top-right-radius: 4px;
+						padding: 5px 10px;
+
+						.name {
+							font-weight: bold;
+							font-size: @font-size-big;
+						}
+
+						.price {
+							font-size: 120%;
+
+							.old {
+								display: inline-block;
+								text-decoration: line-through;
+								color: @text-muted;
+								margin: 0 2px 0 0;
+							}
+
+							&.discount {
+								.final {
+									color: @highlight-color;
+								}
+							}
+						}
+
+						.calc {
+							margin: 0 0 5px 0;
+							color: @text-muted;
+						}
+
+						.you-save {
+							margin: 5px 0 0 0;
+							color: @highlight-color;
+						}
+					}
+
+					.desc {
+						padding: 5px 10px;
+						border: 1px solid #ddd;
+						border-bottom-left-radius: 4px;
+						border-bottom-right-radius: 4px;
+					}
+				}
+			}
+		}
+
+		.periods {
+			margin-bottom: 30px;
+
+			.period {
+				margin-top: 15px;
+				margin-bottom: 15px;
+
+				label {
+					.title {
+						font-weight: bold;
+						font-size: @font-size-big;
+					}
+
+					.discount {
+						color: @highlight-color;
+						vertical-align: super;
+						font-size: 85%;
+					}
+				}
+
+				.comment {
+					margin-top: 5px;
+				}
+			}
+		}
+	}
+}

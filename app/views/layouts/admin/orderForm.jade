@@ -1,0 +1,7 @@
+extends ../admin
+
+block topNav
+	!=widget('system.vueApp.@c', {className: 'order-top-nav', data: {app: 'orders/form/topNav', props: orderData}})
+
+block content
+	!=widget('system.vueApp.@c', {className: 'general-content order-form', data: {app: 'orders/form/orderForm', props: orderData}})

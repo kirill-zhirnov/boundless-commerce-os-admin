@@ -1,0 +1,17 @@
+div(class="favicon-form")
+	if !favicon || favicon == ''
+		p(class="nofavicon text-center")=__("There is no favicon")
+		div(class="img" style="display: none;")
+	else
+		div(class="img" style='background-image: url(' + favicon + ')')
+
+	p.lead
+		=__('We recommend to upload PNG image 260x260 or more for optimal results.')
+
+	div(class="admin-dropzone")
+		div(class="dropzone-uploader dropzone")
+
+	if !isBackend
+		div(class="buttons")
+			button(class="btn btn-default" type="button" data-modal-close="")
+				!=__("Close")

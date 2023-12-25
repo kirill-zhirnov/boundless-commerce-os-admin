@@ -1,0 +1,14 @@
+extends /blocks/modal.jade
+
+block body
+    div(class="well well-sm small")
+        each item in forms.variant.variantCharacteristics
+            p
+                b=item.title
+                =': '
+                =item.case_title
+
+    section(data-form-group=url('catalog/admin/product/variant/variantForm'))
+        include ./variantForm/tabs
+
+        !=widget('system.formButtons.@c')

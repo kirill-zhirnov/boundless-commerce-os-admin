@@ -1,0 +1,11 @@
+mixin variantForm(data)
+    form(method="post" data-form="" class="variant-form" name="variant")
+        !=gHtml.pk(data.pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(data.attrs, 'title')
+
+        div(class="form-group")
+            !=bs.label(__('Sku'), 'sku')
+            !=bs.textField(data.attrs, 'sku')

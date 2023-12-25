@@ -1,0 +1,11 @@
+mixin collectionForm(data)
+	form(name="collection" method="post" data-form="" autocomplete="off")
+		!=gHtml.pk(data.pk)
+
+		.form-group
+			!=bs.label(__('Title'), 'title')
+			!=bs.textField(data.attrs, 'title')
+
+		.form-group
+			!=bs.label(__('Alias'), 'alias')
+			!=bs.textField(data.attrs, 'alias')

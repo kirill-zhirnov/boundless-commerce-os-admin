@@ -1,0 +1,59 @@
+.backend {
+	.dashboard {
+		.dashboard-item {
+			margin-bottom: (@padding-large-vertical * 2);
+
+			canvas {
+				max-height: 200px;
+				height: 200px;
+			}
+
+			&.orders-by-day {
+				canvas {
+					height: 300px;
+					max-height: 300px;
+				}
+
+				.orders-summary {
+					th {
+						text-align: right;
+					}
+
+					td {
+						text-align: center;
+					}
+				}
+			}
+
+			&.stock-by-categories {
+				.categories {
+					display: flex;
+					flex-wrap: wrap;
+					justify-content: center;
+					align-items: flex-start;
+
+					.category {
+						width: 300px;
+						padding: 15px;
+
+						@media (min-width: @screen-sm-min) {
+							width: 45%;
+						}
+
+						.qty, .price {
+							text-align: center;
+						}
+
+						.sub {
+							font-size: @font-size-small;
+
+							.title {
+								padding-left: 25px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

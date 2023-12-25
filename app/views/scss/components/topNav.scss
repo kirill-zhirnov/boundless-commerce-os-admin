@@ -1,0 +1,128 @@
+.order-top-nav,
+.product-top-nav {
+	z-index: $z-index-top-nav;
+
+	.color-wrapper {
+		padding-left: 0;
+
+		@include media-breakpoint-up(lg) {
+			padding-left: 24px;
+			padding-right: 24px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			padding-left: 272px;
+			padding-right: 32px;
+		}
+	}
+
+	.container-wrapper {
+		margin: 0 auto;
+		max-width: 1320px;
+		padding: 0 12px;
+		width: 100%;
+
+		@include media-breakpoint-up(lg) {
+			padding: 0;
+		}
+	}
+
+	.tabs {
+		background: #fff;
+		border-bottom: 1px solid #e5e5e5;
+		border-left: none;
+		border-right: none;
+		left: 0;
+		padding: 0;
+
+		position: fixed;
+		top: 51px;
+		width: 100%;
+		z-index: $z-index-top-nav;
+
+		@include media-breakpoint-up(lg) {
+			border-left: 1px solid #e5e5e5;
+			padding: 0 24px;
+		}
+		@include media-breakpoint-up(xl) {
+			left: 240px;
+			padding: 0 32px;
+			width: calc(100% - 240px);
+		}
+
+		.tabs-content {
+			align-items: stretch;
+			display: flex;
+			flex-direction: row;
+			height: 40px;
+			justify-content: flex-start;
+			margin: 0 auto;
+			max-width: 1320px;
+			padding: 0;
+			width: 100%;
+		}
+
+		li {
+			border-left: 1px solid #e5e5e5;
+			width: 33%;
+
+			&:first-of-type {
+				border-left: none;
+				@include media-breakpoint-up(lg) {
+					border-left: 1px solid #e5e5e5;
+				}
+			}
+
+			&:last-of-type {
+				border-right: 0;
+				width: 34%;
+			}
+
+			&.active {
+				background: #f8f8f8;
+			}
+
+			&.error {
+				background: #f2dede !important;
+			}
+
+			a {
+				align-items: center;
+				display: flex;
+				height: 100%;
+				justify-content: center;
+				text-align: center;
+			}
+
+			&:last-of-type {
+				@include media-breakpoint-up(lg) {
+					border-right: 1px solid #e5e5e5;
+				}
+			}
+		}
+	}
+}
+
+html.is-short-menu .order-top-nav .color-wrapper,
+html.is-short-menu .product-top-nav .color-wrapper {
+	padding-left: 0;
+
+	@include media-breakpoint-up(lg) {
+		padding-left: 24px;
+		padding-right: 24px;
+	}
+
+	@include media-breakpoint-up(xl) {
+		padding-left: 112px;
+		padding-right: 32px;
+	}
+
+	.tabs {
+		left: 0;
+
+		@include media-breakpoint-up(xl) {
+			left: 80px;
+			width: calc(100% - 80px);
+		}
+	}
+}

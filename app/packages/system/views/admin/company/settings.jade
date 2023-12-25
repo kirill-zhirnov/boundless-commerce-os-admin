@@ -1,0 +1,61 @@
+form(
+	method="post"
+	action=url("system/admin/company/requisites")
+	data-form=""
+	class="company-requisites"
+)
+	!=bs.alert('info', __('Requisites will be used for printing documents and YML generation.'))
+
+	.row
+		.col-sm-6
+			.page-header
+				h4=p__('company','Common data')
+
+			div.form-group
+				!=bs.label(__('Store name'), 'name')
+				!=bs.textField(data,'name')
+
+			div.form-group
+				!=bs.label(__('Legal entity'), 'company')
+				!=bs.textField(data, 'company')
+				p.form-text=__('E.g. OOO "Flowers"')
+
+			div.form-group
+				!=bs.label(__('Tax identification number'), 'taxNumber')
+				!=bs.textField(data, 'taxNumber')
+
+			div.form-group
+				!=bs.label(__('Bank details'), 'bankDetails')
+				!=bs.textArea(data, 'bankDetails')
+
+			div.form-group
+				!=bs.label(__('Address'), 'address')
+				!=bs.textField(data, 'address')
+
+		.col-sm-6
+			.page-header
+				h4 Данные для товарной накладной Торг-12
+
+			label Отпуск разрешил
+			.row
+				.col-sm-6.form-group
+					!=bs.textField(data, 'deliveryAllowedByPosition', {placeholder:'Должность'})
+
+				.col-sm-6.form-group
+					!=bs.textField(data, 'deliveryAllowedByName', {placeholder: 'Расшифровка подписи'})
+
+			.form-group
+				label Главный (старший) бухгалтер
+				!=bs.textField(data, 'accountantName', {placeholder: 'Расшифровка подписи'})
+
+			label Отпуск груза произвёл
+			.row
+				.col-sm-6.form-group
+					!=bs.textField(data, 'deliveredByPosition', {placeholder: 'Должность'})
+
+				.col-sm-6.form-group
+					!=bs.textField(data, 'deliveredByName', {placeholder: 'Расшифровка подписи'})
+
+	br
+
+	!=widget('system.formButtons.@c', buttons)

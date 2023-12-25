@@ -1,0 +1,19 @@
+.backend {
+	.CodeMirror {
+		&.cm-s-default {
+			border: 1px solid @input-border;
+			border-radius: 0.25rem;
+		}
+	}
+
+	.form-group {
+		&.has-error {
+			.CodeMirror {
+				&.cm-s-default {
+					border-color: @state-danger-text;
+					border-radius: 0.25rem;
+				}
+			}
+		}
+	}
+}

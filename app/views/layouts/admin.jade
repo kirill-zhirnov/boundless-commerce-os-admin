@@ -1,0 +1,22 @@
+include /mixins/common
+
+div(id="layout" data-layout=layout)
+	block topNav
+		include ./admin/header
+
+	main.page-main
+		!=widget('system.adminMenu.@c', {data: {currentMenuUrl: currentMenuUrl}})
+		!=widget('system.hamburgerMenu.@c', {data: {currentMenuUrl: currentMenuUrl}})
+		!=widget('system.alerts.@c')
+
+		block content
+			.general-content
+				.content
+					h1#header
+						=page.header
+
+					#content
+						!=content
+
+		!=widget('system.toTop.@c')
+		!=widget('system.analytics.@c')

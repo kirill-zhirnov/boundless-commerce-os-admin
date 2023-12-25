@@ -1,0 +1,110 @@
+.product-form {
+	.additions-tab {
+		.cross-sell {
+			.head {
+				display: flex;
+				//justify-content: space-between;
+				align-items: center;
+				flex-wrap: wrap;
+
+				a {
+					margin: 10px 0 10px auto;
+				}
+			}
+
+			margin-bottom: @padding-between-blocks;
+
+			.products {
+				display: flex;
+				flex-wrap: wrap;
+				align-items: flex-start;
+				margin: 0 -10px;
+
+				li {
+					margin: 10px;
+					width: 90px;
+					position: relative;
+					cursor: grab;
+
+					.img {
+						margin: 0 0 10px 0;
+
+						img {
+							display: block;
+							max-width: 100%;
+							height: auto;
+						}
+					}
+
+					.title {
+						display: inline-block;
+						max-height: 35px;
+						text-overflow: ellipsis;
+						overflow: hidden;
+					}
+
+					.rm {
+						position: absolute;
+						top: -2px;
+						right: -2px;
+						width: 17px;
+						height: 17px;
+						background: #fff;
+						text-align: center;
+						border-radius: 10px;
+						color: @text-muted;
+						display: flex;
+						border: 1px solid #ccc;
+						font-size: 11px;
+						text-decoration: none;
+
+						justify-content: center;
+						align-items: center;
+					}
+
+					.select {
+						background: #ccc;
+						position: absolute;
+						top: -2px;
+						left: -2px;
+						padding: 2px;
+						margin: 0;
+
+						input {
+							margin: 0;
+							padding: 0;
+						}
+					}
+
+					&.sortable-placeholder {
+						background: @state-warning-bg;
+						height: 100px;
+					}
+
+					&.ui-sortable-helper {
+						cursor: grabbing;
+						transform: scale(0.8);
+					}
+
+					&.add {
+						cursor: default;
+						height: 100px;
+						display: flex;
+						flex-direction: column;
+						justify-content: center;
+						align-items: center;
+
+						a {
+							font-size: 38px;
+						}
+					}
+				}
+			}
+
+			.with-selected {
+				display: inline-block;
+				margin-left: 20px;
+			}
+		}
+	}
+}

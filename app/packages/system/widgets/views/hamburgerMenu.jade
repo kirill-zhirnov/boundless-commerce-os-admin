@@ -1,0 +1,15 @@
+include ./adminMenu/mixins
+
+.hamburger-menu__overlay
+.left-sidebar__wrapper
+	.hamburger-menu__hide-btn
+		a.btn.custom-btn.custom-btn_icon-square(href="#")
+			span.ico.ico_size_20.ico_chevron-left
+
+	.left-sidebar__top-line
+		!=widget('auth.loginNavBar.@c')
+		a(href="https://help.boundless-commerce.com/books/user-guide" class="btn btn_help custom-btn custom-btn_icon")
+			span.ico.ico_help-circle._purple
+
+	+adminMenu(generalMenu.menu)(class="menu-work")
+	+adminMenu(settingsMenu.menu)(class="menu-work settings")

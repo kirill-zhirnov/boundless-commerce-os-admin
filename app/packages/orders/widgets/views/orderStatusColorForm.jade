@@ -1,0 +1,49 @@
+!=gHtml.pk(pk)
+
+.form-group
+	!=bs.label(__('Title'), 'title')
+	!=bs.textField(attrs, 'title')
+
+.form-group
+	!=bs.label(__('Stock status'), 'stock_location')
+	!=bs.dropDownList(attrs, 'stock_location', options.stock, i18n)
+
+if scenario === 'update'
+	.form-group
+		!=bs.label(__('Alias'), 'alias')
+		!=bs.textField(attrs, 'alias', {readonly: true})
+
+.form-group.wd-colors
+	!=bs.label(__('Background color'), 'background_color')
+	div(class="row")
+		div(class="col-sm-6")
+			ul
+				li(style="background-color: #b60205")
+				li(style="background-color: #d93f0b")
+				li(style="background-color: #fbca04")
+				li(style="background-color: #0e8a16")
+				li(style="background-color: #006b75")
+				li(style="background-color: #1d76db")
+				li(style="background-color: #0052cc")
+				li(style="background-color: #5319e7")
+				li(style="background-color: #e99695")
+				li(style="background-color: #f9d0c4")
+				li(style="background-color: #fef2c0")
+				li(style="background-color: #c2e0c6")
+				li(style="background-color: #bfdadc")
+				li(style="background-color: #c5def5")
+				li(style="background-color: #bfd4f2")
+				li(style="background-color: #d4c5f9")
+
+		- if (typeof attrs.background_color !== 'string') attrs.background_color = '#b60205'
+		- if (attrs.background_color.length === 6 ) attrs.background_color = '#' + attrs.background_color.toLowerCase()
+
+		div(class="col-sm-6 position-relative")
+			div(class="color-current" style="background-color: " + attrs.background_color)
+			!=bs.textField(attrs, 'background_color', {maxlength: 7})
+
+.form-group
+	!=bs.label(__('Sort'), 'sort')
+	!=bs.textField(attrs, 'sort')
+
+!=widget('system.formButtons.@c', buttons)

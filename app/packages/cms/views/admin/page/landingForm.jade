@@ -1,0 +1,8 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('cms/admin/page/landingForm') data-form="" autocomplete="off")
+		!=gHtml.pk(data.pk)
+
+		include ./pageForm/tabs.jade
+
+		!=widget('system.formButtons.@c', data.buttons)

@@ -1,0 +1,34 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('system/admin/cms/mainPageSeo') autocomplete="off" method="POST" data-form="" class="main-page-seo")
+		div(class="form-group")
+			!=bs.label(p__('seoForm', 'Title'), 'title')
+			!=bs.textField(data.attrs, 'title')
+
+		div(class="form-group")
+			!=bs.label(__('Meta description'), 'description')
+			!=bs.textArea(data.attrs, 'description')
+
+		div(class="form-group")
+			!=bs.label(__('Meta keywords'), 'keywords')
+			!=bs.textArea(data.attrs, 'keywords')
+
+		if data.attrs.mainPage
+			.page-header
+				h4
+					!=bs.icon('home')
+					=' '
+					=__('Main page')
+
+			div(class="form-group")
+				p
+					=__('The page "%s" is used as Main page', [data.attrs.mainPageTitle])
+
+				.checkbox.form-check
+					label(class="form-check-label")
+						!=gHtmlActive.checkbox(data.attrs, 'resetMain')
+						=' '
+						=__('Revert main page by default')
+
+		!=widget('system.formButtons.@c', data.buttons)

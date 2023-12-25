@@ -1,0 +1,51 @@
+$order-items-col-qty-width: 100px;
+$order-items-col-total-width: 120px;
+$order-items-col-rm-width: 40px;
+
+@import './orderForm/items';
+@import './orderForm/section';
+@import './orderForm/customer';
+
+.order-form {
+	margin: 90px 0 0 0;
+	width: 100%;
+
+	&__top-links {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		margin: 0 0 1.5rem 0;
+
+		a {
+			font-size: $small-font-size;
+			color: $text-muted;
+			margin: 0.4rem 0.8rem;
+
+			&:first-child {
+				margin-left: 0;
+			}
+
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+
+	&__tabs-body {
+		margin: 0 0 1.5rem 0;
+	}
+
+	&__tinted-box {
+		margin: 0 0 2rem 0;
+		padding: 1rem;
+		background: #f8f8f8;
+		border-radius: 10px;
+	}
+
+	.contact-overflow {
+		display: inline-block;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+}

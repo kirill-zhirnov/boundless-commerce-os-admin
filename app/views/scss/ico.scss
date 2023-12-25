@@ -1,0 +1,58 @@
+.ico {
+	display: inline-block;
+	flex-shrink: 0;
+	font-size: 0;
+	height: 24px;
+	line-height: 0;
+	position: relative;
+	width: 24px;
+
+	&_size {
+		&_15 {
+			height: 15px;
+			width: 15px;
+		}
+
+		&_16 {
+			height: 16px;
+			width: 16px;
+		}
+
+		&_17 {
+			height: 17px;
+			width: 17px;
+		}
+
+		&_19 {
+			height: 19px;
+			width: 19px;
+		}
+
+		&_20 {
+			height: 20px;
+			width: 20px;
+		}
+
+		&_21 {
+			height: 21px;
+			width: 21px;
+		}
+	}
+
+
+
+	@each $name, $colors in $icons-base {
+		&_#{$name} {
+			background: url('../../../assets/images/icons/#{$name}.svg') center center / 100% 100% no-repeat;
+
+			@each $color-value in $colors {
+				@if $color-value != base {
+					&._#{"" + $color-value} {
+						background: url('../../../assets/images/icons/#{$name}-#{$color-value}.svg') center center / 100% 100% no-repeat;
+					}
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,19 @@
+mixin editPageLink(page, isAllowEdit)
+	if isAllowEdit
+		p
+			a(href=url('cms/admin/page/form', {
+				pk: page.page_id,
+				inline: 1
+			}) data-modal="" class="btn btn-default btn-sm")
+				!=bs.icon('pencil')
+				=' '
+				=__('Edit page')
+
+			if !__editMode
+				=' '
+				a(href=url('theme/admin/customize/active', {
+					url : page.url
+				}) class="btn btn-default btn-sm")
+					!=bs.icon('file')
+					=' '
+					=__('Edit page layout')

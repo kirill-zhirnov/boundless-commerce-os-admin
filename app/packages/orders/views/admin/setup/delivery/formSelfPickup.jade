@@ -1,0 +1,27 @@
+extends /blocks/modal.jade
+block body
+    form(autocomplete="off" data-form="" action=url('orders/admin/setup/delivery/formSelfPickup'))
+        !=gHtml.pk(formData.pk)
+
+        div(class="form-group")
+            !=bs.label(__('Title'), 'title')
+            !=bs.textField(formData.attrs, 'title')
+
+            p(class="form-text")
+                =__('The title will be shown to your customer as a shipping method title.')
+
+        div(class="form-group")
+            !=bs.label(__('Address point of self pickup'), 'address')
+            !=bs.textArea(formData.attrs, 'address')
+
+        - var classes = [];
+        if _.isUndefined(formData.attrs.sort) || formData.attrs.sort === null || formData.attrs.sort == ''
+            - classes.push('none')
+
+        div(class="form-group sort-group" class=classes)
+            !=bs.label(__('Sort'), 'sort')
+            !=bs.textField(formData.attrs, 'sort')
+            p.form-text
+                =__('Delivery methods are shown to customers sorted by sort field.')
+
+        !=widget('system.formButtons.@c', formData.buttons)

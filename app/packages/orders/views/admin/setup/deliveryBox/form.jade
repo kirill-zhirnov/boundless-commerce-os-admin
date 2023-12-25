@@ -1,0 +1,26 @@
+extends /blocks/modal.jade
+
+block body
+	- var params = attrs.box_id ? { pk: attrs.box_id } : {}
+	form(autocomplete="off" data-form="" action=url('orders/admin/setup/deliveryBox/form', params))
+		.form-group
+			!=bs.label(__('Title'), 'title')
+			!=bs.textField(attrs, 'title')
+
+		.row
+			.col-xs-4
+				.form-group
+					!=bs.label(__('Width (cm.)'), 'width')
+					!=bs.textField(attrs, 'width', {type: 'number', min: 0, lang: 'en'})
+
+			.col-xs-4
+				.form-group
+					!=bs.label(__('Height (cm.)'), 'height')
+					!=bs.textField(attrs, 'height', {type: 'number', min: 0, lang: 'en'})
+
+			.col-xs-4
+				.form-group
+					!=bs.label(__('Length (cm.)'), 'length')
+					!=bs.textField(attrs, 'length', {type: 'number', min: 0, lang: 'en'})
+
+		!=widget('system.formButtons.@c', buttons)

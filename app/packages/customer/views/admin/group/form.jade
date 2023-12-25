@@ -1,0 +1,14 @@
+extends /blocks/modal.jade
+block body
+    form(action=url('customer/admin/group/form') method="post" data-form="" autocomplete="off")
+        !=gHtml.pk(pk)
+
+        div(class="form-group")
+            !=bs.label(__('Group title'), 'title')
+            !=bs.textField(attrs, 'title')
+
+        div(class="form-group")
+            !=bs.label(__('Alias'), 'alias')
+            !=bs.textField(attrs, 'alias')
+
+        =widget('system.formButtons.@c', buttons)

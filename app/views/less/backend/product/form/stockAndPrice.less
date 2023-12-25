@@ -1,0 +1,70 @@
+.set-stock {
+	.form-group {
+		label {
+			.stock {
+				color: @text-muted;
+				font-weight: normal;
+			}
+		}
+
+		.qty {
+			display: flex;
+			flex-direction: row;
+
+			.input-group {
+				max-width: 135px;
+
+				.form-control {
+					text-align: center;
+				}
+			}
+
+			.diff {
+				margin: 0 0 0 15px;
+				background: @alert-success-bg;
+				color: @state-success-text;
+				padding: 0 10px;
+
+				display: flex;
+				align-items: center;
+
+				&.negative {
+					background: @alert-danger-bg;
+					color: @state-danger-text;
+				}
+			}
+
+			.totals {
+				white-space: nowrap;
+				margin: 0 0 0 15px;
+				line-height: 1.35;
+
+				.reserved {
+					color: @text-muted;
+				}
+			}
+		}
+	}
+}
+
+.set-prices {
+	.form-group {
+		&.has-old {
+			label {
+				.old {
+					text-decoration: line-through;
+					color: @text-muted;
+				}
+			}
+
+			.form-control {
+				width: 50%;
+
+				&.old {
+					text-decoration: line-through;
+					color: @text-muted;
+				}
+			}
+		}
+	}
+}

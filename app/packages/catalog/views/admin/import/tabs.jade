@@ -1,0 +1,13 @@
+extends /blocks/tabs.jade
+
+include ./tabs/file
+
+block nav
+	+tabLi('import-file', gHtml.faIcon('cloud-upload') + ' ' + __('Import from file'), true)
+	//+tabLi('import-schedule', bs.icon('time') + ' ' + __('Import by schedule'))&attributes({'data-tab-url': url('catalog/admin/import/schedule')})
+	+tabLi('import-result', __('Import results'))&attributes({'data-tab-url': url('catalog/admin/import/resultGrid')})
+block content
+	+tabBody('import-file', true)
+		+importFile()
+	//+tabBody('import-schedule')
+	+tabBody('import-result')

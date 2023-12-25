@@ -1,0 +1,11 @@
+extends /blocks/tabs
+
+block nav
+	+tabLi('campaign', __('Campaign settings'), true)
+	+tabLi('stat', __('Statistics'))
+
+block content
+	+tabBody('campaign')(class="active")
+		!=widget('orders.couponForm.@c', {data: formData})
+	+tabBody('stat')
+		include ./statistics

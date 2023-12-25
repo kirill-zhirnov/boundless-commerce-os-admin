@@ -1,0 +1,75 @@
+.img-resize-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: #fff;
+	visibility: hidden;
+	opacity: 0;
+	transform: scale(0.8);
+	transition: all 0.3s;
+	z-index: @zindex-img-resize-modal;
+	overflow: scroll;
+
+
+	&.show-modal {
+		transform: scale(1);
+		opacity: 1;
+		visibility: visible;
+	}
+
+	.container {
+		.page-header {
+			position: relative;
+
+			.close-me {
+				position: absolute;
+				right: 0;
+				top: 0;
+				font-size: 26px;
+				color: #ccc;
+			}
+		}
+
+		.editor {
+			position: relative;
+
+			.loading {
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0,0,0,0.5) url(../../../../../../public/images/loading.gif) no-repeat 50% 50%;
+				z-index: 10;
+			}
+
+			&.loaded {
+				.loading {
+					display: none;
+				}
+			}
+
+			.col-img {
+				.img {
+					margin: 0 auto;
+
+					img {
+						display: block;
+						max-width: 100%;
+						height: auto;
+					}
+				}
+			}
+
+			.col-controls {
+				.form-group {
+					.btn-group {
+						margin-left: 10px;
+					}
+				}
+			}
+		}
+	}
+}

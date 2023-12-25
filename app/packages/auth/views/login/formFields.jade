@@ -1,0 +1,23 @@
+.form-group
+	!=bs.label(__('Email address'), "email")
+	.input-group
+		.input-group-text
+			!=gHtml.faIcon('envelope-o')
+		!=bs.textField({}, 'email', {type: 'email', required: true, autofocus: true, autocomplete: 'email'})
+
+.form-group
+	!=bs.label(__('Password'), 'pass')
+	!=bs.password({}, "pass", {required: true, autocomplete: 'current-password'})
+
+.form-check
+	input.form-check-input(name='rememberMe' type='checkbox' value='1' checked='1' id='login_remember_me')
+	label.form-check-label(for='login_remember_me')
+		=__('Remember me')
+
+.text-end
+	button(type="submit" class="btn btn-primary")
+		!=gHtml.faIcon('unlock-alt')
+		=' '
+		=__('Login')
+
+a(href=url('auth/restore/email'))=__("Forgot your password?")

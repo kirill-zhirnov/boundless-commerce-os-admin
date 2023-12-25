@@ -1,0 +1,58 @@
+mixin commonForm(data)
+	form(autocomplete="off" data-form="" action=url('orders/admin/setup/delivery/commonSettings'))
+		div.row
+			div.col-md-6
+				div
+					h4
+						!=__('Default product dimensions')
+
+					div(class="form-group")
+						!=bs.label(__('Weight (kg.)'), 'defaultProductWeight')
+						!=bs.textField(data, 'defaultProductWeight', {type: 'number', min: "0", lang: "en", step: "0.01"})
+
+					.well.well-sm
+						div(class="form-horizontal form-group row")
+							div(class="col-sm-4")
+								!=bs.label(__('Width (cm.)'), 'width')
+								!=bs.textField(data.defaultProductDimensions, 'width', {type: 'number', min: "0", lang: "en", step: "0.01"})
+
+							div(class="col-sm-4")
+								!=bs.label(__('Height (cm.)'), 'height')
+								!=bs.textField(data.defaultProductDimensions, 'height', {type: 'number', min: "0", lang: "en", step: "0.01"})
+
+							div(class="col-sm-4")
+								!=bs.label(__('Length (cm.)'), 'length')
+								!=bs.textField(data.defaultProductDimensions, 'length', {type: 'number', min: "0", lang: "en", step: "0.01"})
+
+						div(class="form-group")
+							.checkbox.form-check
+								label(class="form-check-label")
+									input(type="checkbox" value='1' name="useDimensions" checked=data.useDimensions class="form-check-input")
+									!=__("Use dimensions (width, height and length) in shipping calculations")
+
+					div(class="form-group")
+						.checkbox.form-check
+							label(class="form-check-label")
+								input(type="checkbox" value='1' name="hideDeliveryTime" checked=data.hideDeliveryTime class="form-check-input")
+								!=__("Hide estimated delivery time")
+
+			.col-md-6
+				.well.well-sm
+					h5
+						!=bs.icon('envelope')
+						=' '
+						=__('"From" field - it will be used for printing documents for shipping.')
+
+					.form-group
+						!=bs.label(__('Full name'), 'fullname')
+						!=bs.textField(data.postInfo, 'fullname')
+
+					.form-group
+						!=bs.label(__('Postcode'), 'postcode')
+						!=bs.textField(data.postInfo, 'postcode')
+
+					.form-group
+						!=bs.label(__('Address'), 'address')
+						!=bs.textArea(data.postInfo, 'address', {rows: 2})
+
+		!=widget('system.formButtons.@c', buttons)

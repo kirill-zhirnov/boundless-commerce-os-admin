@@ -1,0 +1,116 @@
+.admin-comment {
+	@comment-border-radius: 4px;
+
+	.comment-form {
+		.input-wrapper {
+			border: 1px solid @input-border;
+			border-radius: @comment-border-radius;
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			padding: 5px;
+
+			&.is-active {
+				border-color: @input-border-focus;
+				box-shadow: 0 0 0 1px @input-border-focus;
+
+				.btns {
+					align-self: flex-end;
+
+					button {
+						cursor: pointer;
+						opacity: 1;
+					}
+				}
+			}
+
+			.form-group {
+				flex-grow: 3;
+				margin: 0;
+
+				textarea {
+					//need to work auto-expand properly:
+					//box-sizing: content-box;
+
+					padding: 7px;
+
+					overflow:hidden;
+					border: 0;
+					resize: none;
+					display: block;
+					width: 100%;
+
+					transition: height 0.5s ease;
+
+					&:focus {
+						outline: none;
+						outline-width: 0;
+					}
+
+					&[disabled] {
+						background-color: transparent;
+						color: @text-muted;
+					}
+				}
+			}
+
+			.btns {
+				align-self: flex-end;
+
+				button {
+					cursor: @cursor-disabled;
+					opacity: .65;
+				}
+			}
+		}
+	}
+
+	.comments {
+		> ul {
+			> li {
+				border: 1px solid @table-border-color;
+				border-radius: @comment-border-radius;
+				background: @table-bg-accent;
+				padding: 15px;
+				margin-bottom: 30px;
+				position: relative;
+
+				&:before {
+					content: "";
+					display: block;
+					position: absolute;
+					width: 3px;
+					height: 30px;
+					top: -31px;
+					left: 30px;
+					background: @table-border-color;
+				}
+
+				&:first-child {
+					&:before {
+						display: none;
+					}
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+
+				.head {
+					.user {
+						font-weight: bold;
+					}
+
+					.date {
+						display: inline-block;
+						margin-left: 15px;
+					}
+				}
+
+				.comment {
+					margin: 0;
+				}
+			}
+		}
+	}
+}

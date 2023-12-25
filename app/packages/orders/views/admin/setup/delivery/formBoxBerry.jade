@@ -1,0 +1,55 @@
+extends /blocks/modal.jade
+block body
+	form(autocomplete="off" data-form="" action=url('orders/admin/setup/delivery/formBoxBerry'))
+		!=gHtml.pk(formData.pk)
+
+		.row
+			.col-sm-6
+				div(class="form-group")
+					!=bs.label(__('Title'), 'title')
+					!=bs.textField(formData.attrs, 'title')
+
+					p(class="form-text")
+						=__('The title will be shown to your customer as a shipping method title.')
+
+				div(class="form-group")
+					!=bs.label(__('Description'), 'description')
+					!=bs.textArea(formData.attrs, 'description', {placeholder: __('You can use <b>HTML tags</b>.')})
+
+				div(class="form-group")
+					!=bs.label(__('Default price'), 'defaultPrice')
+					!=bs.textField(formData.attrs, 'defaultPrice')
+					p.form-text.small
+						=__('Default price is needed if calculation server is unavailable.')
+
+				!=widget('system.vueApp.@c', {data: {app: 'orders/delivery/markUp', props: {value: formData.attrs.mark_up, help: formData.markUpHelp}}})
+
+			.col-sm-6
+				.page-header(style="margin-top: 0")
+					h4=__('API Settings')
+
+				div(class="form-group")
+						!=bs.label(__('API token'), 'apiKey')
+						!=bs.textField(formData.attrs, 'apiKey')
+
+
+		.row
+			.col-sm-6
+				.form-group
+					!=bs.label(__('VAT'), 'tax')
+					!=bs.dropDownList(formData.attrs, 'tax', formData.options.tax)
+
+					p.form-text
+						=p__('shipping', 'Vat will be used in receipt.')
+
+				- var classes = [];
+				if _.isUndefined(formData.attrs.sort) || formData.attrs.sort === null || formData.attrs.sort == ''
+					- classes.push('none')
+
+				div(class="form-group sort-group" class=classes)
+					!=bs.label(__('Sort'), 'sort')
+					!=bs.textField(formData.attrs, 'sort')
+					p.form-text
+						=__('Delivery methods are shown to customers sorted by sort field.')
+
+		!=widget('system.formButtons.@c', formData.buttons)

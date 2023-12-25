@@ -1,0 +1,74 @@
+mixin semanticMarkup(data)
+	form(data-form="" autocomplete="off" name="semanticMarkup" class="semantic-markup-form")
+		p
+			a(href="https://yandex.ru/support/webmaster/json-ld/about.xml?lang=ru" target="_blank")
+				!=bs.icon('info-sign')
+				=' '
+				=__('Read details about JSON-LD.')
+
+		div.row
+			div.col-md-6
+				.checkbox.form-check
+					label(class='form-check-label')
+						input(type="checkbox" checked=data.attrs.show name="show" class="form-check-input")
+						!=__('Output JSON-LD')
+
+				div(class="form-group")
+					!=bs.label(__('Name'), 'name')
+					!=bs.textField(data.attrs, 'name')
+
+				div(class="form-group")
+					!=bs.label(__('Email'), 'email')
+					!=bs.textField(data.attrs, 'email')
+
+				div(class="form-group")
+					!=bs.label(__('Phone number'), 'telephone')
+					!=bs.textField(data.attrs, 'telephone')
+
+				div(class="form-group")
+					!=bs.label(__('Price range'), 'priceRange')
+					!=bs.textField(data.attrs, 'priceRange')
+
+				div(class="well well-sm geo")
+					h5
+						!=bs.icon('map-marker')
+						!=" "
+						!=__('Place coordinates')
+
+					div(class="form-horizontal form-group row")
+						div(class="col-md-6")
+							!=bs.label(__('Latitude'), 'lat')
+							!=bs.textField(data.attrs, 'lat')
+
+						div(class="col-md-6")
+							!=bs.label(__('Longitude'), 'long')
+							!=bs.textField(data.attrs, 'long')
+
+			div.col-md-6
+				div(class="well well-sm geo")
+					h5
+						!=bs.icon('home')
+						!=" "
+						!=__('Address')
+
+					div(class="form-group")
+						!=bs.label(__('Country'), 'country')
+						!=bs.textField(data.attrs, 'country')
+
+					div(class="form-group")
+						!=bs.label(__('Region'), 'region')
+						!=bs.textField(data.attrs, 'region')
+
+					div(class="form-group")
+						!=bs.label(__('City'), 'city')
+						!=bs.textField(data.attrs, 'city')
+
+					div(class="form-group")
+						!=bs.label(__('Post code'), 'postalCode')
+						!=bs.textField(data.attrs, 'postalCode')
+
+					div(class="form-group")
+						!=bs.label(__('Street address'), 'street')
+						!=bs.textField(data.attrs, 'street')
+
+		!=widget('system.organizationImages.@c', {data: {images: data.attrs.images}})

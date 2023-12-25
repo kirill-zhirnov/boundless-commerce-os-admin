@@ -1,0 +1,80 @@
+extends ../../../system/widgets/views/gridHtmlWrapper
+
+block additionalFilter
+	form#orders-extra-filters.filter.small.d-none.d-sm-block.mb-3(method="get" autocomplete="off" action="")
+		.row
+			.col-md-1.col-sm-2
+				.form-group
+					!=bs.label(__('ID'), 'order_id')
+					!=bs.textField(attrs, 'order_id', {class: 'form-control-sm'})
+
+			.col-md-3.col-sm-6
+				.form-group
+					!=bs.label(__('Created between'), 'created_from')
+					.d-flex.gap-2.align-items-center
+						!=bs.textField(attrs, 'created_from', {placeholder: __('DD.MM.YYYY'), class: 'form-control-sm'})
+						='—'
+						!=bs.textField(attrs, 'created_to', {placeholder: __('DD.MM.YYYY'), class: 'form-control-sm'})
+
+			.col-md-2.col-sm-4
+				.form-group
+					!=bs.label(__('Order paid'), 'is_paid')
+					!=bs.dropDownList(attrs, 'is_paid', options.paymentStatus, null, {class: 'form-select-sm'})
+
+			.col-md-2.col-sm-4
+				.form-group
+					!=bs.label(__('Track number'), 'track_number')
+					!=bs.textField(attrs, 'track_number', {class: 'form-control-sm'})
+
+			.col-md-2.col-sm-4
+				.form-group
+					!=bs.label(__('Coupon Campaign'), 'campaign_id')
+					=' '
+					!=bs.dropDownList(attrs, 'campaign_id', options.couponCampaign, null, {class: 'form-select-sm'})
+
+			.col-md-2.col-sm-4
+				.form-group
+					!=bs.label(__('Shipping'), 'shipping')
+					=' '
+					!=bs.dropDownList(attrs, 'shipping', options.shipping, null, {class: 'form-select-sm'})
+
+		.second-row(style="display: none")
+			.row
+				.col-md-2
+					.form-group
+						!=bs.label(__('Discount code'), 'coupon_code')
+						=' '
+						!=bs.textField(attrs, 'coupon_code', {class: 'form-control-sm'})
+
+				if needOrderConfirmation
+					.col-md-2
+						div(class="form-group")
+							!=bs.label(__('Order confirmed'), 'is_confirmed')
+							=' '
+							!=bs.dropDownList(attrs, 'is_confirmed', options.confirmedStatus, null, {class: 'form-select-sm'})
+
+		a.toggle-row.link-purple(href="#")
+			span.show-filters
+				!=gHtml.faIcon('sort-desc')
+				=' '
+				=__('Show all filters')
+
+			span.hide-filters
+				!=gHtml.faIcon('sort-asc')
+				=' '
+				=__('Hide filters')
+	p.d-sm-none.text-end
+		+toggleFiltersBtn('#orders-extra-filters')
+
+block additionalSort
+	.additional-sort.text-end.small
+		ul.list-inline
+			li.list-inline-item
+				strong
+					=__('Sort by:')
+
+			li.list-inline-item
+				a(href="created_at" data-c-nav="off" class="item")
+					=__('Date creation')
+					=' '
+					b(class="sort-caret")

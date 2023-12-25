@@ -1,0 +1,70 @@
+#products {
+	@import "./products/marsProductsList.less";
+
+	#list-img-heights (@product-width) {
+		&.img-2x3 {
+			.img {
+				height: round(3 * @product-width / 2, 1);
+			}
+		}
+
+		&.img-3x2 {
+			.img {
+				height: round(2 * @product-width / 3, 1);
+			}
+		}
+
+		&.img-3x4 {
+			.img {
+				height: round(4 * @product-width / 3, 1);
+			}
+		}
+
+		&.img-4x3 {
+			.img {
+				height: round(3 * @product-width / 4, 1);
+			}
+		}
+
+		&.img-4x5 {
+			.img {
+				height: round(5 * @product-width / 4, 1);
+			}
+		}
+
+		&.img-5x4 {
+			.img {
+				height: round(4 * @product-width / 5, 1);
+			}
+		}
+
+		&.img-1x1 {
+			.img {
+				height: @product-width;
+			}
+		}
+	}
+
+	#tags () {
+		margin: 0;
+		position: absolute;
+
+		.tag {
+			margin: 0 0 5px 0;
+			float: left;
+			clear: both;
+			padding: 1px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+
+			#fluid-type(font-size, @screen-xs-min, @screen-lg-min, 10px, 13px);
+
+			@media (min-width: @screen-md-min) {
+				padding: 2px;
+				margin-bottom: 7px;
+			}
+		}
+	}
+}

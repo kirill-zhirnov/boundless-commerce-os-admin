@@ -1,0 +1,48 @@
+mixin makeBody
+	!=content
+	//-!=widget('system.sNav.@c', {data:{layout:layout,currentMenuUrl:currentMenuUrl}})
+	#re-render-loading
+
+//- we need to execute body before the head - to populate clientExport before the "widget('system.clientLoader')".
+- var i = buf.length
++makeBody()
+- var bodyContent = buf.splice(i, buf.length - i).join("");
+
+doctype html
+html()&attributes(attrs)
+	head
+		!=widget('system.css')
+		!=widget('system.clientLoader', {data:{page:page,ajaxMeta:ajaxMeta}})
+
+		meta(http-equiv="Content-Type", content="text/html; charset=utf-8")
+		meta(name="Keywords" content=page.keywords)
+		meta(name="Description" content=page.description)
+		if page.robots
+			meta(name="robots" content=page.robots)
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		| <!--[if IE]>
+		style(type="text/css").
+			.aos-on *[data-aos] {
+				opacity: 1 !important;
+			}
+		| <![endif]-->
+		title= page.title
+
+		if canonical
+			link(rel='canonical' href=canonical)
+
+		if _.isArray(links)
+			each link in links
+				!=gHtml.tag('link', link)
+
+		!=widget('system.openGraph', {data: _.extend({ currentUrl: canonical, img: openGraphImg, title: page.title })})
+		!=widget('system.semanticMarkup')
+
+		noscript
+			style(type="text/css").
+				.aos-on *[data-aos] {
+					opacity: 1 !important;
+				}
+
+	body()&attributes(bodyAttrs)
+		!=bodyContent

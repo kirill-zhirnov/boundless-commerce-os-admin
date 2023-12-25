@@ -1,0 +1,6 @@
+.admin-menu {
+	z-index: $z-index-admin-menu;
+	@include media-breakpoint-down(xl) {
+		display: none;
+	}
+}

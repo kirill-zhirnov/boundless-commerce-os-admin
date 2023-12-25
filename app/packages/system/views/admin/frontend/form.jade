@@ -1,0 +1,32 @@
+form(
+	method="post"
+	action=url("system/admin/frontend/urls")
+	data-form=""
+	class="col-md-8 offset-md-2"
+)
+	.form-group
+		!=bs.label(__('Site URL'), 'site')
+		!=bs.textField(attrs,'site')
+		p.form-text=__('E.g. "https://your-domain.com"')
+
+	.form-group
+		!=bs.label(__('Product URL'), 'productUrl')
+		!=bs.textField(attrs, 'productUrl')
+		p.form-text=__('E.g. "/product/{ALIAS_OR_ID}"')
+
+	.form-group
+		!=bs.label(__('Order URL'), 'orderUrl')
+		!=bs.textField(attrs, 'orderUrl')
+		p.form-text=__('E.g. "/order/{ID}"')
+
+	.form-group
+		!=bs.label(__('Category URL'), 'categoryUrl')
+		!=bs.textField(attrs, 'categoryUrl')
+		p.form-text=__('E.g. "/category/{ALIAS_OR_ID}"')
+
+	.form-group
+		!=bs.label(__('Login URL'), 'loginUrl')
+		!=bs.textField(attrs, 'loginUrl')
+
+	.text-center
+		!=widget('system.formButtons.@c', buttons)

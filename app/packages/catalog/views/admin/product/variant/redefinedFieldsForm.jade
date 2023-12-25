@@ -1,0 +1,37 @@
+extends /blocks/modal.jade
+
+mixin folder(item)
+    fieldset
+        legend=item.title
+        if item.help
+            p=item.help
+        each child in item.children
+            +field(child)
+
+mixin field(item)
+    div(class="checkbox form-check")
+        label(class="form-check-label")
+            - var checked = (_.isArray(attrs.characteristic) && attrs.characteristic.indexOf(item.characteristic_id) != -1) ? true : false
+            input(type="checkbox" name="characteristic[]" value=item.characteristic_id checked=checked class="form-check-input")
+            =item.title
+
+block body
+    if characteristics.length > 0
+        form(action=url("catalog/admin/product/variant/redefinedFieldsForm?productId=#{product.product_id}&groupId=#{groupId}") method="post" data-form="" class="choose-redefine-fields")
+            !=bs.alert('info', __('Choose characteristics which variant may redefine.'))
+
+            each item in characteristics
+                if item.is_folder
+                    +folder(item)
+                else
+                    +field(item)
+
+            //need this block to display errors
+            div(class="form-group")
+                input(type="hidden" name="errors")
+
+            - var data = {buttons: ['cancel', 'save']};
+            - data.predefinedButtons = {save:{title:__('Save')}}
+            =widget('system.formButtons.@c', data)
+    else
+        !=bs.alert('warning', __('There are no characteristics which can be redefined.'))

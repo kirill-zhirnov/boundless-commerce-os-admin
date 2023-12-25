@@ -1,0 +1,29 @@
+.page-header
+	h4.mb-4
+		!=bs.icon('comment')
+		=' '
+		=__('Internal comments')
+
+form(
+	action=url('system/admin/comment/post')
+	data-form=""
+	data-refresh-grid="false"
+	class="comment-form"
+	autocomplete="off"
+	method="post"
+)
+	!=gHtml.hiddenField('essencePk', pk)
+	!=gHtml.hiddenField('type', type)
+
+	.input-wrapper
+		div(class="form-group")
+			textarea(placeholder=__('Leave a comment...') name="comment" rows="1")
+
+		.btns
+			button(type="submit" class="btn btn-outline-secondary")
+				=p__('form', 'Post')
+
+	.form-text.text-end.small.mb-4
+		=__('Use Ctrl + Enter to submit')
+
+.comments

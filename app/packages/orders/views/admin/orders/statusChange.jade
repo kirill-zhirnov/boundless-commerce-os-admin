@@ -1,0 +1,9 @@
+extends /blocks/modal.jade
+
+block body
+	form(action=url('orders/admin/orders/statusChange', {orders: attrs.orders}) method="post" data-form='')
+		div(class="form-group")
+			!=bs.label(__('New status'), 'status_id')
+			!=bs.dropDownList(attrs, 'status_id', options.status, i18n)
+
+		!=widget('system.formButtons.@c', _.extend(buttons, {isNew: false}))

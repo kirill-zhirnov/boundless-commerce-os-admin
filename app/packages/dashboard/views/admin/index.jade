@@ -1,0 +1,28 @@
+.dashboard
+	if productsCounted == 0
+		.dashboard-empty
+			p.lead
+				=__("Your catalog is empty, please fill it:")
+
+			p.text-center
+				a(href=url('catalog/admin/product/form') class="btn btn-success btn-lg m-2")
+					!=gHtml.faIcon('plus')
+					=' '
+					=__("Add a product")
+
+				span.mx-1=__('or')
+
+				a(href=url('catalog/admin/import/index') class="btn btn-secondary btn-lg m-2")
+					!=gHtml.faIcon('cloud-upload')
+					=' '
+					=__("Import catalog")
+
+	else
+		if dbCleanUps && _.isArray(dbCleanUps) && dbCleanUps.length === 0
+			.alert.alert-warning
+				p=__("Your site contains demonstration data. As soon as you finish testing you can clean database.")
+					=' '
+					a(href=url('system/admin/cleanUp/index') class="btn btn-warning btn-sm" data-modal="")
+						!=gHtml.faIcon('trash') + " " + __("Clean database")
+
+		!=widget('system.vueApp.@c', {data: {app: 'dashboard/salesOverTime'}})

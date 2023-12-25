@@ -1,0 +1,22 @@
+.logo {
+	flex-shrink: 0;
+	width: 40px;
+	@include media-breakpoint-up(md) {
+		width: 150px;
+	}
+
+	&__img {
+		display: none;
+		width: 100%;
+		@include media-breakpoint-up(md) {
+			display: block;
+		}
+	}
+
+	&__img_xm {
+		display: block;
+		@include media-breakpoint-up(md) {
+			display: none;
+		}
+	}
+}

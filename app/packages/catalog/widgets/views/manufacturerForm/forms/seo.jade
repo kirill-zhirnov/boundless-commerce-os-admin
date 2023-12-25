@@ -1,0 +1,19 @@
+mixin seoForm(data)
+    form(method="post" data-form="" autocomplete="off" name="seo")
+        !=gHtml.pk(data.pk)
+
+        div(class="form-group")
+            !=bs.label(p__('seoForm', 'Title'), 'custom_title')
+            !=bs.textField(data.attrs, 'custom_title')
+            p(class="form-text")
+                =__('Specify only if you want to redefine title in page title.')
+
+        div(class="form-group")
+            !=bs.label(__('Header (H1)'), 'custom_header')
+            !=bs.textField(data.attrs, 'custom_header')
+            p(class="form-text")
+                =__('Specify only if you want to redefine title in page header.')
+
+        div(class="form-group")
+            !=bs.label(__('Meta description'), 'meta_description')
+            !=bs.textArea(data.attrs, 'meta_description')

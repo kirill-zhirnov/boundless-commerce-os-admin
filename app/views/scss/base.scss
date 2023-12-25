@@ -1,0 +1,22 @@
+//*,
+//*::after,
+//*::before {
+//	box-sizing: border-box;
+//	outline: none;
+//}
+
+html {
+	font-size: 14px;
+}
+
+body {
+	background: $c-bg-body;
+	color: $c-t-base;
+	font-family: Ubuntu, sans-serif;
+	font-size: 14px;
+	font-style: normal;
+	font-weight: 400;
+	line-height: (21 / 14);
+}
+
+:root { scroll-behavior: auto !important; } //fixes bootstrap 5 bug with smooth scroll

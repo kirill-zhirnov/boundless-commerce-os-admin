@@ -1,0 +1,64 @@
+- var productCarouselItem = 0;
+
+mixin productCarouselItem()
+	//- copied from "vue-content-loader"
+	svg(viewBox="0 0 204 356" version="1.1" preserveAspectRatio="xMidYMid meet" class="product")
+		- var clipPathId = id + "-" + productCarouselItem + "-cp";
+		- var linearGradientId = id + "-" + productCarouselItem + "-lg";
+
+		rect(clip-path="url(##{clipPathId})" x="0" y="0" width="204" height="356" style="fill: url('##{linearGradientId}');")
+		defs
+			clipPath(id=clipPathId)
+				rect(x="10" y="10" rx="7" ry="7" width="182" height="182")
+				rect(x="10" y="213" rx="4" ry="4" width="182" height="20")
+				rect(x="10" y="243" rx="4" ry="4" width="91" height="20")
+				rect(x="56" y="298.83" rx="4" ry="4" width="92" height="34")
+
+			linearGradient(id=linearGradientId)
+				stop(offset="0%" stop-color="#f3f3f3" stop-opacity="1")
+					animate(attributeName="offset" values="-2; 1" dur="2s" repeatCount="indefinite")
+
+				stop(offset="50%" stop-color="#ecebeb" stop-opacity="1")
+					animate(attributeName="offset" values="-1.5; 1.5" dur="2s" repeatCount="indefinite")
+
+				stop(offset="100%" stop-color="#f3f3f3" stop-opacity="1")
+					animate(attributeName="offset" values="-1; 2" dur="2s" repeatCount="indefinite")
+
+	- productCarouselItem++;
+
+//- pass width/height for proportion
+mixin slider(width, height)
+	- var clipPathId = id + "-cp";
+	- var linearGradientId = id + "-lg";
+
+	svg(width="100%" viewBox="0 0 " + width + " " + height version="1.1" preserveAspectRatio="xMidYMid meet")
+		rect(clip-path="url(##{clipPathId})" x="0" y="0" width=width height=height style="fill: url('##{linearGradientId}');")
+		defs
+			clipPath(id=clipPathId)
+				rect(x="0" y="0" rx="5" ry="5" width=width height=height)
+			linearGradient(id=linearGradientId)
+				stop(offset="0%" stop-color="#f3f3f3" stop-opacity="1")
+					animate(attributeName="offset" values="-2; 1" dur="2s" repeatCount="indefinite")
+
+				stop(offset="50%" stop-color="#ecebeb" stop-opacity="1")
+					animate(attributeName="offset" values="-1.5; 1.5" dur="2s" repeatCount="indefinite")
+
+				stop(offset="100%" stop-color="#f3f3f3" stop-opacity="1")
+					animate(attributeName="offset" values="-1; 2" dur="2s" repeatCount="indefinite")
+
+if type == 'productsSlider'
+	+productCarouselItem()
+	+productCarouselItem()
+	+productCarouselItem()
+	+productCarouselItem()
+	+productCarouselItem()
+
+else if type == 'slider'
+	- var width = 114;
+	- var height = 33;
+
+	if slider && slider.width && slider.height
+		- width = slider.width;
+		- height = slider.height;
+
+	+slider(width, height)

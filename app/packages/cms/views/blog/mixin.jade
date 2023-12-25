@@ -1,0 +1,32 @@
+mixin article(article)
+	a(
+		class="article"
+		data-pk=article.article_id
+		href=article.url
+		itemprop="blogPosts"
+		itemscope
+		itemtype="http://schema.org/BlogPosting"
+	)
+		- var imgAttrs = {};
+		if article.image
+			- imgAttrs['class'] = 'img'
+			- imgAttrs['style'] = 'background-image:url(' + article.image.m.src + ');'
+		else
+			- imgAttrs['class'] = 'img no-img'
+
+		div.img-wrapper
+			div&attributes(imgAttrs)
+
+		div.text-wrapper
+			p(class="date")
+				=article.date
+
+			h4(class="article-header" itemprop="headline")
+				=article.title
+
+		if article.image
+			!=gHtml.img(_.extend(article.image.m, {"itemprop": "image","itemscope": "itemscope","itemtype": "https://schema.org/url", class:'none'}))
+		link(itemprop="url" href=article.url)
+		link(itemprop="mainEntityOfPage" itemType="https://schema.org/WebPage" href=article.url)
+		meta(itemprop="datePublished" content=String(article.iso_date))
+		meta(itemprop="description" content=article.announcement)

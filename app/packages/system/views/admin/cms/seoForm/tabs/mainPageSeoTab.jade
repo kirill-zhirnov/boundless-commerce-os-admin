@@ -1,0 +1,13 @@
+mixin mainPageSeoTab(data)
+	form(data-form="" autocomplete="off" name="mainPageSeo")
+		div(class="form-group")
+			!=bs.label(p__('seoForm', 'Title'), 'title')
+			!=bs.textField(data.attrs, 'title')
+
+		div(class="form-group")
+			!=bs.label(__('Meta description'), 'description')
+			!=bs.textArea(data.attrs, 'description')
+
+		div(class="form-group")
+			!=bs.label(__('Meta keywords'), 'keywords')
+			!=bs.textArea(data.attrs, 'keywords')

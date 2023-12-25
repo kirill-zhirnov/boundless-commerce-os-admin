@@ -1,0 +1,12 @@
+extends /blocks/modal
+
+block body
+	form(data-form="" autocomplete="off" action=url("orders/admin/setup/sms/unisender") method="POST")
+		input(type='hidden' name='service_id' value=attrs.service_id)
+
+		div(class="form-group")
+			!=bs.label(__('API key'), 'apiKey')
+			!=' '
+			!=bs.textField(attrs, 'apiKey')
+
+		=widget('system.formButtons.@c', buttons)

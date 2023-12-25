@@ -1,0 +1,132 @@
+.user {
+	position: relative;
+
+	//&:hover,
+	&.is-show {
+		.user__name {
+			color: $c-t-purple-100;
+		}
+
+		.user__menu-down {
+			background: url('../../../assets/images/icons/menu-down-purple.svg') center center / 100% 100% no-repeat;
+		}
+
+		.user__menu {
+			animation-duration: .5s;
+			animation-name: showUserMenu;
+			display: block;
+			opacity: 1;
+			top: 100%;
+			z-index: 1;
+		}
+
+	}
+
+	&__btn {
+		align-items: center;
+		cursor: pointer;
+		display: flex;
+		text-decoration: none;
+	}
+
+	&__img {
+		align-items: center;
+		background: $c-bg-gray-light;
+		border-radius: 50%;
+		display: flex;
+		height: 40px;
+		justify-content: center;
+		overflow: hidden;
+		position: relative;
+		width: 40px;
+
+		&::before {
+			background: url('../../../assets/images/icons/user-gray.svg') center center / 100% 100% no-repeat;
+			content: '';
+			height: 20px;
+			left: 50%;
+			position: absolute;
+			top: 50%;
+			transform: translate(-50%, -50%);
+			width: 20px;
+			z-index: 0;
+		}
+	}
+
+	&__photo {
+		height: 100%;
+		object-fit: cover;
+		position: relative;
+		width: 100%;
+		z-index: 1;
+	}
+
+	&__name {
+		color: $c-t-base;
+		font-weight: 500;
+		margin: 0 4px 0 12px;
+		transition: color .35s ease-in-out;
+	}
+
+	&__menu-down {
+		background: url('../../../assets/images/icons/menu-down.svg') center center / 100% 100% no-repeat;
+		display: block;
+		height: 19px;
+		transition: background .35s ease-in-out;
+		width: 19px;
+	}
+
+	&__menu {
+		//position: absolute;
+		background: $c-bg-white;
+		border: none;
+		border-radius: 10px;
+		//right: 0;
+		box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.1);
+		list-style-type: none;
+		margin: 0;
+		min-width: 215px;
+		overflow: auto;
+		padding: 0;
+
+		//transition: opacity .35s ease-in-out, top .35s ease-in-out;
+
+
+		//display: none;
+		//z-index: 0;
+		//top: 0;
+		//opacity: 0;
+
+		&-link {
+			align-items: center;
+			background: $c-bg-white;
+			color: $c-t-base;
+			display: flex;
+			font-size: 14px;
+			font-weight: 500;
+			gap: 8px;
+			line-height: 21px;
+			padding: 16px 12px;
+			text-decoration: none;
+			transition: background-color .35s ease-in-out;
+
+			&:hover,
+			&.is-active {
+				background: $c-bg-gray-light;
+				color: $c-t-base;
+			}
+		}
+	}
+}
+
+@keyframes showUserMenu {
+	from {
+		opacity: 0;
+		top: 0;
+	}
+
+	to {
+		opacity: 1;
+		top: 100%;
+	}
+}

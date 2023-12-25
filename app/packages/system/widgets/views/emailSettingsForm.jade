@@ -1,0 +1,24 @@
+.mail-settings
+	.col-md-10.offset-md-1
+		!=bs.label(__('Email logo'))
+		p(class="nologo text-center")=__("There is no image")
+
+		div(class="logo-wrapper" style="display: none;")
+			div(class="img" style="")
+			p(class="text-center")
+				button(class="btn btn-default rm btn-sm")
+					!=bs.icon('remove')
+					!=" "
+					!=__("Remove")
+
+		.admin-dropzone
+			.dropzone-uploader.dropzone
+
+		.form-group
+			!=bs.label(__('Signature template'), 'signature')
+			!=bs.textArea(attrs, 'signature', {'data-visual-editor': ''})
+
+		.text-center
+			!=widget('system.formButtons.@c', buttons)
+
+

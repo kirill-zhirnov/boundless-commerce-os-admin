@@ -1,0 +1,7 @@
+extends ../admin
+
+block topNav
+	!=widget('catalog.productTopNav.@c')
+
+block content
+	!=widget('system.vueApp.@c', {className: 'general-content product-form', data: {app: 'catalog/productForm', props: productData}})

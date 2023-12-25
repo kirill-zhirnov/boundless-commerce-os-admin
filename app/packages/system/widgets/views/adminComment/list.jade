@@ -1,0 +1,15 @@
+ul.list-unstyled
+	each item in collection
+		li
+			p.head
+				if item.person_title
+					span.user
+						!=bs.icon('user')
+						=' '
+						=item.person_title
+
+				span.date.small.text-muted
+					=item.created_at
+
+			p.comment
+				!=gHtml.nl2br(gHtml.escape(item.comment))

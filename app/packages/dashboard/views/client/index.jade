@@ -1,0 +1,73 @@
+if data[1].length === 0
+	p(class="text-center")=__('You have no orders yet.')
+	p(class="text-center")
+		a(href=url("catalog/index/index") class="btn btn-lg btn-success")
+			=__('Go shopping!')
+else
+	table(class="table table-bordered table-striped table-hover my-orders")
+		thead
+			tr
+				th(class="text-center")=__('Order')
+				th(class="text-center")=__('Date')
+				th(class="text-center")=__('Delivery')
+				th(class="text-center")=__('Total')
+		tbody
+			each order in data[1]
+				tr(class="status-" + order.status_alias)
+					td(style="background-color: #" + order.status_background_color)
+						a(class="cell-link" href=url("orders/view/order", { id: order.order_id }))
+							p(class="text-center")="#" + order.order_id
+							p(class="text-center")=order.status_title
+							if needOrderConfirmation
+								if order.is_confirmed == 1
+									div(class="confirmation text-success")
+										!=bs.icon('ok')
+										!=" "
+										!=__('Confirmed')
+								else
+									div(class="confirmation text-muted")=__('Awaiting confirmation')
+					td
+						a(class="cell-link" href=url("orders/view/order", { id: order.order_id }))
+							p(class="text-center")=order.date
+							p(class="text-center")=order.time
+					td
+						a(class="cell-link" href=url("orders/view/order", { id: order.order_id }))
+							p(class="text-center")
+								case order.shipping_type
+									when "no"
+										!=bs.icon('ban-circle') + " " + __("No shipping")
+									when "selfPickup"
+										!=bs.icon('user') + " " + order.delivery_title
+									when "shipping"
+										!=bs.icon('shopping-cart') + " " + order.delivery_title
+
+										if order.delivery_data && order.delivery_data.name
+											p(class="small text-center")
+												!="(" + order.delivery_data.name + ")"
+					td
+						a(class="cell-link" href=url("orders/view/order", { id: order.order_id }))
+							div(class="pull-left")=order.total_price_formatted
+							div(class="pull-right small")
+								!=__('Qty:')
+								!=" " + order.total_qty
+							div(class="clearfix")
+							br
+							div(class="text-end small")
+								if order.is_paid == 1
+									!=bs.icon('ok')
+									=' '
+									!=__("Paid")
+								else
+									!=__("Awaiting for payment")
+
+							if order.payment_method_title
+								div(class="text-muted text-end small")
+									=order.payment_method_title
+
+							if !order.is_paid && order.paymentUrl
+								a(href=order.paymentUrl class="btn btn-default btn-sm pull-right")
+									!=bs.icon('ok')
+									!=' '
+									!=__("Pay now!")
+
+	!=widget('system.pagination.@c', {collection : data, data : {basicUrl : url('dashboard/client/index')}})

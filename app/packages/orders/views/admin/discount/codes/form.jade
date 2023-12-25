@@ -1,0 +1,8 @@
+extends /blocks/modal
+
+block body
+	- var formData = {attrs: attrs, options: options, pk: pk, buttons: buttons};
+	if pk
+		include ./form/tab
+	else
+		!=widget('orders.couponForm.@c', {data: formData})

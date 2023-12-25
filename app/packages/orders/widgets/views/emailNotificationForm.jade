@@ -1,0 +1,18 @@
+.status-template
+	.form-group
+		!=bs.label(__('Send Email notification on'), 'event_type')
+		!=bs.radioButtonList(attrs, 'event_type', options.eventType)
+
+	.form-group.status-id-group
+		!=bs.label(__('Status'), 'status_id')
+		!=bs.dropDownList(attrs, 'status_id', options.status)
+
+	.form-group.subject-group
+		!=bs.label(__('Subject'), 'subject')
+		!=bs.textField(attrs, 'subject')
+
+	.form-group.template-group
+		!=bs.label(__('Template'), 'template')
+		!=bs.textArea(attrs, 'template', {class:"form-control template", rows: "3"})
+
+!=widget('system.formButtons.@c', buttons)

@@ -1,0 +1,26 @@
+mixin freeShipping(deliveries)
+	form(method="post" action=url('orders/admin/setup/discount/index') class="free-shipping-form" data-form="")
+		table(class="table table-striped table-bordered")
+			thead
+				tr
+					th=__('Delivery title')
+					th=__('Free shipping when ordering from')
+
+			each delivery in deliveries
+				- console.log(delivery)
+				tr
+					td
+						p(class="shipping-" + (delivery.alias || 'custom'))
+							span.logo
+							=delivery.title
+
+					td(class="free-shipping-rate")
+						div(class="form-group")
+							.input-group
+								!=bs.textField(delivery, 'free_shipping_from[delivery_' + delivery.delivery_id + ']', {value: delivery.free_shipping_from})
+								//- for errors
+								input(type="hidden" name='delivery_' + delivery.delivery_id)
+								.input-group-text
+									!=locale.getCurrencySymbol()
+
+		!=widget('system.formButtons.@c', buttons)

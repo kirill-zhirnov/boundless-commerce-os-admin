@@ -1,0 +1,28 @@
+extends /blocks/modal.jade
+
+block body
+	form(data-form="" name="label" class="labels-form" action=url('catalog/admin/label/form'))
+		!=gHtml.pk(data.pk)
+
+		div(class="form-group")
+			!=bs.label(__("Title"), 'title')
+			!=bs.textField(data.attrs, 'title')
+
+		!=widget('catalog.labelColorForm.@c', {data: data.attrs})
+
+		div(class="form-group")
+			!=bs.label(__("Icon"), 'icon')
+
+			div
+				for icon in data.icons
+					.form-check.form-check-inline
+						label(class="radio-inline form-check-label")
+							input(class="form-check-input" type="radio" name="icon" value=icon checked=data.attrs.icon === icon ? 'checked' : undefined)
+							if icon != 'noicon'
+								!=gHtml.faIcon(icon)
+							else
+								=__('No')
+
+		!=widget('catalog.labelRemoveAfter.@c', {data: data.attrs})
+
+		!=widget('system.formButtons.@c', data.buttons)

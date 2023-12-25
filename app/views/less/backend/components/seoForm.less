@@ -1,0 +1,67 @@
+.seo-form {
+	margin-bottom: 20px;
+
+	// block header
+	> label {
+		display: flex;
+		justify-content: space-between;
+		margin-bottom: 15px;
+
+		a {
+			font-weight: normal;
+		}
+	}
+
+	&.has-errors {
+		> label {
+			color: #a94442;
+		}
+	}
+
+	.preview {
+		background: #fff;
+		padding: 10px;
+
+		h4 {
+			font-family: arial,sans-serif;
+			font-size: 18px;
+			font-weight: 400;
+			line-height: 23.9333px;
+			color: rgb(26, 13, 171);
+			margin: 0;
+		}
+
+		a {
+			text-decoration: none;
+			display: block;
+			font-family: arial, sans-serif;
+			font-size: 13px;
+			line-height: 20.0167px;
+			margin: 1px 0;
+			color: rgb(0, 102, 33);
+		}
+
+		p {
+			line-height: 1.54;
+			word-wrap: break-word;
+			color: #545454;
+			font-family: arial, sans-serif;
+			font-size: 13px;
+			margin: 0;
+		}
+	}
+
+	.fields {
+		margin: 15px 0 0 0;
+
+		.with-help {
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+
+			a {
+				margin: 0 0 5px auto;
+			}
+		}
+	}
+}

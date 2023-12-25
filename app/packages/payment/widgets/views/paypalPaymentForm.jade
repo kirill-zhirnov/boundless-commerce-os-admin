@@ -1,0 +1,48 @@
+include ./basicPaymentForm/mixins
+
++basicPaymentMarkup
+
+h5=__('PayPal settings')
+.row
+	.col-sm-6
+		.form-group
+			!=bs.label(__('Client ID'), 'client_id')
+			!=bs.textField(attrs, 'client_id')
+
+	.col-sm-6
+		.form-group
+			!=bs.label(__('Secret'), 'secret')
+			!=bs.textField(attrs, 'secret')
+
+.form-group
+	!=bs.label(__('Mode'), 'mode')
+	div
+		!=bs.radioButtonListInline(attrs, 'mode', options.mode)
+
+.row
+	.col-sm-6
+		.form-group
+			!=bs.label(__('Return url'), 'return_url')
+			!=bs.textField(attrs, 'return_url')
+			if isWixInstance
+				p.small.text-muted
+					=__('If you are using our checkout solution, the URL should be "%s"', [wixUrls.returnUrl])
+			else
+				p.small.text-muted
+					=__('If you are using our checkout solution, the URL should be "https://your-domain.com/checkout/paypal/return"')
+
+	.col-sm-6
+		.form-group
+			!=bs.label(__('Cancel url'), 'cancel_url')
+			!=bs.textField(attrs, 'cancel_url')
+			if isWixInstance
+				p.small.text-muted
+					=__('If you are using our checkout solution, the URL should be "%s"', [wixUrls.cancelUrl])
+			else
+				p.small.text-muted
+					=__('If you are using our checkout solution, the URL should be "https://your-domain.com/checkout/paypal/cancel"')
+
+if isWixInstance
+	!=bs.alert('warning', __("Don't forget to specify the <a href='%s'>Site url</a>.", [url('system/admin/frontend/urls')]))
+
+!=widget('system.formButtons.@c', buttons)

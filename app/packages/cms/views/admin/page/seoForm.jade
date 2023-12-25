@@ -1,0 +1,8 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('cms/admin/page/seoForm') class="page-seo-form" data-form="" autocomplete="off")
+		!=gHtml.pk(data.pk)
+
+		include ./pageForm/seo
+
+		!=widget('system.formButtons.@c', data.buttons)

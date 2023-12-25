@@ -1,0 +1,5 @@
+extends ./default
+
+block menuColumn
+	div(class="col-md-2")
+		!=widget('catalog.categoryFilter.@c', {data:categoryFilters})

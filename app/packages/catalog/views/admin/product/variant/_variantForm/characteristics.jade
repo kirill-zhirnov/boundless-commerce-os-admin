@@ -1,0 +1,11 @@
+include ../../../../../widgets/views/productCharacteristics/mixins.jade
+
+mixin characteristicsForm(data)
+    form(method="post" data-form="" name="characteristics")
+        !=gHtml.pk(data.pk)
+
+        each item in data.variantCharacteristics
+            if item.is_folder
+                +folder(item)
+            else
+                +field(item)

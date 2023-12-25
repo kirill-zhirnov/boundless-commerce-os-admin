@@ -1,0 +1,47 @@
+.edit-elephant-menu {
+	.tree-wrapper {
+		display: flex;
+		align-items: flex-start;
+
+		.tree {
+			.jstree {
+				.jstree-node {
+					a {
+						color: #000;
+
+						&:hover,
+						&:focus,
+						&:active {
+							color: #000;
+							text-decoration: none;
+						}
+
+						&.add-item {
+							color: #337ab7;
+						}
+
+						&.catalog-btn:not(.not-in-menu) {
+							background: #286090;
+							color: #fff !important;
+							border-radius: 7px;
+						}
+
+						&.not-in-menu {
+							color: #777;
+						}
+					}
+				}
+			}
+		}
+
+		> .well {
+			margin: 0 0 0 15px;
+
+			p {
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+		}
+	}
+}

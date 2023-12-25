@@ -1,0 +1,29 @@
+.order-section {
+	border-bottom: 1px solid #dee2e6;
+	margin: 0 0 1.5rem 0;
+	padding: 0.5rem 0;
+
+	//&:hover {
+	//	background-color: #ececec;
+	//}
+
+	&__row {
+		display: flex;
+		align-items: flex-start;
+	}
+
+	&__title {
+		flex-grow: 1;
+	}
+
+	&__total {
+		width: $order-items-col-total-width;
+		white-space: nowrap;
+		text-align: center;
+	}
+
+	&__rm {
+		width: $order-items-col-rm-width;
+		text-align: center;
+	}
+}

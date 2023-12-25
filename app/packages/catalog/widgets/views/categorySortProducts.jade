@@ -1,0 +1,39 @@
+include /mixins/common
+
+.category-sort-products
+	.clearfix
+		.pull-left
+			p
+				=__('Use drag and drop to sort the list.')
+
+		.pull-right
+			p.with-selected
+				span.me-1=__('With selected:')
+				=' '
+				button.move-to-top(href="#" class="btn btn-outline-secondary btn-sm" disabled)
+					!=gHtml.faIcon('arrow-up')
+					=' '
+					=__('Move in the beginning')
+
+	ul.list-unstyled.products
+		each product in collection
+			li(data-id=product.product_id)
+				.sort-checkbox
+					input.to-begin(type="checkbox" name="products[]" value=product.product_id)
+				.img(class=(product.thumb) ? '' : 'no-image')
+					if product.thumb
+						!=gHtml.img(product.thumb.s)
+
+
+				div.title
+					!=product.title
+
+				.offer
+					if product.price
+						+formatPrices(product.price, product.price_old)
+
+	p.small.text-end
+		a.use-default(href="#")
+			=__('Reset sorting: use default rules.')
+
+	!=widget('system.pagination.@c', {collection: rawCollection})

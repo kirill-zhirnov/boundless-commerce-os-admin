@@ -1,0 +1,18 @@
+mixin importFile()
+	!=widget("catalog.importUploader.@c")
+
+	//-.text-center
+		p
+			=__('or')
+
+		br
+
+		a(class="btn btn-default btn-lg" href=url('catalog/admin/import/byUrl') data-modal='')
+			!=bs.icon('globe')
+			!=" "
+			!=__('Import by file url')
+
+	//-if show1C
+		.text-left
+			a(class='small' href=url('exchange/admin/oneC/index'))
+				!=__("Import products from 1C")

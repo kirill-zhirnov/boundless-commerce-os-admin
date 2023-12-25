@@ -1,0 +1,28 @@
+!=gHtml.pk(pk)
+div(class="form-group variants")
+	!=bs.label(__('Choose variant'), 'variant')
+
+	if variants.length > 0
+		div(class="list-group")
+			each variant in variants
+				div(class="list-group-item")
+					//-if variant.price !== null
+					input(type="radio" value=variant.variant_id name="variant")
+					=' '
+					=variant.title
+					br
+					=variant.formatted_price
+					if trackInventory
+						br
+						=__('qty: %s', [variant.available_qty])
+
+					//-if variant.price === null
+						p(class="small text-danger")
+							=__('Product without price cannot be added to the order.')
+	else
+		!=bs.alert('danger', __('There are no variants which are in stock.'))
+		- buttons.buttons = ['cancel']
+
+	//!=bs.radioButtonList(attrs, 'variant', options.variant, i18n)
+
+!=widget('system.formButtons.@c', buttons)

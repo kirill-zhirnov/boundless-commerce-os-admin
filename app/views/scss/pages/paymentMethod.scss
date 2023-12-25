@@ -1,0 +1,37 @@
+@mixin payment-methods-logo {
+	.payment-gateway-logo {
+		background-position: 50% 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		display: none;
+		height: 32px;
+		margin: 0 10px 0 0;
+		vertical-align: middle;
+
+		width: 32px;
+	}
+
+	.alias-cashOnDelivery {
+		.payment-gateway-logo {
+			background-image: url('../../../assets/images/icons/coins.png');
+			display: inline-block;
+		}
+	}
+
+	.alias-paypal {
+		.payment-gateway-logo {
+			background-image: url('../../../assets/images/icons/paypal.png');
+			display: inline-block;
+		}
+	}
+}
+
+.payment-method-grid {
+	.col-title {
+		@include payment-methods-logo;
+	}
+}
+
+.add-payment-method-form {
+	@include payment-methods-logo;
+}

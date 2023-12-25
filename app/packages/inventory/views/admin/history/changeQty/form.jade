@@ -1,0 +1,30 @@
+mixin row(title, value)
+    div(class="form-group")
+        label(class="col-sm-2 control-label form-label")
+            !=title
+        div(class="col-sm-10")
+            input(type="text" readonly class="form-control-plaintext" value=value)
+
+extends /blocks/modal.jade
+block body
+    form(class="form-horizontal movement-item" autocomplete="off")
+        p
+            !=bs.icon('user')
+            =' '
+            if grid.movement.email
+                =grid.movement.email
+            else
+                =__('1C Synchronization')
+            =', '
+            =grid.movement.ts
+
+        +row(__('Reason'), grid.movement.reason)
+
+        if grid.movement.notes
+            blockquote
+                !=gHtml.nl2br(grid.movement.notes)
+
+        h4=__('Items')
+        !=widget('inventory.movementInfoGrid.@c', {data:grid})
+
+        =widget('system.formButtons.@c', buttons)

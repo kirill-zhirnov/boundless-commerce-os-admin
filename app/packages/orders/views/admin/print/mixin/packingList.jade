@@ -1,0 +1,387 @@
+mixin packingList(data)
+	each order in data.orders
+		- var senderCompanyInfo = [data.company.company];
+		if data.company.taxNumber
+			- senderCompanyInfo.push(__('Tax identification number') + ': ' + data.company.taxNumber);
+
+		if data.company.address
+			- senderCompanyInfo.push(data.company.address);
+
+		if data.company.bankDetails
+			- senderCompanyInfo.push(data.company.bankDetails);
+
+		- var recipientInfo = [order.customer.customer_full_name];
+		if order.customer.country_title
+			- recipientInfo.push(order.customer.country_title);
+
+		if order.customer.region_title
+			- recipientInfo.push(order.customer.region_title);
+
+		if order.customer.city_title
+			- recipientInfo.push(order.customer.city_title);
+
+		if order.customer.address
+			- recipientInfo.push(order.customer.address);
+
+
+		div(class="packing-list print-block")
+			div(class="top-block")
+				div.form-name
+					p
+						| Унифицированная форма № ТОРГ-12
+						br
+						| Утверждена постановлением Госкомстата России от 25.12.98 № 132
+
+				.company-info
+					.line
+						.value
+							.text
+								=senderCompanyInfo.join(', ')
+							.sign организация-грузоотправитель, адрес, телефон, факс, банковские реквизиты
+
+					.line
+						.value
+							.text &nbsp;
+							.sign структурное подразделение
+
+				.third-parties
+					.line
+						.field Грузополучатель
+						.value
+							.text
+								=recipientInfo.join(', ')
+							.sign организация, адрес, телефон, факс, банковские реквизиты
+
+					.line
+						.field Поставщик
+						.value
+							.text
+								=senderCompanyInfo.join(', ')
+							.sign организация, адрес, телефон, факс, банковские реквизиты
+
+					.line
+						.field Плательщик
+						.value
+							.text
+								=recipientInfo.join(', ')
+							.sign организация, адрес, телефон, факс, банковские реквизиты
+
+					.line
+						.field Основание
+						.value
+							.text &nbsp;
+							.sign договор, заказ-наряд
+
+				div.form-codes
+					table
+						tbody
+							tr.cell-height-5
+								td(colspan='2')
+								td.cell.cell-code Код
+							tr.cell-height-5
+								td(colspan='2' class="text-end cell-padding")
+									| Форма по ОКУД
+								td.cell.cell-code.text-center 0310001
+							tr.cell-height-5
+								td(colspan='2' class="text-end cell-padding")
+									| по ОКПО
+								td.cell.cell-code
+							tr.cell-height-7
+								td(colspan='2')
+								td.cell.cell-code
+							tr.cell-height-5
+								td(colspan='2' class="text-end cell-padding")
+									| Вид деятельности по ОКДП
+								td.cell.cell-code
+							tr.cell-height-8
+								td(colspan='2' class="text-end cell-padding")
+									| по ОКПО
+								td.cell.cell-code
+							tr.cell-height-10
+								td(colspan='2' class="text-end cell-padding")
+									| по ОКПО
+								td.cell.cell-code
+							tr.cell-height-10
+								td(colspan='2' class="text-end cell-padding")
+									| по ОКПО
+								td.cell.cell-code
+							tr.cell-height-5
+								td
+								td.text-end.cell-text.cell.cell-padding
+									| номер
+								td.cell.cell-code
+							tr.cell-height-5
+								td
+								td.text-end.cell-text.cell.cell-padding
+									| дата
+								td.cell.cell-code
+							tr.cell-height-5
+								td
+								td.text-end.cell-text.cell.cell-padding
+									| номер
+								td.cell.cell-code
+							tr.cell-height-5
+								td Транспортная накладная
+								td.text-end.cell-text.cell.cell-padding
+									| дата
+								td.cell.cell-code
+							tr.cell-height-5
+								td(colspan='2' class="text-end cell-padding")
+									| Вид операции
+								td.cell.cell-code
+
+				div.header
+					span.title Товарная накладная
+					div.header-table
+						table(class="text-center")
+							tr
+								td Номер документа
+								td Дата составления
+							tr
+								td
+									=order.order.order_id
+								td
+									=data.today
+
+			div.items-table
+				table
+					thead
+						tr
+							th(rowspan='2') Но- мер по по- ряд- ку
+							th(colspan='2') Товар
+							th(colspan='2') Ед. изм.
+							th(rowspan='2') Вид упа- ков- ки
+							th(colspan='2') Количество
+							th(rowspan='2') Мас- са брут- то
+							th(rowspan='2') Коли- чество (масса нетто)
+							th(rowspan='2')
+								| Цена,
+								br
+								| руб. коп.
+							th(rowspan='2') Сумма без учета НДС, руб. коп.
+							th(colspan='2') НДС
+							th(rowspan='2') Сумма с учетом НДС, руб. коп.
+						tr
+							th
+								|наименование, характеристика,
+								br
+								|сорт, артикул товара
+							th код
+							th наиме- нова- ние
+							th код по ОКЕИ
+							th в одном месте
+							th мест, штук
+							th ставка, %
+							th сумма, руб. коп.
+						tr
+							- for (var i = 1; i < 16; i++) {
+							th(class="text-center")
+								=i
+							- }
+					tbody
+						each item, index in order.items.items
+							tr
+								td.text-center.order-number
+									=index + 1
+								td.item-name
+									=item.title
+									br
+									=item.sku
+								td.item-code
+								td.measure-name
+									| шт
+								td.measure-code
+									| 796
+								td.package-kind
+								td.qty-one-place
+								td.qty-pcs
+								td.weight-gross
+								td.qty
+									=item.qty
+								td.price
+									=item.priceWithoutTax
+								td.sum-without-tax
+									=item.sumWithoutTax
+								td.tax-rate
+									=item.taxRate
+								td.tax-sum
+									=item.taxSum
+								td.sum-with-tax
+									=item.total
+
+						tr
+							td(colspan='7' class="total")
+								| Итого
+							td
+							td
+							td
+								=order.items.total.qty
+							td X
+							td
+								=order.items.total.priceWithoutTax
+							td X
+							td
+								=order.items.total.taxSum
+							td
+								=order.items.total.price
+						tr
+							td(colspan='7' class="total")
+								| Всего по накладной
+							td
+							td
+							td
+							td X
+							td
+							td X
+							td
+							td
+
+			div.total-info
+				p.attachments
+					span.items-qty-word
+						=order.items.qtyWord
+
+					| Товарная накладная имеет приложение на
+					span.underline.underline-1 &nbsp;
+					| листах и содержит
+					span.underline.underline-2 &nbsp;
+					| порядковых номеров записей
+
+				p.total-space
+					span.caption Всего мест
+					span.clarification прописью
+
+				div.weight
+					p.weight-net
+						span.caption Масса груза (нетто)
+						span.clarification прописью
+
+					p.weight-gross
+						span.caption Масса груза (брутто)
+						span.clarification прописью
+
+			div.signatures
+				div.company-signatures
+					p.attachments
+						| Приложение (паспорта, сертификаты, и т.п.) на
+						span.clarification прописью
+						span.text-after листах
+
+					.line
+						.field Всего отпущено на сумму:
+						.values
+							.value
+								.text
+									=order.items.totalPriceInWord + ' рублей'
+								.sign прописью
+
+					.signatures-area
+						.line
+							.field Отпуск разрешил
+							.values
+								.value.position
+									.text
+										if data.company.torg12.deliveryAllowedByPosition
+											=data.company.torg12.deliveryAllowedByPosition
+										else
+											!='&nbsp;'
+									.sign должность
+
+								.value.pen-signature
+									.text &nbsp;
+									.sign подпись
+
+								.value.title
+									.text
+										if data.company.torg12.deliveryAllowedByName
+											=data.company.torg12.deliveryAllowedByName
+										else
+											!='&nbsp;'
+									.sign расшифровка подписи
+
+						.line
+							.field Главный (старший) бухгалтер
+							.values
+								.value.position
+									.text &nbsp;
+									.sign &nbsp;
+
+								.value.pen-signature
+									.text &nbsp;
+									.sign подпись
+
+								.value.title
+									.text
+										if data.company.torg12.accountantName
+											=data.company.torg12.accountantName
+										else
+											!='&nbsp;'
+									.sign расшифровка подписи
+
+						.line
+							.field Отпуск груза произвел
+							.values
+								.value.position
+									.text
+										if data.company.torg12.deliveredByPosition
+											=data.company.torg12.deliveredByPosition
+										else
+											!='&nbsp;'
+									.sign должность
+
+								.value.pen-signature
+									.text &nbsp;
+									.sign подпись
+
+								.value.title
+									.text
+										if data.company.torg12.deliveredByName
+											=data.company.torg12.deliveredByName
+										else
+											!='&nbsp;'
+									.sign расшифровка подписи
+
+					p.stamp
+						| М. П.
+						span.date
+							| "
+							span.day
+							| "
+							span.month &nbsp;
+							| 20
+							span.year &nbsp;
+							| года
+
+				.third-parties-signatures
+					p.poa
+						| По доверенности №
+						span.underline.underline-1 &nbsp;
+						|  от "
+						span.day
+						| "
+						span.underline.underline-2 &nbsp;
+						|  г.
+
+					p.released
+						span.caption Выданной
+						span.clarification
+							| кем, кому (организация, должность, фамилия, и.о.)
+
+					p.accepted
+						span.caption Груз принял
+						span.underline &nbsp;
+
+					p.got
+						| Груз получил грузополучатель
+						span.underline &nbsp;
+
+					p.stamp
+						| М. П.
+						span.date
+							| "
+							span.day
+							| "
+							span.month &nbsp;
+							| 20
+							span.year &nbsp;
+							| года

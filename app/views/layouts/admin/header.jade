@@ -1,0 +1,16 @@
+header.global-page-header
+	.global-page-header__wrapper
+		!=widget('system.toggleLeftMenuBtn.@c')
+		!=widget('system.toggleHamburgerMenu.@c')
+
+		a.logo(href=url('@admin-dashboard'))
+			img.logo__img.logo__img_xm(src=getGlobalStaticUrl('/images/logo-small.svg', true, true) alt="")
+			img.logo__img(src=getGlobalStaticUrl('/images/logo.svg', true, true) alt="")
+
+		!=widget('system.upgradeBtn.@c')
+
+		!=widget('orders.basket.@c', {data:{tpl:'admin'}})
+		!=widget('auth.loginNavBar.@c')
+
+		a.btn.btn_help.custom-btn.custom-btn_icon(href="https://help.boundless-commerce.com/books/user-guide" target="_blank")
+			span.ico.ico_help-circle._purple

@@ -1,0 +1,12 @@
+.alerts-container {
+	position: fixed;
+	right: 10px;
+	top: map-get($global-page-header-height, 'xs') + 10;
+	width: 300px;
+	z-index: $z-index-alerts;
+
+	@include media-breakpoint-up(md) {
+		right: 15px;
+		top: map-get($global-page-header-height, 'md') + 15;
+	}
+}

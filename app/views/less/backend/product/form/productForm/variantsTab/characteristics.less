@@ -1,0 +1,36 @@
+form[name="characteristics"] {
+	.charact-block,
+	.commodity-group-block {
+		background: #f8f8f8;
+		padding: 10px;
+		margin: 0 0 15px 0;
+
+		> h4 {
+			margin-top: 5px;
+			margin-bottom: 15px;
+		}
+
+		> .form-group {
+			> label {
+				.edit {
+					margin-left: 5px;
+					display: inline-block;
+					color: @text-muted;
+					font-size: @font-size-small;
+					vertical-align: top;
+
+					&:hover {
+						color: @link-color;
+					}
+				}
+			}
+		}
+	}
+
+	.add-prop-row {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+		align-items: center;
+	}
+}

@@ -1,0 +1,43 @@
+mixin a(page)
+	- link = '#'
+	if page
+		- link = createPageUrl(page)
+
+	a(href=link, class="page-link" data-page=page)&attributes(attributes)
+		block
+if pagesInRange.length > 1
+	ul(class="pagination")
+		if _.indexOf(pagesInRange, 1) == -1
+			li.page-item
+				+a(1)
+					!='&laquo; '
+					=__('To the beginning')
+
+		li(class='page-item ' + (currentPage == 1 ? 'disabled' : ''))
+			- page = currentPage - 1
+			if currentPage == 1
+				- page = false
+
+			+a(page)(aria-label=__("Previous"))
+				span(aria-hidden="true")
+					!='&laquo;'
+
+		each page in pagesInRange
+			li(class='page-item ' + (currentPage == page ? 'active' : ''))
+				+a(page)
+					=page
+
+		li(class='page-item ' + (lastPage == currentPage ? 'disabled' : ''))
+			- page = currentPage + 1
+			if lastPage == currentPage
+				- page = false
+
+			+a(page)(aria-label=__("Next"))
+				span(aria-hidden="true")
+					!='&raquo;'
+
+		if _.indexOf(pagesInRange, lastPage) == -1
+			li.page-item
+				+a(lastPage)
+					=__('To the end')
+					!=' &raquo;'

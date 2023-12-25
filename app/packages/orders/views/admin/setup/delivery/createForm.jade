@@ -1,0 +1,29 @@
+extends /blocks/modal.jade
+block body
+	form(autocomplete="off" data-form="" action=url('orders/admin/setup/delivery/createForm') class="add-shipping-form")
+		div(class="form-group")
+			each option in formData.options.type
+				div(class="radio form-check shipping-" + option[0])
+					label(class="form-check-label")
+						input(class="form-check-input" type="radio" name="type" value=option[0])
+						span.logo
+						b.title=option[1]
+
+					p(class="form-text")
+						case option[0]
+							when 'custom'
+								=__('You can create your own rate schedule.')
+
+							when 'boxBerry'
+								=__('Full integration with shipping company: automatic tariff calculations, parcels creation, a courier call.')
+
+							when 'cdek'
+								=__('Automatic tariff calculations and parcels creation.')
+
+							when 'selfPickup'
+								=__('Specify where users can pick up their orders.')
+
+							when 'rusSnailMail'
+								=__('Automatic calculation a cost of delivery with edost.ru.')
+
+		!=widget('system.formButtons.@c', formData.buttons)

@@ -1,0 +1,55 @@
+.backend {
+	.categories-filter {
+		display: block !important;
+
+		//.show-trash {
+		//	.form-check {
+		//		margin: 0;
+		//
+		//		.form-check-input {
+		//			margin-right: 12px;
+		//		}
+		//
+		//		.form-check-label {
+		//			.ico {
+		//				vertical-align: middle;
+		//				margin: 0 8px 0 0;
+		//			}
+		//		}
+		//	}
+		//}
+
+		.filters-at-right {
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+
+			> * {
+				margin-right: 12px;
+				margin-top: 5px;
+				margin-bottom: 5px;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
+		}
+	}
+
+	.category-tree {
+		.tree-view {
+			.bt-root {
+				.bt-item {
+					&.is-hidden,
+					&.not-in-menu {
+						.body-part {
+							.title {
+								color: @text-muted;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

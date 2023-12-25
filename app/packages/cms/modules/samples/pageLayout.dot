@@ -1,0 +1,5 @@
+extends $theme/views/layouts/page.jade
+
+block afterContent
+	v:container(id="page-{{=it.pageId}}")
+{{=it.pageContent}}

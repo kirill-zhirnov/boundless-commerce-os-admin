@@ -1,0 +1,23 @@
+div(id="layout" data-layout=layout)
+	if __editMode
+		div(class="container system-container")
+			include /blocks/systemInContainer
+
+	div(id="email-wrapper")
+		block header
+			div(id="logo-wrapper")
+				a(href=url('/', {}, true) id="logo")
+					if logo
+						img(src!=logo, alt="Your logo")
+					else
+						span Your logo
+
+		!=content
+
+		block footer
+			div(id="footer")
+				div(id="contacts")
+					if signature
+						!=signature
+					else
+						<p>Your contact details</p>

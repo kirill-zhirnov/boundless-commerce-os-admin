@@ -1,0 +1,65 @@
+!=gHtml.hiddenField('importId', importId)
+!=gHtml.hiddenField('importLogId', importLogId)
+
+p(class="lead intro")
+	=__('Set mapping between the columns and product\'s fields:')
+
+div(class="table-responsive mapping-wrapper")
+	table(class="mapping table table-bordered table-striped table-hover table-condensed small")
+		thead
+			tr
+				th
+				each item in mappingColumns
+					th(class="col-label" class="col-" + item)
+						=item
+
+		tbody
+			each row, i in firstRows
+				tr
+					th(class="row-label")
+						=(i+1)
+					each column, key in mappingColumns
+						td(class="col-" + column)
+							div(class="col-wrapper")
+								if typeof(row[key]) != 'undefined'
+									=row[key]
+		tfoot
+			tr
+				td(colspan=(mappingColumns.length + 1), class="other-rows")=__('~~ etc ~~')
+			tr
+				th
+				each column, key in mappingColumns
+					td(class="col-" + column)
+						- var selected = '';
+						if _.isObject(attrs.mapping) && typeof(attrs.mapping[key]) != 'undefined'
+							- selected = attrs.mapping[key];
+
+						- var htmlAttrs = {select : selected, 'data-column-label': column, 'class' : 'form-select-sm'};
+						!=bs.dropDownList({}, 'mapping[' + key + ']', options.mappingColumns, ['', __('Do not import')], htmlAttrs)
+
+div(class="row")
+	div(class="col-md-6")
+		.checkbox.form-check
+			label(class='form-check-label')
+				!=gHtmlActive.checkbox(attrs, 'only_update')
+				=' '
+				=__('Only update. Do not create new products.')
+
+		.checkbox.form-check
+			label(class='form-check-label')
+				!=gHtmlActive.checkbox(attrs, 'only_insert')
+				=' '
+				=__('Only insert. Ignore existing products.')
+
+		div(class="form-group")
+			!=bs.dropDownList(attrs, 'detect_variants_by', options.detectVariants, [], {class:'form-select-sm'})
+
+	div(class="col-md-6")
+		div(class="form-inline")
+			div(class="form-group skip-first-rows")
+				!=bs.label(__('Start import from the row #'), 'skip_first_rows')
+				=' '
+				!=bs.textField(attrs, 'skip_first_rows', {placeholder : '1'})
+
+br
+!=widget('system.formButtons.@c', buttons)

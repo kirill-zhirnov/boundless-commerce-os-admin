@@ -1,0 +1,13 @@
+p.mb-4
+	a(class="btn btn-outline-secondary" href=url('catalog/admin/commodityGroup/index', grid))
+		!=gHtml.faIcon('arrow-left')
+		=' '
+		=__('Return to the list')
+
+.row
+	.col-xxl-10.offset-xxl-1
+		section(data-form-group=url('catalog/admin/commodityGroup/form', {grid: grid}))
+			include ./tabs.jade
+
+			- buttons.buttons = ['save']
+			!=widget('system.formButtons.@c', buttons)

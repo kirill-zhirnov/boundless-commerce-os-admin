@@ -1,0 +1,94 @@
+mixin tabLi(alias, title, isActive, buttonConf)
+	- var href = '#' + alias;
+	- var btnClasses = ['nav-link'];
+	if isActive
+		- btnClasses.push('active')
+
+	- var btnAttrs = {};
+	if buttonConf && _.isObject(buttonConf)
+		if buttonConf.disabled
+			- btnClasses.push('disabled')
+		if buttonConf.enableIfPk
+			- btnAttrs['data-enable-if-pk'] = '';
+
+	li.nav-item(role="presentation")&attributes(attributes)
+		button(
+			data-bs-toggle="tab"
+			data-bs-target=href
+			type="button"
+			role="tab"
+			aria-controls=alias
+			class=btnClasses
+		)&attributes(btnAttrs)
+			!=title
+
+mixin tabLiWithClose(alias, title)
+	- var href = '#' + alias;
+	li(role="presentation")&attributes(attributes)
+		a(href=href aria-controls=alias role="tab" data-toggle="tab")=title
+		=' '
+		button(type="button" class="close tab-close" aria-label="Close")
+			span(aria-hidden="true") &times;
+
+mixin tabBody(alias, isActive)
+	- var classes = ['tab-pane'];
+	if isActive
+		- classes.push('active');
+
+	- var labeledBy = alias + '-tab';
+	div(class=classes role="tabpanel" id=alias aria-labelledby=labeledBy)&attributes(attributes)
+		block
+
+mixin hamburger()
+	button(type="button" class="nav-toggle" data-collapse="")&attributes(attributes)
+		span(class="sr-only")
+			noindex=__('Toggle navigation')
+
+		span(class="icon-bar first")
+		span(class="icon-bar middle")
+		span(class="icon-bar last")
+
+mixin breadCrumbs(items)
+	!=widget('system.breadCrumbs.@c', {data: { breadCrumbs: items } })
+
+mixin formatPrices(curPrice, oldPrice)
+	- var tplPrices = utils.getPriceForTpl(curPrice, oldPrice)
+	- var classes = ["formatted-price"];
+
+	if tplPrices.oldPrice
+		- classes.push('has-old');
+
+	span(class=classes)
+		if tplPrices.isFrom
+			span(class="from")
+				=p__('prices', 'From:')
+
+		if tplPrices.oldPrice
+			s
+				=locale.formatMoney(tplPrices.oldPrice)
+
+		span(class="current")
+			=locale.formatMoney(tplPrices.price)
+
+mixin productLabels(product)
+	if _.isArray(product.labels) && product.labels.length != 0
+		ul(class="product-tags")&attributes(attributes)
+			each label in product.labels
+				li(class="tag" style="color: " + label.text_color + "; background-color: " + label.color)
+					!=bs.icon(label.icon)
+					!=" "
+					!=label.title
+
+mixin adminViewHelp
+	p(class="view-help")&attributes(attributes)
+		a(href="http://help.sellios.ru" target="_blank")
+			!=bs.icon('question-sign')
+			=' '
+			=__('Help')
+
+mixin adminViewSite
+	p(class="view-site")&attributes(attributes)
+		a(href=url('/'))
+			!=bs.icon('globe')
+			=' '
+			=__('View site')

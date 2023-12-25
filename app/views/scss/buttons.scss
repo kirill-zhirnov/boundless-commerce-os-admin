@@ -1,0 +1,141 @@
+@mixin colored-custom-btn($background, $color) {
+	background: $background;
+	color: $color;
+
+	&:hover {
+		background: darken($background, 5%);
+		color: $color;
+	}
+
+	&:active {
+		background: darken($background, 10%);
+		color: $color;
+	}
+
+	&:focus {
+		background: darken($background, 5%);
+		box-shadow: 0 0 0 0.25rem lighten($background, 15%);
+		color: $color;
+	}
+}
+
+@mixin colored-custom-btn-icon($background) {
+	background: $background;
+	font-size: 0;
+	line-height: 0;
+
+	&:hover {
+		background: darken($background, 2%);
+	}
+
+	&:active {
+		background: darken($background, 5%);
+	}
+
+	&:focus {
+		background: darken($background, 2%);
+		box-shadow: 0 0 0 0.25rem lighten($background, 1%);
+	}
+}
+
+.custom-btn {
+	align-items: center;
+	background-color: transparent;
+	border: none;
+	border-radius: 10px;
+	color: $c-btn-base;
+	display: inline-flex;
+	flex-shrink: 0;
+	font-size: 15px;
+	font-weight: 700;
+	gap: 8px;
+	justify-content: center;
+	line-height: (24 / 15);
+	padding: 8px 16px;
+	transition: color 0.35s ease-in-out, background-color 0.35s ease-in-out, box-shadow 0.35s ease-in-out;
+	word-wrap: normal;
+	text-decoration: none;
+
+	&_outlined {
+		border: 1px solid $c-btn-bg-purple-100;
+
+		&:hover {
+			background: lighten($c-btn-bg-purple-100, 15%);
+		}
+
+		&:active {
+			background: lighten($c-btn-bg-purple-100, 20%);
+		}
+
+		&:focus {
+			background: lighten($c-btn-bg-purple-100, 15%);
+			box-shadow: 0 0 0 0.25rem lighten($c-btn-bg-purple-100, 30%);
+		}
+	}
+
+	&_small {
+		font-size: 12px;
+		line-height: 14px;
+	}
+
+	&_xs {
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 500;
+		line-height: 14px;
+		padding: 4px 8px;
+	}
+
+	&_purple-100 {
+		@include colored-custom-btn($c-btn-bg-purple-100, $c-btn-white);
+	}
+
+	&_green {
+		@include colored-custom-btn($c-btn-bg-green, $c-btn-white);
+		border-radius: 5px;
+
+		&:hover {
+			background: darken($c-btn-bg-green, 10%);
+		}
+
+		&:active {
+			background: darken($c-btn-bg-green, 12%);
+		}
+	}
+
+	&_icon {
+		@include colored-custom-btn-icon($c-btn-bg-purple-12);
+	}
+
+	&_icon-green {
+		@include colored-custom-btn-icon(#E8F1EC);
+	}
+
+	&_icon-square {
+		@include colored-custom-btn-icon($c-btn-bg-gray-light);
+		padding: 10px;
+	}
+
+	&_with-ico {
+		.ico {
+			margin: 0 8px 0 0;
+		}
+	}
+}
+
+.btn-outline-purple {
+	@include button-outline-variant($c-link-purple);
+}
+
+.btn-purple {
+	@include button-variant($c-btn-bg-purple-100, darken($c-btn-bg-purple-100, 10%), $c-btn-white);
+}
+
+.btn-link-purple {
+	color: $c-link-purple;
+
+	&:hover {
+		color: darken($c-link-purple, 10%);
+	}
+}
+

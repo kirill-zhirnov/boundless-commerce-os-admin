@@ -1,0 +1,322 @@
+@page {
+	margin: 2.5mm 5mm;
+	size: A4 portrait;
+}
+
+.print {
+	body {
+		color: #000;
+
+		.print-block {
+			margin-top: 2.5mm;
+			margin-bottom: 2.5mm;
+		}
+
+		.address-label {
+			page-break-inside: avoid;
+			position: relative;
+			width: 175mm;
+			margin-right: auto;
+			margin-left: auto;
+			font-weight: bold;
+			font-size: 14px;
+
+			.bg-img {
+				display: block;
+				width: 175mm;
+				height: auto;
+			}
+
+			.sender {
+				position: absolute;
+				width: 85mm;
+				height: 45mm;
+				top: 40mm;
+				left: 1mm;
+
+				//background: red;
+				//opacity: 0.5;
+
+				.fullname {
+					position: absolute;
+					top: 0;
+					left: 5mm;
+				}
+
+				.address-line-1 {
+					position: absolute;
+					top: 16.5mm;
+					left: 0;
+				}
+
+				.address-line-2 {
+					position: absolute;
+					top: 22mm;
+					left: 0;
+				}
+
+				.address-line-3 {
+					position: absolute;
+					top: 27mm;
+					left: 0;
+				}
+
+				.postcode {
+					position: absolute;
+					bottom: 3.8mm;
+					right: -2mm;
+					letter-spacing: 2.5mm;
+					font-size: 15px;
+				}
+			}
+
+			.amounts {
+				width: 85mm;
+				height: 23mm;
+				position: absolute;
+				right: 1.5mm;
+				top: 34mm;
+
+				//background:red;
+				//opacity: 0.5;
+
+				.amount-block {
+					//background: green;
+					position: absolute;
+					width: 85mm;
+					height: 11mm;
+					text-align: center;
+					padding-top: 0.5mm;
+					line-height: 14px;
+
+					.num {
+						font-size: 14px;
+					}
+				}
+
+				.cash-on-delivery {
+					top: 11.5mm;
+				}
+			}
+
+			.checkboxes {
+				width: 42mm;
+				height: 29.5mm;
+				position: absolute;
+				top: 2.5mm;
+				right: 44.5mm;
+
+				font-size: 11px;
+
+				.small-checkbox {
+					position: absolute;
+					width: 2.4mm;
+					height: 2.4mm;
+					line-height: 2.4mm;
+					text-align: center;
+				}
+
+				.declared-value {
+					top: 0.4mm;
+					left: 0.1mm;
+				}
+
+				.cash-on-delivery {
+					top: 3.6mm;
+					left: 0.1mm;
+				}
+			}
+
+			.recipient {
+				position: absolute;
+				width: 85mm;
+				height: 45mm;
+				right: 1.5mm;
+				bottom: 20.5mm;
+
+				//background: red;
+				//opacity: 0.5;
+
+				.fullname {
+					position: absolute;
+					top: 3.5mm;
+					left: 5mm;
+				}
+
+				.address-line-1 {
+					position: absolute;
+					top: 20.5mm;
+					left: 0;
+				}
+
+				.address-line-2 {
+					position: absolute;
+					top: 26mm;
+					left: 0;
+				}
+
+				.address-line-3 {
+					position: absolute;
+					top: 31mm;
+					left: 0;
+				}
+
+				.postcode {
+					position: absolute;
+					bottom: -0.2mm;
+					right: -2mm;
+					letter-spacing: 2.5mm;
+					font-size: 15px;
+				}
+			}
+		}
+
+		.receipt {
+			page-break-inside: avoid;
+			width: 175mm;
+			margin-right: auto;
+			margin-left: auto;
+		}
+
+		.cash-on-delivery {
+			page-break-inside: avoid;
+			position: relative;
+			width: 175mm;
+			margin-right: auto;
+			margin-left: auto;
+			font-weight: bold;
+
+			.bg-img {
+				display: block;
+				width: 175mm;
+				height: auto;
+			}
+
+			.money-transfer {
+				position: absolute;
+				width: 169mm;
+				height: 89mm;
+				top: 43mm;
+				left: 3mm;
+
+				//background: red;
+				//opacity: 0.5;
+
+				.amount-int {
+					position: absolute;
+					top: 4.5mm;
+					left: 4.5mm;
+					font-size: 17px;
+				}
+
+				.amount-fraction {
+					position: absolute;
+					top: 4.5mm;
+					left: 28.5mm;
+					font-size: 17px;
+				}
+
+				.amount-word {
+					position: absolute;
+					top: 1.5mm;
+					left: 44mm;
+					font-size: 11px;
+					line-height: 5mm;
+				}
+
+				.cod-checkbox {
+					width: 7mm;
+					height: 7mm;
+					position: absolute;
+					top: 11.8mm;
+					left: 3.7mm;
+					font-size: 30px;
+					line-height: 7mm;
+				}
+
+				.recipient {
+					width: 166mm;
+					height: 17mm;
+					position: absolute;
+					top: 20mm;
+					left: 1.5mm;
+
+					//background: red;
+					//opacity: 0.5;
+
+					.name {
+						position: absolute;
+						left: 10mm;
+					}
+
+					.address-line-1 {
+						position: absolute;
+						left: 9mm;
+						top: 6mm;
+					}
+
+					.address-line-2 {
+						position: absolute;
+						left: 0.5mm;
+						top: 12mm;
+					}
+
+					.postcode {
+						position: absolute;
+						right: -0.5mm;
+						bottom: 0;
+						letter-spacing: 2.1mm;
+						font-size: 15px;
+					}
+				}
+
+				.sender {
+					width: 166mm;
+					height: 17.5mm;
+					position: absolute;
+					bottom: 2mm;
+					left: 1.5mm;
+
+					//background: green;
+					//opacity: 0.5;
+
+					.name {
+						position: absolute;
+						left: 14.5mm;
+						top: 0.5mm;
+					}
+
+					.address-line-1 {
+						position: absolute;
+						left: 34.5mm;
+						top: 6.5mm;
+					}
+
+					.address-line-2 {
+						position: absolute;
+						left: 0.5mm;
+						top: 12.5mm;
+					}
+
+					.postcode {
+						position: absolute;
+						right: -0.5mm;
+						bottom: 0;
+						letter-spacing: 2.1mm;
+						font-size: 15px;
+					}
+				}
+			}
+
+			.sender-details {
+				position: absolute;
+				width: 169mm;
+				height: 82mm;
+				left: 3mm;
+				bottom: 37mm;
+			}
+		}
+
+		@import "./print/packingListTorg12";
+	}
+}

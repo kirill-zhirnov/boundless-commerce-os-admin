@@ -1,0 +1,64 @@
+mixin addressLabel(data)
+		each order in data.orders
+			div(class="address-label print-block")
+				img(class="bg-img" src=data.bgImgSrc)
+
+				div(class="sender")
+					.fullname
+						!=data.shopInfo.fullname
+
+					.address-line-1
+						!=data.shopInfo.address.line1
+
+					.address-line-2
+						!=data.shopInfo.address.line2
+
+					.address-line-3
+						!=data.shopInfo.address.line3
+						!=data.shopInfo.address.rest ? data.shopInfo.address.rest : ''
+
+					.postcode
+						!=data.shopInfo.postcode
+
+				div(class="checkboxes")
+					.declared-value.small-checkbox X
+
+					if order.sumCodWord
+						.cash-on-delivery.small-checkbox X
+
+				div(class="amounts")
+					.amount-block.declared-value
+						span.num
+							!=locale.formatMoney(order.sumCodNum)
+							=', '
+
+						span(class="word" style="font-size: " + order.sumCodWordSize + "px")
+							!=order.sumCodWord
+
+					if order.sumCodWord
+						.amount-block.cash-on-delivery
+							span.num
+								!=locale.formatMoney(order.sumCodNum)
+								=', '
+
+							span(class="word" style="font-size: " + order.sumCodWordSize + 'px')
+								!=order.sumCodWord
+
+				div(class="recipient")
+					.fullname
+						=order.last_name + " " + order.first_name + " " + order.patronymic
+
+					.address-line-1
+						=order.address.line1
+
+					.address-line-2
+						=order.address.line2
+
+					.address-line-3
+						=order.address.line3
+						=order.address.rest ? order.address.rest : ''
+
+					.postcode
+						=order.postcode
+
+				hr

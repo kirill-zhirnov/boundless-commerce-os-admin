@@ -1,0 +1,34 @@
+!=gHtml.pk(pk)
+
+.row
+	.col-sm-4.mb-2
+		!=gHtml.img(_.extend(imgRow.thumb.s, {class: 'img-fluid'}))
+
+	.col-sm-8.mb-2
+		.form-group
+			!=bs.label(__('Description'), 'description')
+			!=bs.textArea(attrs, 'description')
+			p.form-text
+				=__('Description will be shown near the image. ')
+
+		.form-group
+			!=bs.label(__('Alt'), 'alt')
+			!=bs.textArea(attrs, 'alt')
+			p.form-text
+				=__('Brief description of the image for SEO.')
+
+		.form-group
+			!=bs.label(__('Tags'), 'tag')
+			!=bs.textField(attrs, 'tag')
+			.tags-block
+
+		if options.variants.length
+			.form-group
+				!=bs.label(__('Related to variants'), 'variants')
+				!=bs.checkboxList(attrs, 'variants', options.variants)
+
+		.form-group
+			!=bs.label(__('Image ID'), 'image_id')
+			!=bs.textField(attrs, 'image_id', {value: imgRow.image_id, readonly: '1'})
+
+!=widget('system.formButtons.@c')

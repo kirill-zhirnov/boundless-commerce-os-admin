@@ -1,0 +1,17 @@
+div(id="layout" data-layout=layout class="layout-default frontend")
+	//-nav.navbar-logo
+		.container
+			a.navbar-logo__logo(href=url("/"))
+				img.navbar-logo__logo-img(src=getGlobalStaticUrl('/images/logo.svg', true, true) alt="Boundless commerce")
+
+			//- durty hack to fix issues with getWCache
+			.d-none
+				!=widget('auth.loginNavBar.@c')
+
+	main.container.layout-default__main
+		.page-header
+			h1#header
+				=page.header
+
+		#content
+			!=content

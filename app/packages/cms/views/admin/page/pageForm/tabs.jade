@@ -1,0 +1,12 @@
+extends /blocks/tabs.jade
+
+block nav
+	+tabLi('page', __('Page'))(class="active")
+	+tabLi('seo', __('SEO'))
+
+block content
+	+tabBody('page')(class="active")
+		!=widget('cms.pageFormTab.@c', {data: data})
+
+	+tabBody('seo')
+		include ./seo

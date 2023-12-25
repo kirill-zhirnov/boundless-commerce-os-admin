@@ -1,0 +1,67 @@
+.global-page-header {
+	background: $c-bg-white;
+
+	position: sticky;
+	top: 0;
+	z-index: $z-index-global-page-header;
+
+	&__wrapper {
+		align-items: center;
+		box-shadow: inset 0px -1px 0px #EDEDED;
+		display: flex;
+		padding: 8px 16px;
+
+		@include media-breakpoint-up(md) {
+			padding: 12px 24px;
+		}
+
+		@include media-breakpoint-up(xl) {
+			padding: 4px 24px;
+		}
+
+		.logo {
+			margin: 0 auto;
+			@include media-breakpoint-up(md) {
+				margin: 0 24px;
+			}
+
+			@include media-breakpoint-up(xl) {
+				margin: 0 48px 0 24px;
+			}
+		}
+
+		.btn_upgrade-plan {
+			display: none;
+			@include media-breakpoint-up(md) {
+				display: flex;
+			}
+		}
+
+		.cart {
+			@include media-breakpoint-up(md) {
+				margin: 0 0 0 auto;
+			}
+			@include media-breakpoint-up(xl) {
+				margin: 0 32px 0 auto;
+			}
+		}
+
+		.user {
+			display: none;
+
+			@include media-breakpoint-up(xl) {
+				display: block;
+				margin: 0 24px 0 0;
+				padding: 8px 0;
+			}
+		}
+
+		.btn_help {
+			display: none;
+
+			@include media-breakpoint-up(xl) {
+				display: flex;
+			}
+		}
+	}
+}

@@ -1,0 +1,139 @@
+@import "./fluidType";
+@import "./fonts";
+
+#basic {
+	#dropdown-links (
+		@dd-link-color : @dropdown-link-color;
+		@dd-link-hover-color : @dropdown-link-hover-color;
+		@dd-link-active-color : @dropdown-link-active-color;
+		@dd-link-disabled-color : @dropdown-link-disabled-color
+	) {
+		.dropdown-menu {
+			> li > a {
+				color: @dd-link-color;
+
+				&:hover,
+				&:focus {
+					color: @dd-link-hover-color;
+				}
+			}
+
+			> .active > a {
+				&,
+				&:hover,
+				&:focus {
+					color: @dd-link-active-color;
+				}
+			}
+
+			> .disabled > a {
+				&,
+				&:hover,
+				&:focus {
+					color: @dd-link-disabled-color;
+				}
+			}
+		}
+	}
+
+	#default-components-colors () {
+		#basic #dropdown-links();
+
+		.to-top {
+			color: #fff;
+
+			&:hover {
+				color: #fff;
+			}
+		}
+
+		.btn-gray {
+			color: #222222;
+		}
+
+		.btn-default {
+			.button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+		}
+		.btn-primary {
+			.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+		}
+		.btn-success {
+			.button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+		}
+
+		.pagination {
+			> li {
+				> a,
+				> span {
+					color: @pagination-color;
+				}
+			}
+
+			> li > a,
+			> li > span {
+				&:hover,
+				&:focus {
+					color: @pagination-hover-color;
+				}
+			}
+
+			> .active > a,
+			> .active > span {
+				&,
+				&:hover,
+				&:focus {
+					color: @pagination-active-color;
+				}
+			}
+
+			> .disabled {
+				> span,
+				> span:hover,
+				> span:focus,
+				> a,
+				> a:hover,
+				> a:focus {
+					color: @pagination-disabled-color;
+				}
+			}
+		}
+
+		.nav-tabs {
+			> li {
+				> a {
+					color: @link-color;
+				}
+
+				&.active > a {
+					&,
+					&:hover,
+					&:focus {
+						color: @nav-tabs-active-link-hover-color;
+					}
+				}
+			}
+		}
+
+		.my-orders {
+			td {
+				a {
+					color: @front-text-color;
+				}
+			}
+		}
+	}
+
+	#cover-margins (@padding) {
+		.cover-text, .cover-text-1, .cover-text-2, .products-list,
+		.instagram-slider,
+		.products-carousel, .manufacturers-list, .text-with-icons:not(.type-fullWidth),
+		.vk-widget, .map-widget, .social-buttons, .blog-block,
+		.imgs-combinations.boxed, .product-block, .form-block,
+		.header-h1, .header-h2, .products-list-block, .imgs-combinations.blocksWithBtn,
+		.reviews-block, .hr, .small-icons, .items-swiper, .swiper-slider, .imgs-tiger,
+		.bobcat-gallery {
+			margin-top: @padding;
+			margin-bottom: @padding;
+		}
+	}
+}

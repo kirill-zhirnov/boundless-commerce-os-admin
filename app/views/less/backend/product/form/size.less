@@ -1,0 +1,62 @@
+form[name="size"] {
+	background: #f8f8f8;
+	padding: 10px;
+	margin: 0 0 15px 0;
+
+	> h4 {
+		margin-top: 5px;
+		margin-bottom: 15px;
+	}
+
+	.size-row {
+		.dimensions {
+			> b {
+				display: none;
+				font-weight: normal;
+			}
+		}
+	}
+
+	@media (min-width: @screen-xs-min) {
+		.size-row .dimensions {
+			display: flex;
+			justify-content: space-between;
+
+			> b {
+				display: block;
+				align-self: flex-end;
+				margin: 0 10px 22px 10px;
+			}
+		}
+	}
+
+	@media (min-width: @screen-md-min) {
+		.form-group {
+			margin-bottom: 0;
+		}
+
+		.size-row {
+			display: flex;
+			justify-content: space-between;
+
+			.weight {
+				margin-right: 40px;
+			}
+
+			.dimensions {
+				display: flex;
+				justify-content: space-between;
+
+				> b {
+					display: block;
+					align-self: flex-end;
+					margin: 0 10px 7px 10px;
+				}
+			}
+
+			input {
+				text-align: center;
+			}
+		}
+	}
+}

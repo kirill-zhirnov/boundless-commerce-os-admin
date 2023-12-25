@@ -1,0 +1,55 @@
+.import-csv-setup-form {
+	.intro {
+		margin-bottom: @padding-large-vertical;
+	}
+
+	.mapping {
+		thead {
+			th {
+				text-align: center;
+			}
+		}
+
+		tbody {
+			th {
+				text-align: center;
+			}
+
+			td {
+				min-width: 110px;
+
+				.col-wrapper {
+					max-width: 99px;
+					max-height: 70px;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+			}
+		}
+
+		tfoot {
+			tr {
+				td {
+					&.other-rows {
+						text-align: center;
+					}
+
+					select {
+						padding: 5px 2px;
+					}
+				}
+			}
+		}
+	}
+
+	.skip-first-rows {
+		label {
+			font-weight: normal;
+		}
+
+		input {
+			max-width: 50px;
+			text-align: center;
+		}
+	}
+}

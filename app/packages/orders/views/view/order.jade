@@ -1,0 +1,8 @@
+if data.customer.registered_at
+	p
+		a(class="btn btn-default" href=url("@client-dashboard"))
+			!=bs.icon('arrow-left') + " "
+			!=__("Back to my orders")
+
+- data.showExtendedInfo = true
+!=widget('orders.order.@c', {data:data})

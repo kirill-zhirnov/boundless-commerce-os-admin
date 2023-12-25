@@ -1,0 +1,35 @@
+.content {
+	background: $c-bg-white;
+	margin: 0 auto;
+	max-width: 1320px;
+	min-height: 100%;
+	padding-bottom: 12px;
+	padding-left: var(--bs-gutter-x, .75rem);
+	padding-right: var(--bs-gutter-x, .75rem);
+	padding-top: 12px;
+	width: 100%;
+
+	//@include media-breakpoint-up(md) {
+	//	padding: 15px;
+	//}
+
+	@include media-breakpoint-up(lg) {
+		border-radius: 10px;
+		//padding: 12px;
+	}
+
+	#header {
+		font-size: 2.3rem;
+		line-height: 1.3;
+		margin: 0 0 1.8rem 0;
+	}
+}
+
+.modal-content,
+.content {
+	.tinted-box {
+		background: #f8f8f8;
+		border-radius: 10px;
+		padding: 10px;
+	}
+}

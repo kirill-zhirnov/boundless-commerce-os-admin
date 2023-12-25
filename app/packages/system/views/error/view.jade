@@ -1,0 +1,32 @@
+case errorAlias
+	when 'clientAccessDenied'
+		p
+			=__("You are logged in as customer. Try to ")
+			a(href=url('auth/logout/exit'))
+				=__('log out')
+			=' '
+			=__('and login again with another user.')
+
+if debug
+	if error
+		p
+			b File:
+			=error.filename
+			br
+			b Line:
+			=error.line
+			br
+			b Message:
+			=error.message
+		p
+			b Stack:
+			br
+			!=error.stack.replace(/\n/g, "<br/>")
+
+		if typeof(parsedRoute) != undefined
+			p
+				b Parsed route:
+				br
+				!=JSON.stringify(parsedRoute)
+	else
+		h1 Error happens, but "error" was not passed!
