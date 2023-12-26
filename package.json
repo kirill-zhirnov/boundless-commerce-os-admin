@@ -1,6 +1,6 @@
 {
   "name": "Boundless-Commerce",
-  "version": "1.1.25",
+  "version": "1.2.2",
   "description": "Boundless Commerce",
   "main": "index.ts",
   "scripts": {

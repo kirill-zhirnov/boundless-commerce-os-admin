@@ -24,7 +24,7 @@ const config = {
 		port: 3000,
 		host: 'localhost',
 		publicPath: pathAlias.resolve('public'),
-		cookieSecret: 'secret'
+		cookieSecret: process.env.COOKIE_SECRET || 'secret'
 	},
 
 	viewRenderer: {
@@ -212,9 +212,6 @@ const config = {
 	redis: {
 		options: {
 			url: process.env.REDIS_URL || 'redis://localhost'
-			// socket: {
-			// 	host: process.env.REDIS_HOST || 'localhost'
-			// }
 		}
 	},
 

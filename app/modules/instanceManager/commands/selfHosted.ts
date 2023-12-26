@@ -46,9 +46,12 @@ export default class SelfHostedCommand extends BasicCommand {
 
 		await instanceRegistry.getSettings().set('system', 'cleanUp', [new Date()]);
 
+		const adminMagickLink = authConfig.authUrlAdmin.replace(authConfig.baseUrl, 'http://localhost:3000');
+
 		console.log('Instance ID: ', instanceRegistry.getInstanceInfo().instance_id);
 		console.log('Admin Email: ', adminUser.email);
 		console.log('Admin password: ', authConfig.userPass, '\n');
+		console.log('Click to login: ', adminMagickLink, '\n');
 
 		console.log('Thanks for choosing Boundless Commerce!');
 	}

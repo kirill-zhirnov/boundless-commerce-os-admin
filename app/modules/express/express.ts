@@ -41,29 +41,25 @@ export function createExpress() {
 		prefix: 'bSess:'
 	});
 
-
 	const cookieProps = {
-		httpOnly: true
+		httpOnly: true,
+		secure: (process.env.COOKIE_SECURE === 'true') ? true : false
 	};
-	// console.log('--- process.env.NODE_ENV:', process.env.NODE_ENV);
 
-	if (process.env.NODE_ENV === 'production') {
+	if (process.env.COOKIE_SAME_SITE !== undefined) {
 		Object.assign(cookieProps, {
-			//need for wix (iframe):
-			sameSite: 'none',
-			secure: true
+			sameSite: process.env.COOKIE_SAME_SITE
 		});
 	}
 
 	// session
 	expressApp.use(session({
-			store: redisStore,
-			secret: config.express.cookieSecret,
-			resave: false,
-			saveUninitialized: true,
-			cookie: cookieProps
-		})
-	);
+		store: redisStore,
+		secret: config.express.cookieSecret,
+		resave: false,
+		saveUninitialized: true,
+		cookie: cookieProps
+	}));
 
 	expressApp.use(favicon(`${pathAlias.getRoot()}/public/images/icons/favicon.ico`));
 
@@ -87,7 +83,7 @@ export function startExpress() {
 
 	const expressApp = createExpress();
 	expressApp.listen(config.express.port, function () {
-		console.log('Worker %s started at http://%s:%s', process.pid, this.address().address, this.address().port);
+		console.log('Worker %s started at http://localhost:%s', process.pid, this.address().port);
 
 		if (process.send) {
 			// pm2 graceful start
