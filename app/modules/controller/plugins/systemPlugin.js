@@ -12,17 +12,14 @@ import Basket from '../../../packages/orders/modules/basket';
 
 export default class SystemPlugin extends BasicPlugin {
 	async onBeforeExpressRun() {
-		console.log('--- SystemPlugin.onBeforeExpressRun');
-		if (this.checkOnSystemRedirect()) {
-			console.log('--- SystemPlugin.in system redirect');
+		if (this.checkOnSystemRedirect())
 			return {stopProcessing: true};
-		}
 
 		const clientRegistry = this.getClientRegistry();
 		clientRegistry.setInstanceExporter(new InstanceExporter());
 		clientRegistry.setUniqueId(new UniqueId(this.getFrontController().getRequest().session));
 		clientRegistry.setWidgetsCache(new ClientCache());
-		console.log('--- SystemPlugin.before setupSite');
+
 		await this.setupSite();
 	}
 
@@ -163,11 +160,109 @@ export default class SystemPlugin extends BasicPlugin {
 		];
 	}
 
+	/*getCurrentUserJson() {
+		const user = this.getClientRegistry().getUser();
+
+		let out = {isGuest : true};
+		if (!user.isGuest()) {
+			const profile = user.getState('profile');
+
+			out = {
+				id : user.getId(),
+				email : profile.email,
+				isGuest : false,
+				role : 'customer'
+			};
+
+			if (user.isAdmin()) {
+				out.role = 'admin';
+				out.settings =
+					{adminCloseModal : user.getSetting('adminCloseModal')};
+			}
+		}
+
+		return out;
+	}*/
+
+	/*async preloadFrontMenus(controller) {
+		const deferred = Q.defer();
+
+		let f = Q();
+		for (let menu of ['top', 'category', 'bottom']) {
+			(menu => {
+				return f = f.then(() => {
+					return this.preloadMenuItem(controller, menu);
+				});
+			})(menu);
+		}
+
+		f.then(() => {
+			return deferred.resolve();
+	}).done();
+
+		return deferred.promise;
+	}*/
+
+	/*preloadMenuItem(controller, menu) {
+		const deferred = Q.defer();
+
+		const instanceRegistry = this.getInstanceRegistry();
+		const db = instanceRegistry.getDb();
+
+		instanceRegistry.getCache().load(db.model('menuItem').getCacheKey(menu), () => {
+			const deferredItem = Q.defer();
+
+			controller.createDataProvider('@p-cms/dataProvider/admin/menuItem', {}, {
+				item : menu
+			})
+			.then(dataProvider => {
+				return dataProvider.getTreeCollection();
+		}).then(collection => {
+				return deferredItem.resolve(collection.toJSON());
+			}).done();
+
+			return deferredItem.promise;
+	}).then(out => {
+			this.getClientRegistry().getWidgetsCache().set(`cmsMenu-${menu}`, out);
+
+			return deferred.resolve();
+		}).done();
+
+		return deferred.promise;
+	}*/
+
+	/*	async preloadWidgetsCache(controller, response) {
+		const deferred = Q.defer();
+
+		// this is a shit code, which should be fixed:
+		const clientRegistry = this.getClientRegistry();
+
+		const widgetsCache = clientRegistry.getWidgetsCache();
+		widgetsCache.set('currentUser', this.getCurrentUserJson());
+
+		const promises = [
+			clientRegistry.getBasket().calcSummary()
+		];
+
+		if (controller.isFrontend() && (response.getLayout().view !== 'checkout')) {
+			promises.push(this.preloadFrontMenus(controller));
+		}
+
+		Q.all(promises)
+		.spread(basket => {
+			widgetsCache.set('basket', basket);
+
+			return deferred.resolve();
+	}).done();
+
+		return deferred.promise;
+}*/
+
 	async setupSite() {
 		const site = await this.getInstanceRegistry().getSiteDetector().getSite(
 			this.frontController.getRequest().hostname
 		);
-		console.log('--- site:', site);
+
 		let baseUrl = site.settings.useHttps ? 'https://' : 'http://';
 		baseUrl += site.host;
 

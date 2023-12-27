@@ -24,7 +24,12 @@ export default class PluginBroker {
 		for (const [key, plugin] of Object.entries(this.plugins)) {
 			if (plugin[method]) {
 				// eslint-disable-next-line prefer-spread
-				out.push(await plugin[method].apply(plugin, args));
+				const pluginResult = await plugin[method].apply(plugin, args);
+				if (pluginResult && pluginResult.stopProcessing === true) {
+					break;
+				}
+
+				out.push(pluginResult);
 			}
 		}
 

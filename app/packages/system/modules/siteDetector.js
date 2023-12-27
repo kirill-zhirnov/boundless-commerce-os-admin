@@ -23,9 +23,8 @@ export default class SiteDetector {
 	 */
 	async getSite(hostname) {
 		const sites = await this.getSites();
-		console.log('--- sites:', sites);
 		const keys = Object.keys(sites);
-		console.log('--- keys:', keys);
+
 		//hardcoded, we don;t need it for now:s
 		return sites[keys[0]];
 
@@ -117,8 +116,7 @@ export default class SiteDetector {
 					lang: row.lang_id,
 					//@ts-ignore
 					country: row.country_id,
-					urlPrefix: false
-					// urlPrefix: this.getUrlPrefixByRow(site.settings.langUrlPrefix, row)
+					urlPrefix: this.getUrlPrefixByRow(site.settings.langUrlPrefix, row)
 				};
 			}
 
