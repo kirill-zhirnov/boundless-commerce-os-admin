@@ -12,8 +12,9 @@ import Basket from '../../../packages/orders/modules/basket';
 
 export default class SystemPlugin extends BasicPlugin {
 	async onBeforeExpressRun() {
-		if (this.checkOnSystemRedirect())
+		if (this.checkOnSystemRedirect()) {
 			return {stopProcessing: true};
+		}
 
 		const clientRegistry = this.getClientRegistry();
 		clientRegistry.setInstanceExporter(new InstanceExporter());

@@ -48,6 +48,7 @@ export default class SelfHostedCommand extends BasicCommand {
 
 		const adminMagickLink = authConfig.authUrlAdmin.replace(authConfig.baseUrl, 'http://localhost:3000');
 
+		console.log('\nInstalled Successfully:');
 		console.log('Instance ID: ', instanceRegistry.getInstanceInfo().instance_id);
 		console.log('Admin Email: ', adminUser.email);
 		console.log('Admin password: ', authConfig.userPass, '\n');

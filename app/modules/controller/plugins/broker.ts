@@ -25,11 +25,11 @@ export default class PluginBroker {
 			if (plugin[method]) {
 				// eslint-disable-next-line prefer-spread
 				const pluginResult = await plugin[method].apply(plugin, args);
+				out.push(pluginResult);
+
 				if (pluginResult && pluginResult.stopProcessing === true) {
 					break;
 				}
-
-				out.push(pluginResult);
 			}
 		}
 
