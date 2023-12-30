@@ -251,7 +251,9 @@ export default {
 
 		compile() {
 			this.$ajax.get([this.routes.compile], {id: this.form.pk})
-				.then(res => this.compiled = res);
+				.then(res => this.compiled = res)
+				.catch((e) => console.error(e))
+			;
 		},
 
 		...mapMutations([

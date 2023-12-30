@@ -85,7 +85,7 @@ export default class Token extends BasicForm<IAttrs, IApiTokenModel> {
 	async createNewToken(name) {
 		const {token_id, client_id} = await this.createUniqueClientId();
 		const secret = randomString({
-			length: 33,
+			length: 66,
 			numeric: true,
 			letters: true,
 			special: false
