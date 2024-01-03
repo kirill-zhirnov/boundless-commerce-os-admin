@@ -35,6 +35,7 @@ async function runCommand(controller, action, options) {
 const controllers = {
 	instance: '@modules/instanceManager/commands/instance',
 	quickPay: '@modules/instanceManager/commands/quickPay',
+	subscriptions: '@modules/instanceManager/commands/subscriptions',
 	sample: '@modules/instanceManager/commands/sample',
 	migrate: '@modules/migrate/commands/migrate',
 	label: '@p-catalog/commands/label',
