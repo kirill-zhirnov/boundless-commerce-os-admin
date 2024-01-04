@@ -1,4 +1,6 @@
-# Boundless-Commerce Admin & Events Handler
+# Open-Source Headless eCommerce Platform
+
+The repo contains Admin & Event Handler components. More details and Installation instructions: [Open-Source Headless eCommerce Platform](https://boundless-commerce.com/open-source)
 
 ## How to launch with Docker-Compose:
 
