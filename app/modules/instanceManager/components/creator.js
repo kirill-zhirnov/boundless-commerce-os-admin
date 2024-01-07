@@ -204,14 +204,15 @@ export default class Creator {
 		);
 	}
 
-	createDbUser() {
-		return this.db.sql(`CREATE USER ${this.instanceConfig.db.user} WITH PASSWORD :pass`, {
+	async createDbUser() {
+		await this.db.sql(`CREATE USER ${this.instanceConfig.db.user} WITH PASSWORD :pass`, {
 			pass: this.instanceConfig.db.pass
 		});
+		await this.db.sql(`GRANT ${this.instanceConfig.db.user} TO postgres`);
 	}
 
-	createDb() {
-		return this.db.sql(`CREATE DATABASE ${this.instanceConfig.db.name} WITH TEMPLATE ${this.sampleDb} OWNER ${this.instanceConfig.db.user}`);
+	async createDb() {
+		await this.db.sql(`CREATE DATABASE ${this.instanceConfig.db.name} WITH TEMPLATE ${this.sampleDb} OWNER ${this.instanceConfig.db.user}`);
 	}
 
 	// async copyFiles() {

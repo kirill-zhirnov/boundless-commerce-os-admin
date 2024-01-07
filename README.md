@@ -19,7 +19,6 @@ services:
     image: kirillzh87/boundless-commerce-db:latest
     environment:
       POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      DELIVERY_VIEW_DB_PASS: "${DELIVERY_VIEW_DB_PASS}"
     healthcheck:
       test: pg_isready -U postgres
       interval: 10s
@@ -29,8 +28,6 @@ services:
 
   redis :
     image: redis:6
-    ports :
-      - "6379:6379"
     healthcheck:
       test: redis-cli ping
       interval: 10s
@@ -64,8 +61,7 @@ services:
       INSTANCE_ID: 1
       STATIC_ASSETS_HOST: http://localhost:3001
       NODE_ENV: "${NODE_ENV}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      DELIVERY_VIEW_DB_PASS: "${DELIVERY_VIEW_DB_PASS}"
+      DB_PASS: "${POSTGRES_PASSWORD}"
       DB_HOST: "${DB_HOST}"
       RABBIT_MQ_HOST: "${RABBIT_MQ_HOST}"
       MEMCACHED_DSN: "${MEMCACHED_DSN}"
@@ -100,8 +96,7 @@ services:
     image: kirillzh87/boundless-commerce-events-listener:latest
     environment:
       NODE_ENV: "${NODE_ENV}"
-      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD}"
-      DELIVERY_VIEW_DB_PASS: "${DELIVERY_VIEW_DB_PASS}"
+      DB_PASS: "${POSTGRES_PASSWORD}"      
       DB_HOST: "${DB_HOST}"
       RABBIT_MQ_HOST: "${RABBIT_MQ_HOST}"
       MEMCACHED_DSN: "${MEMCACHED_DSN}"

@@ -72,7 +72,7 @@ const config = {
 
 	deliveryViewDb: {
 		user: process.env.DELIVERY_VIEW_DB_USER || 'delivery_view',
-		pass: process.env.DELIVERY_VIEW_DB_PASS || '123'
+		pass: process.env.DELIVERY_VIEW_DB_PASS || '4mK5jdq3pT'
 	},
 
 	packages: {
