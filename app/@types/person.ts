@@ -18,7 +18,6 @@ export interface IPersonProfile {
 	first_name: string|null;
 	last_name: string|null;
 	patronymic: string|null;
-	group_id: number|null;
 	phone: string|null;
 	receive_marketing_info: boolean;
 	comment: string;
@@ -90,4 +89,18 @@ export enum TPersonAttrHtmlType {
 	text_area = 'text_area',
 	checkbox = 'checkbox',
 	dropdown = 'dropdown'
+}
+
+export interface ICustomerGroup {
+	group_id: number;
+	title: string|null;
+	alias: string|null;
+	created_at: string;
+	deleted_at: string|null;
+}
+
+
+export interface IPersonGroupRel {
+	person_id: number,
+	group_id: number
 }

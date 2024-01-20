@@ -141,6 +141,10 @@ export default class AdminMenuBaker {
 						title: this.__('Collections'),
 						customIcon: `${iconBasicClass} ico_layers`,
 					},
+					{
+						url: ['catalog/admin/prices/index'],
+						title: this.__('Price Types'),
+					},
 				]
 			},
 			{
@@ -167,8 +171,19 @@ export default class AdminMenuBaker {
 			{
 				customIcon: `${iconBasicClass} ico_users`,
 				title: this.__('Customers'),
-				url: ['customer/admin/customer/index'],
-				roles: [TRoleAlias.Admin]
+				roles: [TRoleAlias.Admin],
+				children: [
+					{
+						url: ['customer/admin/customer/index'],
+						title: this.__('Customers'),
+						roles: [TRoleAlias.Admin],
+					},
+					{
+						url: ['customer/admin/group/index'],
+						title: this.__('Groups'),
+						roles: [TRoleAlias.Admin],
+					},
+				]
 			},
 			{
 				customIcon: `${iconBasicClass} ico_percent`,

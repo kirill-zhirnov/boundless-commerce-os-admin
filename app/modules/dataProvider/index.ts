@@ -14,7 +14,7 @@ export interface IDataProviderDefaults {
 	[key: string]: any;
 }
 
-export default class BasicDataProvider<IRow = {[key: string]: any}> extends BasicForm {
+export default class BasicDataProvider<IRow = {[key: string]: any}, Attributes = {}> extends BasicForm<IDataProviderDefaults> {
 	protected defaults: IDataProviderDefaults = {
 		rmStatus: 0,
 		perPage: 25

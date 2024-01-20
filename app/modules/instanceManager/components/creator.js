@@ -208,7 +208,7 @@ export default class Creator {
 		await this.db.sql(`CREATE USER ${this.instanceConfig.db.user} WITH PASSWORD :pass`, {
 			pass: this.instanceConfig.db.pass
 		});
-		await this.db.sql(`GRANT ${this.instanceConfig.db.user} TO postgres`);
+		await this.db.sql(`GRANT ${this.instanceConfig.db.user} TO ${this.config.db.user}`);
 	}
 
 	async createDb() {
@@ -313,80 +313,6 @@ export default class Creator {
 		//
 		// await domainManager.makeNginxConfig();
 		// await DomainManager.reloadNginx();
-	}
-
-	async addDemoDelivery() {
-		const shipping = {};
-		const rows = await this.instanceDb.sql(`
-			select
-				shipping.*,
-				shipping_text.*,
-				delivery.delivery_id
-			from
-				shipping
-			inner join shipping_text using(shipping_id)
-			left join delivery using(shipping_id)
-			where
-				shipping.alias in ('rusSnailMail', 'edostCalc', 'boxBerry', 'selfPickup')
-		`);
-
-		for (const row of Array.from(rows)) {
-			if (!(row.alias in shipping)) {
-				shipping[row.alias] = _.extend(row, {
-					langs: {}
-				});
-			}
-
-			shipping[row.alias].langs[row.lang_id] = _.pick(row, ['title']);
-		}
-
-		for (const alias of ['rusSnailMail', 'boxBerry', 'selfPickup']) {
-			//				if delivery is already exists - skip:
-			if (shipping[alias].delivery_id) {
-				continue;
-			}
-
-			switch (alias) {
-				case 'boxBerry':
-					await this.addDelivery({
-						calc_method: 'byShippingService',
-						shipping_id: shipping[alias].shipping_id,
-						shipping_config: shipping[alias].settings.system,
-						location_shipping_id: null
-					}, shipping[alias].langs);
-					break;
-				case 'rusSnailMail':
-					await this.addDelivery({
-						calc_method: 'byEdost',
-						shipping_id: shipping[alias].shipping_id,
-						location_shipping_id: shipping['edostCalc'].shipping_id,
-						shipping_config: {
-							edost: _.extend(shipping['edostCalc'].settings.demo, {
-								providerAlias: ['russianPost', 'ems']
-							}),
-							defaultPrice: 300
-						}
-					}, shipping[alias].langs);
-					break;
-				case 'selfPickup':
-					if (!shipping.selfPickup) {
-						break;
-					}
-
-					await this.addDelivery({
-						calc_method: 'byShippingService',
-						shipping_id: shipping[alias].shipping_id,
-						location_shipping_id: null,
-						shipping_config: {
-							address: 'Московский пр. 129, Санкт-Петербург\nпн-пт: 09:00 - 18:00'
-						}
-					}, shipping[alias].langs);
-					break;
-			}
-		}
-
-		await this.instanceDb.sql('REFRESH MATERIALIZED VIEW CONCURRENTLY vw_delivery_city');
-		await this.instanceDb.sql('REFRESH MATERIALIZED VIEW CONCURRENTLY vw_delivery_country');
 	}
 
 	async addDelivery(delivery, langs) {

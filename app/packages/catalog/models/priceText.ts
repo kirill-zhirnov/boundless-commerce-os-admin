@@ -1,4 +1,6 @@
 import ExtendedModel from '../../../modules/db/model';
+import {BuildOptions} from 'sequelize';
+import {IPriceText} from '../../../@types/catalog';
 
 export default function (sequelize, DataTypes) {
 	class PriceText extends ExtendedModel {
@@ -26,4 +28,10 @@ export default function (sequelize, DataTypes) {
 	});
 
 	return PriceText;
+}
+
+export interface IPriceTextModel extends ExtendedModel, IPriceText {}
+
+export type IPriceTextModelStatic = typeof ExtendedModel & {
+	new(values?: object, options?: BuildOptions): IPriceTextModel;
 }

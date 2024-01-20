@@ -1,11 +1,4 @@
 export default function (db) {
-	const CustomerGroup = db.model('customerGroup');
-	const CustomerGroupText = db.model('customerGroupText');
-
-	CustomerGroup.hasMany(CustomerGroupText, {
-		foreignKey: 'group_id'
-	});
-
 	// person - role - personRoleRel
 	const Person = db.model('person');
 	const PersonAuth = db.model('personAuth');
@@ -15,6 +8,7 @@ export default function (db) {
 	const PersonProfile = db.model('personProfile');
 	const Site = db.model('site');
 	const Orders = db.model('orders');
+	const PersonGroupRel = db.model('personGroupRel');
 
 	PersonRoleRel.belongsTo(Person, {
 		foreignKey: 'person_id'
@@ -60,6 +54,9 @@ export default function (db) {
 		foreignKey: 'person_id'
 	});
 	Person.hasMany(PersonToken, {
+		foreignKey: 'person_id'
+	});
+	Person.hasMany(PersonGroupRel, {
 		foreignKey: 'person_id'
 	});
 

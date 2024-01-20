@@ -5,6 +5,7 @@ import ExtendedSequelize from '../../../modules/db/sequelize';
 import {IPersonProfileModel} from './personProfile';
 import {IPersonAddressModel} from './personAddress';
 import {Op} from 'sequelize';
+import {IPersonGroupRelModel} from './personGroupRel';
 
 export default function (sequelize: ExtendedSequelize, DataTypes) {
 	class Person extends ExtendedModel {
@@ -141,6 +142,10 @@ export default function (sequelize: ExtendedSequelize, DataTypes) {
 
 		is_owner: {
 			type: DataTypes.BOOLEAN
+		},
+
+		public_id: {
+			type: DataTypes.STRING
 		}
 	}, {
 		tableName: 'person',
@@ -155,6 +160,7 @@ export default function (sequelize: ExtendedSequelize, DataTypes) {
 export interface IPersonModel extends ExtendedModel, IPerson {
 	readonly personProfile?: IPersonProfileModel;
 	readonly personAddresses?: IPersonAddressModel[];
+	readonly personGroupRels?: IPersonGroupRelModel[];
 }
 
 export type IPersonModelStatic = typeof ExtendedModel & {

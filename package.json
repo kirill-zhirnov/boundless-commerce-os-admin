@@ -1,13 +1,13 @@
 {
   "name": "Boundless-Commerce",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Boundless Commerce",
   "main": "index.ts",
   "scripts": {
     "dev": "npx pm2-runtime --only=boundless-dev ./.pm2/dev.config.js",
     "dev-event": "npx pm2-runtime --only=event-dev ./.pm2/dev.config.js",
     "dev-type-check": "npx ts-node --type-check ./index.ts",
-    "dev-webpack": "npx grunt clean && npx webpack-dev-server --config webpack.dev.js",
+    "dev-webpack": "npx grunt clean && npx grunt less:dev && npx webpack-dev-server --config webpack.dev.js",
     "build": "npx grunt production",
     "clear": "npx grunt clean",
     "postinstall": "npx pm2 install typescript",
@@ -182,7 +182,6 @@
     "validator": "^4.4.0",
     "vm2": "^3.9.5",
     "vue": "2",
-    "vue-slider-component": "^3.0.34",
     "vue-template-compiler": "^2.5.16",
     "vuex": "3",
     "wcag-contrast": "^0.1.0",

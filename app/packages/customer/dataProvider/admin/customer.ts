@@ -1,6 +1,7 @@
 import DataProvider from '../../../../modules/dataProvider/index';
 import {ICountryModelStatic} from '../../../delivery/models/country';
 import validator from '../../../../modules/validator/validator';
+import {ICustomerGroupModelStatic} from '../../models/customerGroup';
 
 export default class CustomerDataProvider extends DataProvider {
 	protected defaults = {
@@ -11,7 +12,7 @@ export default class CustomerDataProvider extends DataProvider {
 
 	getRules() {
 		return [
-			['country_id', 'isNum'],
+			['country_id, group_id', 'isNum'],
 			['receive_marketing_info', 'inOptions', {options: 'subscribe'}],
 			['customer_role', 'inOptions', {options: 'customerRole'}],
 			['orders_sum, address, user', 'safe'],
@@ -58,6 +59,7 @@ export default class CustomerDataProvider extends DataProvider {
 
 		this.q.field('orders_stat.total_orders_sum');
 		this.q.field('orders_stat.total_orders_qty');
+		this.q.field('customer_groups.groups');
 
 		// this.q.field('roles.aliases', 'role_aliases');
 
@@ -90,6 +92,18 @@ export default class CustomerDataProvider extends DataProvider {
 			'orders_stat',
 			'orders_stat.customer_id = person.person_id'
 		);
+		this.q.left_join(`
+			(
+				select
+					person_id,
+					json_agg(customer_group.title order by customer_group.title) as groups
+				from
+					customer_group
+					inner join person_group_rel using (group_id)
+				group by
+					person_id
+			)
+		`, 'customer_groups', 'customer_groups.person_id = person.person_id');
 
 		this.q.where('person.site_id = ?', this.getEditingSite().site_id);
 		this.compareRmStatus('person.deleted_at');
@@ -107,7 +121,7 @@ export default class CustomerDataProvider extends DataProvider {
 		`);
 
 		//@ts-ignore
-		const {user, address, orders_sum, country_id, receive_marketing_info, customer_role} = this.getSafeAttrs();
+		const {user, address, orders_sum, country_id, receive_marketing_info, customer_role, group_id} = this.getSafeAttrs();
 
 		if (validator.trim(address)) {
 			const addressLike = `%${String(address).toLowerCase()}%`;
@@ -118,6 +132,17 @@ export default class CustomerDataProvider extends DataProvider {
 				or lower(person_address.address_line_2) like ?
 				`, addressLike, addressLike, addressLike, addressLike
 			);
+		}
+
+		if (group_id) {
+			this.q.where(`
+				exists (
+					select 1 from person_group_rel
+					where
+						person_group_rel.person_id = person.person_id
+						and person_group_rel.group_id = ?
+				)
+			`, [group_id]);
 		}
 
 		if (receive_marketing_info) {
@@ -180,7 +205,8 @@ export default class CustomerDataProvider extends DataProvider {
 			subscribe: [
 				['1', this.__('Yes')],
 				['0', this.__('No')],
-			]
+			],
+			groups: (this.getModel('customerGroup') as ICustomerGroupModelStatic).findCustomerOptions([['', this.__('All groups')]])
 		});
 	}
 }

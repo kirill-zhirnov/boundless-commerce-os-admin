@@ -58,7 +58,7 @@
 			:form="forms.size"
 			@submit="execSubmit"
 		/>
-		<div class="text-center">
+		<div class="text-center mb-4">
 			<a
 				href="#"
 				class="btn btn-primary"
@@ -70,6 +70,9 @@
 				/> {{ __('Save') }}
 			</a>
 		</div>
+		<p v-if="forms.variant.inventoryItem" class="small text-muted">
+			{{ __('Variant ID: %s, Item ID: %s', [forms.variant.inventoryItem.variant_id, forms.variant.inventoryItem.item_id])}}
+		</p>
 	</div>
 </template>
 <script>

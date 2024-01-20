@@ -14,8 +14,7 @@ export default class ProductBasicForm extends Form {
 	}
 
 	loadRecord() {
-		//@ts-ignore
-		const pk = parseInt(this.pk) || null;
+		const pk = parseInt(this.pk) || 0;
 
 		//@ts-ignore
 		return this.getModel('product').findException({
@@ -36,7 +35,10 @@ export default class ProductBasicForm extends Form {
 				},
 				{
 					model: this.getModel('productProp')
-				}
+				},
+				{
+					model: this.getModel('inventoryItem')
+				},
 			],
 			where: {
 				product_id: pk

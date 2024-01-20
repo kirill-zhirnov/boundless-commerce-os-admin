@@ -31,11 +31,12 @@ export default class ProductForm extends BasicForm {
 	async getTplData() {
 		const out = await super.getTplData();
 		//@ts-ignore
-		const {has_variants, status} = this.record;
+		const {has_variants, status, inventoryItem} = this.record;
 
 		Object.assign(out, {
 			hasVariants: has_variants,
 			commodityGroup: this.getCommodityGroupSettings(),
+			inventoryItem: inventoryItem.toJSON(),
 			status,
 			help: {
 				form: helpCatalog.get('productForm'),

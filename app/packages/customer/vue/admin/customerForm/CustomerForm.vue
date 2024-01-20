@@ -78,6 +78,9 @@
 		<div class="footer-btns text-center">
 			<SaveButton />
 		</div>
+		<div v-if="person && !isNew" class="text-muted small mt-2">
+			{{ __('ID: %s, Public ID: %s', [person.person_id, person.public_id])}}
+		</div>
 	</div>
 </template>
 <script>
@@ -99,7 +102,10 @@ export default {
 	},
 	props: ['forms', 'grid'],
 	computed: {
-		...mapState(['tab', 'submitCounter'])
+		...mapState(['tab', 'submitCounter', 'person']),
+		isNew() {
+			return this.person.status === 'draft';
+		}
 	},
 	watch: {
 		submitCounter() {

@@ -51,3 +51,22 @@ export interface IFeeds {
 	created_at: string;
 	deleted_at: string|null;
 }
+
+export interface IPrice {
+	price_id: number;
+	alias: string;
+	sort: number;
+	create_at: string;
+	deleted_at: string|null;
+	has_old_price: boolean;
+	is_public: boolean;
+}
+export interface IPriceText {
+	price_id: number;
+	lang_id: number;
+	title: string|null;
+}
+export interface IPriceGroupRel {
+	price_id: number;
+	group_id: number;
+}

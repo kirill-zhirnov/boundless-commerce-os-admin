@@ -24,8 +24,8 @@ const views = {
 		'vw_delivery_city',
 		'vw_delivery_country',
 		'vw_shipping',
-		'vw_shipping_city',
-		'vw_shipping_zip'
+		// 'vw_shipping_city',
+		// 'vw_shipping_zip'
 	]
 };
 

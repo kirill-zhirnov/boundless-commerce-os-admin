@@ -59,12 +59,17 @@ export default class VariantForm extends Form {
 	loadRecord() {
 		//@ts-ignore
 		return this.getModel('variant').findException({
-			include: [{
-				model: this.getModel('variantText'),
-				where: {
-					lang_id: this.getEditingLang().lang_id
+			include: [
+				{
+					model: this.getModel('variantText'),
+					where: {
+						lang_id: this.getEditingLang().lang_id
+					}
+				},
+				{
+					model: this.getModel('inventoryItem'),
 				}
-			}],
+			],
 			where: {
 				variant_id: this.pk
 			}
@@ -83,5 +88,16 @@ export default class VariantForm extends Form {
 		});
 
 		return;
+	}
+
+	async getTplData() {
+		const out = await super.getTplData();
+
+		const {inventoryItem} = this.record;
+		Object.assign(out, {
+			inventoryItem: inventoryItem.toJSON()
+		});
+
+		return out;
 	}
 }

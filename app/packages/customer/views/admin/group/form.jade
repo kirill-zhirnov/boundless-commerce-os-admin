@@ -1,14 +1,16 @@
 extends /blocks/modal.jade
 block body
-    form(action=url('customer/admin/group/form') method="post" data-form="" autocomplete="off")
-        !=gHtml.pk(pk)
+	form(action=url('customer/admin/group/form') method="post" data-form="" autocomplete="off")
+		!=gHtml.pk(data.pk)
 
-        div(class="form-group")
-            !=bs.label(__('Group title'), 'title')
-            !=bs.textField(attrs, 'title')
+		.form-group
+			!=bs.label(__('Group title'), 'title')
+			!=bs.textField(data.attrs, 'title')
 
-        div(class="form-group")
-            !=bs.label(__('Alias'), 'alias')
-            !=bs.textField(attrs, 'alias')
+		.form-group
+			!=bs.label(__('Alias'), 'alias')
+			!=bs.textField(data.attrs, 'alias')
+			p.hint.small.text-muted
+				=__('A unique key to make distinguish between groups on the APIs side')
 
-        =widget('system.formButtons.@c', buttons)
+		!=widget('system.formButtons.@c', data.buttons)

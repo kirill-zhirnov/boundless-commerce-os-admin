@@ -10,6 +10,7 @@ import randomString from 'random-string';
 import {IPersonAuthModelStatic} from '../../models/personAuth';
 import CustomerRegisterMails from '../../mails/registerMails';
 import {Op} from 'sequelize';
+import {ICustomerGroupModelStatic} from '../../models/customerGroup';
 
 export interface ICustomerFormAttrs {
 	first_name: string | null;
@@ -19,6 +20,7 @@ export interface ICustomerFormAttrs {
 	receive_marketing_info: string | null | boolean;
 	send_welcome_email: string | null;
 	comment: string | null;
+	groups: string[]
 }
 
 export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel> {
@@ -34,11 +36,16 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 			// }],
 			['last_name, comment, receive_marketing_info, send_welcome_email', 'safe'],
 			['phone', 'isPhoneNumber'],
+			['groups', 'inOptions', {options: 'groups', multiple: true}]
 		];
 	}
 
 	async setupAttrs() {
 		await super.setupAttrs();
+
+		Object.assign(this.attributes, {
+			groups: []
+		});
 
 		if (this.record) {
 			const personProfile = this.record.personProfile!;
@@ -50,6 +57,13 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 				receive_marketing_info: personProfile.receive_marketing_info ? '1' : null
 			});
 
+			if (this.record.personGroupRels) {
+				const groups = this.record.personGroupRels.map(({group_id}) => String(group_id));
+				Object.assign(this.attributes, {
+					groups
+				});
+			}
+
 			this.scenario = (this.record.status === TPublishingStatus.draft) ? 'insert' : 'update';
 		}
 	}
@@ -57,7 +71,8 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 	async loadRecord(): Promise<IPersonModel> {
 		return await (this.getModel('person') as IPersonModelStatic).findException({
 			include: [
-				{model: this.getModel('personProfile')}
+				{model: this.getModel('personProfile')},
+				{model: this.getModel('personGroupRel')},
 			],
 			where: {
 				person_id: this.pk
@@ -71,16 +86,18 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 		}
 
 		const attrs = this.getSafeAttrs();
-		const wasDraft = this.record.status == TPublishingStatus.draft;
+		const wasDraft = this.record.status == TPublishingStatus.draft || !this.record.status;
+		const shallSendWelcomeEmail = attrs.send_welcome_email == '1';
+		let shallRegisterCustomer: boolean = (!this.record.registered_at && shallSendWelcomeEmail);
 
 		if (wasDraft) {
 			this.record.set({
-				status: TPublishingStatus.published
+				status: TPublishingStatus.published,
+				//@ts-ignore
+				// registered_at: this.getDb().fn('now')
 			});
+			shallRegisterCustomer = true;
 		}
-
-		const shallSendWelcomeEmail = attrs.send_welcome_email == '1';
-		const shallRegisterCustomer = (wasDraft && shallSendWelcomeEmail) || (!this.record.registered_at && shallSendWelcomeEmail);
 
 		if (shallRegisterCustomer) {
 			this.record.set({
@@ -105,12 +122,16 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 			}
 		});
 
+		const groups = Array.isArray(attrs.groups) ? attrs.groups : [];
+		await this.saveCustomerGroups(groups);
+
 		const RoleModel = this.getModel('role') as IRoleModelStatic;
 		if (shallRegisterCustomer) {
 			await RoleModel.setClientRoles(this.record.person_id);
-		} else if (wasDraft) {
-			await RoleModel.setGuestBuyerRoles(this.record.person_id);
 		}
+		// else if (wasDraft) {
+		// 	await RoleModel.setGuestBuyerRoles(this.record.person_id);
+		// }
 		//только если регается, если гость то нужна роль гостя!
 		// await (this.getModel('role') as IRoleModelStatic).addClientRoles(this.record.person_id);
 
@@ -136,6 +157,30 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 		);
 	}
 
+	async saveCustomerGroups(groups: string[]) {
+		for (const groupId of groups) {
+			await this.getDb().sql(`
+				insert into person_group_rel (person_id, group_id)
+				values (:personId, :groupId)
+				on conflict do nothing
+			`, {
+				personId: this.record.person_id,
+				groupId
+			});
+		}
+
+		const where = {person_id: this.record.person_id};
+		if (groups.length > 0) {
+			Object.assign(where, {
+				group_id: {
+					[Op.notIn]: groups
+				}
+			});
+		}
+
+		await this.getModel('personGroupRel').destroy({where});
+	}
+
 	async getTplData() {
 		const data: ITplData<ICustomerFormAttrs> & {person?: IPerson} = await super.getTplData();
 
@@ -158,8 +203,7 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 		const isDraft = !this.record || this.record.status == TPublishingStatus.draft;
 		const sendWelcomeEmail = this.attributes.send_welcome_email == '1';
 
-		//validate on uniquness only if registered customer
-		if (this.record?.registered_at || sendWelcomeEmail) {
+		if (this.record?.registered_at || sendWelcomeEmail || isDraft) {
 			const where = {
 				email: value.toLowerCase(),
 				registered_at: {
@@ -182,5 +226,11 @@ export default class CustomerForm extends Form<ICustomerFormAttrs, IPersonModel>
 				return;
 			}
 		}
+	}
+
+	rawOptions() {
+		return {
+			groups: (this.getModel('customerGroup') as ICustomerGroupModelStatic).findCustomerOptions()
+		};
 	}
 }

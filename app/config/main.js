@@ -17,6 +17,18 @@ if (typeof process.env.VIEW_CACHE != 'undefined' && (!process.env.VIEW_CACHE || 
 	viewCache = false;
 }
 
+const dialectOptions = {};
+const dbRequireSSL = ['true', '1'].includes(process.env.DB_SSL);
+
+if (dbRequireSSL) {
+	Object.assign(dialectOptions, {
+		ssl: {
+			require: true,
+			rejectUnauthorized: false
+		}
+	});
+}
+
 const config = {
 	runtime,
 
@@ -56,7 +68,8 @@ const config = {
 			port: process.env.DB_PORT || 5432,
 			dialect: 'postgres',
 			timezone: '00:00',
-			logging: debug ? console.log : false
+			logging: debug ? console.log : false,
+			dialectOptions
 		}
 	},
 
@@ -66,7 +79,8 @@ const config = {
 			port: process.env.DB_PORT || 5432,
 			dialect: 'postgres',
 			timezone: '00:00',
-			logging: debug ? console.log : false
+			logging: debug ? console.log : false,
+			dialectOptions
 		}
 	},
 
@@ -94,7 +108,8 @@ const config = {
 					port: process.env.DB_PORT || 5432,
 					dialect: 'postgres',
 					timezone: '00:00',
-					logging: debug ? console.log : false
+					logging: debug ? console.log : false,
+					dialectOptions
 				}
 			}
 		},

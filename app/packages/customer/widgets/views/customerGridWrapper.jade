@@ -5,6 +5,12 @@ block additionalFilter
 			.row
 				.col-sm-4.col-md-4.col-lg-3
 					.form-group
+						!=bs.label(__('Address'), 'address')
+						=' '
+						!=bs.textField(attrs, 'address', {class: 'form-control-sm'})
+
+				.col-sm-4.col-md-4.col-lg-3
+					.form-group
 						!=bs.label(__('Registered or Guest'), 'customer_role')
 						=' '
 						!=bs.dropDownList(attrs, 'customer_role', options.customerRole, ['', __('All')], {class: 'form-select-sm'})

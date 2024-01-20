@@ -10,13 +10,13 @@
  */
 const JadeCompiler = require('jade/lib/compiler');
 const Code = require('jade/lib/nodes/code');
-const Text = require('jade/lib/nodes/text');
-const fs = require('fs');
-const pathAlias = require('path-alias');
+// const Text = require('jade/lib/nodes/text');
+// const fs = require('fs');
+// const pathAlias = require('path-alias');
 
-import {wrapperRegistry} from '../registry/server/classes/wrapper';
+// import {wrapperRegistry} from '../registry/server/classes/wrapper';
 
-const vueCompiler = require('vue-template-compiler');
+// const vueCompiler = require('vue-template-compiler');
 
 const util = require('util');
 const _ = require('underscore');
@@ -24,13 +24,13 @@ const _ = require('underscore');
 const editModeVar = '__editMode';
 const tagEditAttrsVar = '__attrs';
 
-const Compiler = function() {
+const Compiler = function () {
 	return JadeCompiler.apply(this, arguments);
 };
 
 util.inherits(Compiler, JadeCompiler);
 
-Compiler.prototype.visitTag = function(tag) {
+Compiler.prototype.visitTag = function (tag) {
 	if (['v:container', 'v:block', 'v:section'].indexOf(tag.name) !== -1) {
 		//@ts-ignore
 		this.buf.push(`var ${tagEditAttrsVar} = {};`);
@@ -46,11 +46,11 @@ Compiler.prototype.visitTag = function(tag) {
 		case 'v:section':
 			return this.visitVSection(tag);
 
-		case 'vue-component':
-			return this.visitVueComponent(tag);
+		// case 'vue-component':
+		// 	return this.visitVueComponent(tag);
 
-		case 'vue-template':
-			return this.visitVueTemplate(tag);
+		// case 'vue-template':
+		// 	return this.visitVueTemplate(tag);
 
 		default:
 			//@ts-ignore
@@ -58,15 +58,15 @@ Compiler.prototype.visitTag = function(tag) {
 	}
 };
 
-Compiler.prototype.visitVSection = function(tag) {
+Compiler.prototype.visitVSection = function (tag) {
 	const vAttrs = _.defaults(this.extractVBlockAttrs(tag), {
-		boss : '@p-theme/bosses/section.@c'
+		boss: '@p-theme/bosses/section.@c'
 	});
 
 	const editableAttrs = {
-		'data-edit' : 'section',
-		'data-boss' : vAttrs.boss,
-		'class' : 'editable-section'
+		'data-edit': 'section',
+		'data-boss': vAttrs.boss,
+		'class': 'editable-section'
 	};
 
 //	if vAttrs.visible is false
@@ -82,95 +82,95 @@ Compiler.prototype.visitVSection = function(tag) {
 
 };
 
-Compiler.prototype.visitVueTemplate = function(tag) {
-	tag.name = 'script';
+// Compiler.prototype.visitVueTemplate = function(tag) {
+// 	tag.name = 'script';
+//
+// 	const tagAttrs = this.extractVBlockAttrs(tag, ['tpl']);
+// 	if (!tagAttrs.tpl) {
+// 		throw new Error('No vue attribute for vue-component node!');
+// 	}
+// 	this.rmAttrs(tag, ['tpl']);
+//
+// 	this.compileVueTpl(tag, tagAttrs.tpl);
+//
+// 	return this.visitTag(tag);
+// };
 
-	const tagAttrs = this.extractVBlockAttrs(tag, ['tpl']);
-	if (!tagAttrs.tpl) {
-		throw new Error('No vue attribute for vue-component node!');
-	}
-	this.rmAttrs(tag, ['tpl']);
+// Compiler.prototype.visitVueComponent = function(tag) {
+// 	tag.name = 'script';
+//
+// 	const tagAttrs = this.extractVBlockAttrs(tag, ['tpl', 'name', 'path']);
+// 	if (!tagAttrs.tpl || !tagAttrs.name || !tagAttrs.path) {
+// 		throw new Error('No vue attribute for vue-component node!');
+// 	}
+//
+// 	this.addAttrsToTag(tag, {
+// 		'id': `tpl-${tagAttrs.name}`,
+// 		'data-vue-name': tagAttrs.name,
+// 		'data-path': tagAttrs.path
+// 	});
+// 	this.rmAttrs(tag, ['name', 'path', 'tpl']);
+//
+// 	this.compileVueTpl(tag, tagAttrs.tpl);
+//
+// 	return this.visitTag(tag);
+// };
 
-	this.compileVueTpl(tag, tagAttrs.tpl);
-
-	return this.visitTag(tag);
-};
-
-Compiler.prototype.visitVueComponent = function(tag) {
-	tag.name = 'script';
-
-	const tagAttrs = this.extractVBlockAttrs(tag, ['tpl', 'name', 'path']);
-	if (!tagAttrs.tpl || !tagAttrs.name || !tagAttrs.path) {
-		throw new Error('No vue attribute for vue-component node!');
-	}
-
-	this.addAttrsToTag(tag, {
-		'id': `tpl-${tagAttrs.name}`,
-		'data-vue-name': tagAttrs.name,
-		'data-path': tagAttrs.path
-	});
-	this.rmAttrs(tag, ['name', 'path', 'tpl']);
-
-	this.compileVueTpl(tag, tagAttrs.tpl);
-
-	return this.visitTag(tag);
-};
-
-Compiler.prototype.compileVueTpl = function(tag, tplAttrVal) {
-	let text, typeAttr;
-	const tplPath = fs.realpathSync(pathAlias.resolve(tplAttrVal));
-
-	if (!/\.html$/.test(tplPath)) {
-		throw new Error(`Path '${tplPath}' is not a html file.`);
-	}
-
-	const htmlTpl = fs.readFileSync(tplPath, {encoding: 'utf8'});
-
-	const {preCompileVue} = wrapperRegistry.getConfig().viewRenderer;
-
-	if (preCompileVue) {
-		const res = vueCompiler.compile(htmlTpl);
-		text = new Text(JSON.stringify(_.pick(res, ['render', 'staticRenderFns'])));
-		typeAttr = 'text/x-compiled';
-	} else {
-		text = new Text(htmlTpl);
-		typeAttr = 'text/x-template';
-	}
-
-	this.addAttrToTag(tag, 'type', typeAttr);
-
-	return tag.block.nodes.push(text);
-};
+// Compiler.prototype.compileVueTpl = function(tag, tplAttrVal) {
+// 	let text, typeAttr;
+// 	const tplPath = fs.realpathSync(pathAlias.resolve(tplAttrVal));
+//
+// 	if (!/\.html$/.test(tplPath)) {
+// 		throw new Error(`Path '${tplPath}' is not a html file.`);
+// 	}
+//
+// 	const htmlTpl = fs.readFileSync(tplPath, {encoding: 'utf8'});
+//
+// 	const {preCompileVue} = wrapperRegistry.getConfig().viewRenderer;
+//
+// 	if (preCompileVue) {
+// 		const res = vueCompiler.compile(htmlTpl);
+// 		text = new Text(JSON.stringify(_.pick(res, ['render', 'staticRenderFns'])));
+// 		typeAttr = 'text/x-compiled';
+// 	} else {
+// 		text = new Text(htmlTpl);
+// 		typeAttr = 'text/x-template';
+// 	}
+//
+// 	this.addAttrToTag(tag, 'type', typeAttr);
+//
+// 	return tag.block.nodes.push(text);
+// };
 
 Compiler.prototype.rmAttrs = (tag, attrs) => (() => {
-    const result = [];
-    for (var attr of Array.from(attrs)) {
-        if (Array.isArray(tag.attributeNames)) {
-            tag.attributeNames = tag.attributeNames.filter(function(el) {
-                if (el === attr) {
-                    return false;
-                }
+	const result = [];
+	for (var attr of Array.from(attrs)) {
+		if (Array.isArray(tag.attributeNames)) {
+			tag.attributeNames = tag.attributeNames.filter(function (el) {
+				if (el === attr) {
+					return false;
+				}
 
-                return true;
-            });
-        }
+				return true;
+			});
+		}
 
-        if (Array.isArray(tag.attrs)) {
-            result.push(tag.attrs = tag.attrs.filter(function(attrObj, i) {
-                if (attrObj.name === attr) {
-                    return false;
-                }
+		if (Array.isArray(tag.attrs)) {
+			result.push(tag.attrs = tag.attrs.filter(function (attrObj, i) {
+				if (attrObj.name === attr) {
+					return false;
+				}
 
-                return true;
-            }));
-        } else {
-            result.push(undefined);
-        }
-    }
-    return result;
+				return true;
+			}));
+		} else {
+			result.push(undefined);
+		}
+	}
+	return result;
 })();
 
-Compiler.prototype.addAttrsToTag = function(tag, attrs) {
+Compiler.prototype.addAttrsToTag = function (tag, attrs) {
 	return (() => {
 		const result = [];
 		for (let attrName in attrs) {
@@ -181,7 +181,7 @@ Compiler.prototype.addAttrsToTag = function(tag, attrs) {
 	})();
 };
 
-Compiler.prototype.addAttrToTag = function(tag, attrName, attrVal) {
+Compiler.prototype.addAttrToTag = function (tag, attrName, attrVal) {
 	tag.attrs.push({
 		name: attrName,
 		val: JSON.stringify(attrVal),
@@ -190,13 +190,13 @@ Compiler.prototype.addAttrToTag = function(tag, attrName, attrVal) {
 	return tag.attributeNames.push(attrName);
 };
 
-Compiler.prototype.visitVBlock = function(tag) {
+Compiler.prototype.visitVBlock = function (tag) {
 	const vAttrs = this.extractVBlockAttrs(tag);
 
 	// attrbutes which will be added to a node IF ONLY editMode = TRUE
 	const editableAttrs = {
-		'data-edit' : 'block',
-		'class' : []
+		'data-edit': 'block',
+		'class': []
 	};
 
 	const defaultBosses = {
@@ -230,7 +230,7 @@ Compiler.prototype.visitVBlock = function(tag) {
 
 	if (this.isTypeWidgetBased(vAttrs.type)) {
 		let widgetInit;
-		let widgetParams  = [`incomeAttrs:${tagEditAttrsVar}`];
+		let widgetParams = [`incomeAttrs:${tagEditAttrsVar}`];
 
 		// since vAttrs and editableAttrs are objects - it is passed by references
 		// no need to set a result back to vAttrs and editableAttrs
@@ -296,7 +296,7 @@ Compiler.prototype.visitVBlock = function(tag) {
 
 };
 
-Compiler.prototype.setTagNameByType = function(tag, type) {
+Compiler.prototype.setTagNameByType = function (tag, type) {
 	switch (type) {
 		case 'hr':
 			tag.name = 'hr';
@@ -305,7 +305,7 @@ Compiler.prototype.setTagNameByType = function(tag, type) {
 };
 
 
-Compiler.prototype.prepareBlockWidgetAttrs = function(vAttrs, editableAttrs, widgetParams) {
+Compiler.prototype.prepareBlockWidgetAttrs = function (vAttrs, editableAttrs, widgetParams) {
 	let editableClass = 'editable-block';
 	let defaultWidget = null;
 
@@ -419,27 +419,27 @@ Compiler.prototype.prepareBlockWidgetAttrs = function(vAttrs, editableAttrs, wid
 };
 
 Compiler.prototype.isTypeWidgetBased = type => [
-    'widget', 'carousel', 'externalWidget', 'products',
-    'textWithIcons', 'vkWidget', 'map', 'socialButtons',
-    'cover', 'blog', 'form', 'imgsCombinations', 'review',
-    'menu', 'iconWithLink', 'itemsSwiper', 'swiperSlider',
-    'imgsTiger', 'bobcatGallery', 'elephantMenu',
-    'flexHeader'
+	'widget', 'carousel', 'externalWidget', 'products',
+	'textWithIcons', 'vkWidget', 'map', 'socialButtons',
+	'cover', 'blog', 'form', 'imgsCombinations', 'review',
+	'menu', 'iconWithLink', 'itemsSwiper', 'swiperSlider',
+	'imgsTiger', 'bobcatGallery', 'elephantMenu',
+	'flexHeader'
 ].indexOf(type) !== -1;
 
-Compiler.prototype.visitVContainer = function(tag) {
+Compiler.prototype.visitVContainer = function (tag) {
 	const vAttrs = _.defaults(this.extractVBlockAttrs(tag), {
-		boss : '@p-theme/bosses/container.@c',
-		type : 'container',
-		'is-main' : 'true'
+		boss: '@p-theme/bosses/container.@c',
+		type: 'container',
+		'is-main': 'true'
 	});
 
 	const editableAttrs = {
-		'data-type' : vAttrs.type,
-		'data-edit' : 'container',
-		'data-boss' : vAttrs.boss,
-		'data-is-main' : vAttrs['is-main'] === 'true' ? true : false,
-		'class' : 'editable-container'
+		'data-type': vAttrs.type,
+		'data-edit': 'container',
+		'data-boss': vAttrs.boss,
+		'data-is-main': vAttrs['is-main'] === 'true' ? true : false,
+		'class': 'editable-container'
 	};
 
 	if (vAttrs.visible === false) {
@@ -454,7 +454,7 @@ Compiler.prototype.visitVContainer = function(tag) {
 
 };
 
-Compiler.prototype.visitIfVisible = function(suffix, tag, isVisible) {
+Compiler.prototype.visitIfVisible = function (suffix, tag, isVisible) {
 	if (isVisible === false) {
 		//@ts-ignore
 		this.buf.push(`if (${editModeVar}) {`);
@@ -468,9 +468,13 @@ Compiler.prototype.visitIfVisible = function(suffix, tag, isVisible) {
 	}
 };
 
-Compiler.prototype.addAttrs = function(tag, attrs, condition) {
-	if (attrs == null) { attrs = {}; }
-	if (condition == null) { condition = 'ifEditMode'; }
+Compiler.prototype.addAttrs = function (tag, attrs, condition) {
+	if (attrs == null) {
+		attrs = {};
+	}
+	if (condition == null) {
+		condition = 'ifEditMode';
+	}
 	switch (condition) {
 		case 'ifEditMode':
 			//@ts-ignore
@@ -499,8 +503,10 @@ Compiler.prototype.addAttrs = function(tag, attrs, condition) {
 	}
 };
 
-Compiler.prototype.omitEditableTag = function(tag, omitAttrs) {
-	if (omitAttrs == null) { omitAttrs = []; }
+Compiler.prototype.omitEditableTag = function (tag, omitAttrs) {
+	if (omitAttrs == null) {
+		omitAttrs = [];
+	}
 	let tagName = 'div';
 	const tagAttrs = [];
 	const tagAttrNames = [];
@@ -525,7 +531,7 @@ Compiler.prototype.omitEditableTag = function(tag, omitAttrs) {
 	return tag.attrs = tagAttrs;
 };
 
-Compiler.prototype.getAttrVal = function(attr) {
+Compiler.prototype.getAttrVal = function (attr) {
 	if (attr.escaped) {
 		return JSON.parse(attr.val);
 	}
@@ -533,7 +539,7 @@ Compiler.prototype.getAttrVal = function(attr) {
 	return attr.val;
 };
 
-Compiler.prototype.extractVBlockAttrs = function(tag, needAtts = null) {
+Compiler.prototype.extractVBlockAttrs = function (tag, needAtts = null) {
 	if (!needAtts) {
 		needAtts = ['type', 'widget', 'boss', 'visible', 'boss-buttons', 'id', 'edit-class', 'is-main', 'menu-key'];
 	}

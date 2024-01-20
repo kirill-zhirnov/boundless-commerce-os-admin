@@ -68,9 +68,14 @@
 				@submit="execSubmit"
 			/>
 		</div>
-		<div class="footer-btns text-center">
+		<div class="footer-btns text-center mb-3">
 			<SaveButton />
 		</div>
+		<p v-if="['published', 'hidden'].includes(status) && forms.product.inventoryItem"
+			 class="text-muted small"
+		>
+			{{ __('Product ID: %s, Item ID: %s', [forms.product.inventoryItem.product_id, forms.product.inventoryItem.item_id])}}
+		</p>
 	</div>
 </template>
 <script>

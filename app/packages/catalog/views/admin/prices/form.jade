@@ -1,0 +1,44 @@
+extends /blocks/modal.jade
+block body
+	form(action=url('catalog/admin/prices/form') method="post" data-form="")
+		!=gHtml.pk(data.pk)
+
+		.form-group
+			!=bs.label(__('Price title'), 'title', {required: '1'})
+			!=bs.textField(data.attrs, 'title')
+
+		- var aliasAttrs = {required: '1'};
+		if data.isSystemPrice
+			- aliasAttrs.readonly = 1;
+
+		.form-group
+			!=bs.label(__('Price Alias'), 'alias')
+			!=bs.textField(data.attrs, 'alias', aliasAttrs)
+			p.hint.small.text-muted
+				=__('A unique key to make distinguish between prices on the APIs side')
+
+		.form-group
+			.form-check
+				!=gHtmlActive.checkbox(data.attrs, 'is_public', {id: 'price-type-form-is_public'})
+				=' '
+				!=bs.label(__('Is Public?'), 'price-type-form-is_public')
+			p.hint.small.text-muted
+				=__('Public Prices available for all users on APIs side. Private prices available only for signed in customer assigned to selected groups.')
+
+		.form-group
+			.form-check
+				!=gHtmlActive.checkbox(data.attrs, 'has_old_price', {id: 'price-type-form-has_old_price'})
+				=' '
+				!=bs.label(__('Has Compare at Price?'), 'price-type-form-has_old_price')
+			p.hint.small.text-muted
+				=__('Shall be a second field for Strikethrough price?')
+
+		.form-group
+			!=bs.label(__('Available only for customer groups'), 'groups')
+			!=bs.checkboxList(data.attrs, 'groups', data.options.groups)
+
+		.form-group
+			!=bs.label(__('Sort'), 'sort')
+			!=bs.textField(data.attrs, 'sort', {type: 'number'})
+
+		!=widget('system.formButtons.@c', data.buttons)

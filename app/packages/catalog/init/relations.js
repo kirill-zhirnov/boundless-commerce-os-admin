@@ -107,8 +107,12 @@ export default function (db) {
 
 	const Price = db.model('price');
 	const PriceText = db.model('priceText');
+	const PriceGroupRel = db.model('priceGroupRel');
 
 	Price.hasMany(PriceText, {
+		foreignKey: 'price_id'
+	});
+	Price.hasMany(PriceGroupRel, {
 		foreignKey: 'price_id'
 	});
 

@@ -101,7 +101,7 @@ export default class CustomerGrid extends GridWidget {
 				}
 			},
 			{
-				label: this.__('Country'),
+				label: this.__('Address'),
 				name: 'country_id',
 				clickable: this.isClickable,
 				cell: 'html',
@@ -115,29 +115,41 @@ export default class CustomerGrid extends GridWidget {
 						return;
 					}
 
-					return model.get('country_title');
-				}
-			},
-			{
-				label: this.__('Address'),
-				name: 'address',
-				clickable: this.isClickable,
-				cell: 'html',
-				customClass: 'text-center',
-				sortable: false,
-				html: (column, model) => {
-					if (!model) {
-						return;
-					}
-					let out = '';
+					let out = gHtml.tag('p', {}, model.get('country_title'));
+
 					if (model.get('city')) {
-						out = gHtml.tag('p', {class: 'mb-0'}, `${model.get('city')}, ${model.get('state') || ''}`);
+						out += gHtml.tag('p', {class: 'mb-0'}, `${model.get('city')}, ${model.get('state') || ''}`);
 					}
 					if (model.get('address_line_1')) {
 						out += gHtml.tag('p', {class: 'mb-0'}, model.get('address_line_1'));
 					}
 					if (model.get('address_line_2')) {
 						out += gHtml.tag('p', {}, model.get('address_line_2'));
+					}
+
+					return out;
+				}
+			},
+			{
+				label: this.__('Groups'),
+				name: 'group_id',
+				// name: 'address',
+				clickable: this.isClickable,
+				cell: 'html',
+				customClass: 'text-center',
+				sortable: false,
+				filter: {
+					type: 'select',
+					options: this.data.options.groups
+				},
+				html: (column, model) => {
+					if (!model) {
+						return;
+					}
+
+					let out = '';
+					if (Array.isArray(model.get('groups'))) {
+						out = model.get('groups').join('<br/>');
 					}
 
 					return out;

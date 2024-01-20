@@ -53,12 +53,32 @@
 			/>
 		</div>
 		<div class="row">
-			<div v-if="!isNew" class="col-md-6 form-group">
-				<span>{{ __("Role:") }}</span>
-				<span v-if="person.registered_at != null">{{ __("Registered Customer") }}</span>
-				<span v-else>{{ __("Guest Customer") }}</span>
+			<div class="col-md-6">
+				<div v-if="!isNew && person.registered_at == null" class="form-group text-warning">
+					<span class="fa fa-exclamation-triangle"/>
+					<span>{{ __("Guest Customer") }}</span>
+				</div>
 			</div>
-			<div class="col-md-6 form-group"></div>
+			<div class="col-md-6 form-group">
+				<label class="form-label"> {{ __('Customer Groups') }} </label>
+				<div
+					v-for="item in forms.options.groups"
+					:key="item[0]"
+					class="checkbox form-check"
+				>
+					<label class="form-check-label">
+						<input
+							v-model="form.groups"
+							class="form-check-input"
+							type="checkbox"
+							name="groups[]"
+							:value="item[0]"
+							@input="formChanged"
+						>
+						{{ item[1] }}
+					</label>
+				</div>
+			</div>
 		</div>
 		<div class="checkbox form-check mb-4">
 			<label class="form-check-label">
@@ -87,7 +107,7 @@
 					@input="formChanged"
 				>
 				<template v-if="isNew">
-					{{ __("Register and Send Welcome email with password") }}
+					{{ __("Send Welcome email with password") }}
 				</template>
 				<template v-else>
 					{{ __("Regenerate password and Send Welcome email") }}

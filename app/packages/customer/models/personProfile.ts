@@ -28,11 +28,6 @@ export default function (sequelize: ExtendedSequelize, DataTypes) {
 			allowNull: true
 		},
 
-		group_id: {
-			type: DataTypes.INTEGER,
-			allowNull: true
-		},
-
 		phone: {
 			type: DataTypes.STRING(100),
 			allowNull: true

@@ -13,6 +13,7 @@ import tree from './tree';
 import typeArea from './typeArea';
 import urlKey from './urlKey';
 import jsonKey from './jsonKey';
+import isAlias from './isAlias';
 
 export default {
 	email,
@@ -29,5 +30,6 @@ export default {
 	tree,
 	typeArea,
 	urlKey,
-	jsonKey
+	jsonKey,
+	isAlias
 };
