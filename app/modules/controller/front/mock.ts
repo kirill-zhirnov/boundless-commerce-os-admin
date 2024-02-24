@@ -4,6 +4,8 @@ import {IEnv} from '../../../@types/env';
 import {create as createEnv} from '../../env';
 import RequestView from '../../viewRenderer/renderer/request';
 import {wrapperRegistry} from '../../registry/server/classes/wrapper';
+import Backbone from 'backbone';
+import Answer from '../response/answer';
 
 export default class FrontControllerMock implements IFrontController {
 	protected env: IEnv;
@@ -35,19 +37,16 @@ export default class FrontControllerMock implements IFrontController {
 		return this.view;
 	}
 
-	//@ts-ignore
 	makeBbCollection() {
-		throw new Error('Method not supported');
+		return new Backbone.Collection();
 	}
 
-	//@ts-ignore
-	runInternal() {
-		throw new Error('Method not supported');
+	async runInternal() {
+		return new Answer();
 	}
 
-	//@ts-ignore
 	getRequest() {
-		throw new Error('Method not supported');
+		return undefined;
 	}
 
 	async getEnv() {

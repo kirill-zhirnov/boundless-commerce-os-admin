@@ -6,6 +6,7 @@ import validator from 'validator';
 import Starter from '../components/starter';
 import DbCleaner from '../../../packages/system/modules/dbCleaner';
 import {IPersonModel} from '../../../packages/customer/models/person';
+import DbInstaller from '../components/dbInstaller';
 
 export default class SelfHostedCommand extends BasicCommand {
 	async actionInstall() {
@@ -22,6 +23,10 @@ export default class SelfHostedCommand extends BasicCommand {
 			message: 'Enter an admin email:',
 			validate: value => validator.isEmail(value) ? true : 'Incorrect Email'
 		});
+
+		console.log('Preparing DB for the installation');
+		const installer = new DbInstaller();
+		await installer.install();
 
 		console.log('Starting store installation...');
 		const starter = new Starter(1, response.email);

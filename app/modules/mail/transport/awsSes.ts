@@ -1,8 +1,9 @@
 import {SESClient, SendEmailCommand, SendEmailRequest} from '@aws-sdk/client-ses';
-import {SendEmailResponse} from 'aws-sdk/clients/ses';
+// import {SendEmailResponse} from 'aws-sdk/clients/ses';
 import {wrapperRegistry} from '../../registry/server/classes/wrapper';
+import {IMailTransport} from '../../../@types/mail';
 
-export default class InstanceSES {
+export default class InstanceSES implements IMailTransport {
 	protected client: SESClient;
 	protected charset: string;
 	protected params: SendEmailRequest;
@@ -36,9 +37,11 @@ export default class InstanceSES {
 		};
 	}
 
-	async send(): Promise<SendEmailResponse> {
+	async send(): Promise<undefined> {
 		const command = new SendEmailCommand(this.params);
-		return this.getClient().send(command);
+		await this.getClient().send(command);
+
+		return;
 	}
 
 	setBodyText(text: string) {

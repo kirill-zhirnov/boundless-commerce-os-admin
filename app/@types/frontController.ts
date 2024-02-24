@@ -12,5 +12,5 @@ export interface IFrontController {
 	makeBbCollection: (collection: string|ICollectionConstructor, models?: Model[] | Array<Record<string, any>>, options?: ICollectionOptions) => Collection;
 	runInternal: (path: string, method?: string, params?: {[key: string]: any}, bodyParams?: {[key: string]: any}) => Promise<Answer>;
 	getInstanceRegistry: () => IInstanceRegistry;
-	getRequest: () => Request;
+	getRequest: () => Request|undefined;
 }

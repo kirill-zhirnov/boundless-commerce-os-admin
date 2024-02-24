@@ -46,6 +46,7 @@ const controllers = {
 	config: '@p-system/commands/config',
 	space: '@modules/instanceManager/commands/space',
 	selfHosted: '@modules/instanceManager/commands/selfHosted',
+	system: '@modules/instanceManager/commands/system',
 };
 
 (async () => {

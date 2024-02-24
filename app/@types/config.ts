@@ -17,7 +17,8 @@ export interface IConfig {
 		user: string;
 		pass: string;
 		config: {
-			host: string
+			host: string,
+			port: number
 		};
 	},
 	instanceDb: {
@@ -48,7 +49,14 @@ export interface IConfig {
 	packages: {
 		delivery: {
 			deliveryDb: {
-				name: string
+				name: string,
+				user: string,
+				pass: string,
+				config: {
+					host: string,
+					port: number,
+					dialect: string
+				}
 			}
 		}
 	};

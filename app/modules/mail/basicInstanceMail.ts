@@ -6,6 +6,7 @@ import FrontControllerMock from '../controller/front/mock';
 import InstanceSES from './transport/awsSes';
 import * as thumbnailUrl from '../../packages/cms/modules/thumbnail/url';
 import BasicMail from './basicMail';
+import {IMailTransport} from '../../@types/mail';
 
 export default abstract class BasicInstanceMail extends BasicMail{
 	protected frontController: IFrontController;
@@ -92,7 +93,7 @@ export default abstract class BasicInstanceMail extends BasicMail{
 		return data;
 	}
 
-	async getMail(): Promise<InstanceSES> {
+	async getMail(): Promise<IMailTransport> {
 		const {from, replyTo} = await this.getMailSettings();
 		const mail = new InstanceSES();
 
@@ -112,10 +113,10 @@ export default abstract class BasicInstanceMail extends BasicMail{
 
 	async getFrontController(): Promise<IFrontController> {
 		if (!this.frontController) {
-			//@ts-ignore
-			this.frontController = new FrontControllerMock(this.instanceRegistry);
-			//@ts-ignore
-			await this.frontController.setup();
+			const fc = new FrontControllerMock(this.instanceRegistry);
+			await fc.setup();
+
+			this.frontController = fc;
 		}
 
 		return this.frontController;

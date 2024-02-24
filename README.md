@@ -63,6 +63,7 @@ services:
       NODE_ENV: "${NODE_ENV}"
       DB_PASS: "${POSTGRES_PASSWORD}"
       DB_HOST: "${DB_HOST}"
+      DB_SSL: "${DB_SSL}"
       RABBIT_MQ_HOST: "${RABBIT_MQ_HOST}"
       MEMCACHED_DSN: "${MEMCACHED_DSN}"
       REDIS_URL: "${REDIS_URL}"
@@ -98,6 +99,7 @@ services:
       NODE_ENV: "${NODE_ENV}"
       DB_PASS: "${POSTGRES_PASSWORD}"      
       DB_HOST: "${DB_HOST}"
+      DB_SSL: "${DB_SSL}"
       RABBIT_MQ_HOST: "${RABBIT_MQ_HOST}"
       MEMCACHED_DSN: "${MEMCACHED_DSN}"
       REDIS_URL: "${REDIS_URL}"
@@ -140,8 +142,10 @@ services:
       CACHE_TYPE: memcached
       CACHE_MEMCACHED_HOST: "${MEMCACHED_HOST}"
       CACHE_MEMCACHED_PORT: "${MEMCACHED_PORT}"
+      # for SSL, add to DSN: ";sslmode=require"
       MANAGER_DB_DSN: "pgsql:host=${DB_HOST};port=5432;dbname=babylon_saas;user=postgres;password=${POSTGRES_PASSWORD}"
       INSTANCE_DB_HOST: "${DB_HOST}"
+      #INSTANCE_DB_SSL: "required"
       RABBIT_HOST: "${RABBIT_MQ_HOST}"
       RABBIT_PORT: 5672
       RABBIT_USER: "${RABBIT_MQ_USER}"
