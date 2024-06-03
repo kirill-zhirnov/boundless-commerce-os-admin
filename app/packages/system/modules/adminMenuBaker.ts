@@ -255,11 +255,6 @@ export default class AdminMenuBaker {
 						title: this.__('SEO templates'),
 						faIcon: 'google',
 					},
-					{
-						url: ['system/admin/mail/settings'],
-						title: this.__('Email settings'),
-						faIcon: 'envelope-open',
-					},
 
 					// {
 					// 	url: ['system/admin/analytics/settings'],
@@ -291,14 +286,30 @@ export default class AdminMenuBaker {
 						faIcon: 'shopping-cart'
 					},
 					{
+						url: ['orders/admin/setup/orderStatus/index'],
+						title: this.__('Order statuses'),
+						faIcon: 'list-ul',
+					},
+					{
+						type: 'hr'
+					},
+					{
+						url: ['system/admin/emailTpls/index'],
+						title: this.__('Email templates'),
+						faIcon: 'envelope-open',
+					},
+					{
+						url: ['system/admin/mail/settings'],
+						title: this.__('Email Layout'),
+					},
+					{
 						title: this.__('Order Email Notifications'),
 						url: ['orders/admin/setup/notification/settings'],
 						faIcon: 'bell'
 					},
 					{
-						url: ['orders/admin/setup/orderStatus/index'],
-						title: this.__('Order statuses'),
-						faIcon: 'list-ul',
+						url: ['system/admin/mail/sender'],
+						title: this.__('Email Sender & Provider'),
 					},
 					{
 						type: 'hr'

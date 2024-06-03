@@ -121,7 +121,7 @@ export default class EmailNotificationForm extends FormWidget {
 			this.codeMirror = null;
 		}
 
-		return super.remove();
+		super.remove();
 	}
 
 	getFileName() {

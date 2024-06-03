@@ -1,7 +1,7 @@
 import GridWidget from '../../system/widgets/grid.client';
 import gHtml from '../../../modules/gHtml/index.client';
 
-export default class TokenGrid extends GridWidget {
+export default class WebhookGrid extends GridWidget {
 	initGrid() {
 		this.collection = this.url('system/admin/webhook/collection');
 		this.idAttribute = 'webhook_id';

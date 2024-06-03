@@ -144,7 +144,7 @@ export default {
 			this.codeMirrors.forEach((el, i) => {
 				this.templates[i].template = el.getValue();
 			});
-			console.log('before fetch');
+
 			this.$ajax.get(['orders/admin/setup/notification/list'])
 				.then(data => {
 					this.unsetCodemirror();
@@ -164,8 +164,8 @@ export default {
 				if (!this.CodeMirror) return;
 				const cm = this.CodeMirror.fromTextArea(el, {
 					mode: {name: 'handlebars', base: 'text/html'},
-					lineWrapping: true,
-					viewportMargin: Infinity
+					// lineWrapping: true,
+					// viewportMargin: Infinity
 				});
 
 				cm.on('change', () => {

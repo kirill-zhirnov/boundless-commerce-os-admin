@@ -3,7 +3,8 @@ import _ from 'underscore';
 import serverUtils from '../../../modules/utils/server';
 import ExtendedSequelize from '../../../modules/db/sequelize';
 import {BuildOptions, Transaction} from 'sequelize';
-import {IInventoryItem, IVwInventoryItemRaw} from '../../../@types/inventoryItem';
+import {IInventoryItem, IVwInventoryItemRaw, TInventoryType} from '../../../@types/inventoryItem';
+import moolah from 'moolah';
 
 export default function (sequelize: ExtendedSequelize, DataTypes) {
 	class InventoryItem extends ExtendedModel {
@@ -185,7 +186,19 @@ export default function (sequelize: ExtendedSequelize, DataTypes) {
 		static async prepareVwInventoryItems(rows: IVwInventoryItemRaw[], fetchLabels = false, langId = null) {
 			const productIds = [];
 			for (let i = 0; i < rows.length; i++) {
-				rows[i].prices = serverUtils.convertSqlArrAgg2Objects(rows[i].prices);
+				let total_price = null;
+				if (rows[i].final_price && rows[i].qty) {
+					total_price = moolah(rows[i].final_price).times(rows[i].qty).string();
+				}
+
+				Object.assign(rows[i], {
+					prices: serverUtils.convertSqlArrAgg2Objects(rows[i].prices),
+					isVariant: rows[i].type == TInventoryType.variant,
+					isProduct: rows[i].type == TInventoryType.product,
+					isCustomItem: rows[i].type == TInventoryType.customItem,
+					total_price
+				});
+
 				productIds.push(rows[i].product_id);
 			}
 

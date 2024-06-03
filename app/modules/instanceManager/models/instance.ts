@@ -387,6 +387,14 @@ sample.alias\
 
 			return false;
 		}
+
+		static async markJustUsed(instanceId: number) {
+			await this.sequelize.sql(`
+				update instance set last_usage_at = now() where instance_id = :instanceId
+			`, {
+				instanceId
+			});
+		}
 	}
 
 	Instance.init({
@@ -441,6 +449,10 @@ sample.alias\
 		},
 
 		remove_me: {
+			type: DataTypes.DATE
+		},
+
+		last_usage_at: {
 			type: DataTypes.DATE
 		},
 
@@ -503,4 +515,6 @@ export type IInstanceModelStatic = typeof ExtendedModel & {
 	changeStatus(instanceId: number, instanceProps: {}, logProps: {}, trx): Promise<>;
 
 	changeTariff(instanceId: number, newTariffId: number, resetCache?: boolean): Promise<void>;
+
+	markJustUsed(instanceId: number): Promise<void>
 }

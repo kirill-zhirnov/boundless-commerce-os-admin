@@ -4,8 +4,7 @@ export default class LocaleForm extends Form {
 	getRules() {
 		return [
 			[
-				`currency_alias, currency_symbol, money_format, money_precision,
-				phone_mask, phone_placeholder`,
+				'currency_alias, currency_symbol, money_format, money_precision, phone_placeholder',
 				'required'
 			],
 			['currency_alias', 'inOptions', {options: 'currency'}],
@@ -31,7 +30,7 @@ export default class LocaleForm extends Form {
 				symbol: currency_symbol
 			},
 			phone: {
-				mask: phone_mask,
+				mask: phone_mask === '' ? null : phone_mask,
 				placeholder: phone_placeholder,
 			}
 		};

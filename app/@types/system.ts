@@ -28,3 +28,12 @@ export interface ITaxRate {
 	state_code?: string;
 	created_at: string;
 }
+
+export interface IEmailTpl {
+	id: number;
+	title: string;
+	alias: string;
+	subject: string|null;
+	template: string;
+	created_at: string;
+}

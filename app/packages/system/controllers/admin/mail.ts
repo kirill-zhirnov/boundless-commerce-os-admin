@@ -9,7 +9,7 @@ export default class MailSettingsController extends BasicAdmin {
 			return;
 		}
 
-		this.setPage('title', this.__('Email settings'));
+		this.setPage('title', this.__('Email Layout'));
 		const data = await formKit.getWebForm();
 
 		Object.assign(data, {
@@ -43,5 +43,12 @@ export default class MailSettingsController extends BasicAdmin {
 
 		this.alertSuccess(this.__('Logo was successfully removed.'));
 		this.json({});
+	}
+
+	async actionSender() {
+		const settings = await this.getSetting('mail', 'settings');
+
+		this.setPage('title', this.__('Email Sender & Provider'));
+		this.render('sender', {settings});
 	}
 }

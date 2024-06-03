@@ -19,6 +19,12 @@ export default class Locale {
 		return accounting.formatMoney(amount, options);
 	}
 
+	formatNumber(amount, options = {}) {
+		options = _.extend({}, this.formatMoneyOptions, options);
+
+		return accounting.formatNumber(amount, options);
+	}
+
 	formatDate(date: string | Date, type: TDateFormatType = TDateFormatType.short) {
 		const outDate = typeof date === 'string' ? parseISO(date) : date;
 

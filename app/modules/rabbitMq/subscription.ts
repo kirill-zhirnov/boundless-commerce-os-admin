@@ -3,7 +3,7 @@ import {makeBroker} from './utils';
 import {
 	IBaseQueueEventContent,
 	IQueueEventContent,
-	IQueueModelChangedData,
+	IQueueModelChangedData, ISendOutEmailHandlerData,
 	TQueueEventType
 } from '../../@types/rabbitMq';
 import {bootstrapInstanceById} from '../bootstrap/instance';
@@ -14,6 +14,7 @@ import {IInstanceRegistry} from '../../@types/registry/instanceRegistry';
 import OrdersHandler from './modelHandler/orders';
 import MailHandler from './mailHandler';
 import {IMailEventHandlerData} from '../../@types/mailEventHandler';
+import SendOutEmailHandler from './sendOutEmailHandler';
 
 const SUB_NAME = 'boundless_sub';
 export default class QueueEventSubscription {
@@ -63,6 +64,9 @@ export default class QueueEventSubscription {
 				break;
 			case TQueueEventType.sendMail:
 				await new MailHandler(instanceRegistry, data as IMailEventHandlerData).handle();
+				break;
+			case TQueueEventType.sendOutEmail:
+				await new SendOutEmailHandler(instanceRegistry, data as ISendOutEmailHandlerData).handle();
 				break;
 			default:
 				console.warn(`Event with unknown type ${type} provided. No handler. Skipping...`);

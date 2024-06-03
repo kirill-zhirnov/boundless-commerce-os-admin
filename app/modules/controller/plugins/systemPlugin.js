@@ -44,7 +44,7 @@ export default class SystemPlugin extends BasicPlugin {
 	 * @param {BasicController} controller
 	 * @param {Answer} answer
 	 */
-	onAfterAction(controller, answer) {
+	async onAfterAction(controller, answer) {
 		let currentMenuUrl;
 		if (controller.getIsInternal() || !this.isAnswer(answer) || !answer.getPerformWithExpress()) {
 			return;
@@ -76,6 +76,13 @@ export default class SystemPlugin extends BasicPlugin {
 			globalViewData.currentMenuUrl = currentMenuUrl;
 		}
 
+		if (controller?.getUser()?.hasManagersRole()) {
+			const {instance_id} = this.getInstanceRegistry().getInstanceInfo();
+			//@ts-ignore
+			await wrapperRegistry.getDb().model('instance').markJustUsed(instance_id);
+		}
+
+// 		The following block is outdated - Remove me:
 //		add information for instance expiration
 		if (!controller.isFrontend()) {
 			globalViewData.systemPart = controller.getSystemPart();

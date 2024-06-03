@@ -150,10 +150,11 @@
 								type="text"
 								name="phone_mask"
 								class="form-control"
-								required
 							>
 							<p class="hint small text-muted">
-								{{ __('The mask is a template for a phone number. "P" is a "+" symbol, "0" - is a number, "X" is a number, which might be skipped, template for the phone number: +1 (555) 123-4567 is "P0X (000) 000-0000"') }}
+								{{ __('Phone mask is used as a formatter and a validator. If you don\'t need phone validation - leave it empty.')}}<br/>
+								{{ __('The mask is a template for a phone number. "P" is a "+" symbol, "0" - is a number, "X" is a number, which might be skipped.') }}<br/>
+								{{ __('Example of a template for the phone number: +1(555)123-4567 is "P0X(000)000-0000"') }}
 							</p>
 						</div>
 					</div>

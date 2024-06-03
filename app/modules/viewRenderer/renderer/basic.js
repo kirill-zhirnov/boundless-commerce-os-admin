@@ -4,7 +4,7 @@ import _ from 'underscore';
 import JadeDecorator from '../../jade/decorator/server';
 import extend from 'extend';
 import utils from '../../utils/server';
-import {VMScript} from 'vm2';
+// import {VMScript} from 'vm2';
 import Locale from '../../locale';
 import jade from 'jade';
 import {promisify} from 'util';
@@ -111,23 +111,23 @@ export default class BasicRenderer {
 		}
 	}
 
-	async renderSandboxBySrc(src, absolutePath, options = {}) {
-		let tpl;
-		const data = options.useMock ? this.getMockData() : {};
-
-		_.extend(data, this.globalViewData, options.data);
-
-		// try {
-		tpl = this.compile2Str(src, absolutePath, {sandbox: true});
-		// } catch (e) {
-		// 	return Q.reject(e);
-		// }
-
-		tpl = this.prepareVmTpl(tpl);
-		const decorator = this.setupJadeDecorator(data);
-
-		return decorator.renderSandbox(tpl);
-	}
+	// async renderSandboxBySrc(src, absolutePath, options = {}) {
+	// 	let tpl;
+	// 	const data = options.useMock ? this.getMockData() : {};
+	//
+	// 	_.extend(data, this.globalViewData, options.data);
+	//
+	// 	// try {
+	// 	tpl = this.compile2Str(src, absolutePath, {sandbox: true});
+	// 	// } catch (e) {
+	// 	// 	return Q.reject(e);
+	// 	// }
+	//
+	// 	tpl = this.prepareVmTpl(tpl);
+	// 	const decorator = this.setupJadeDecorator(data);
+	//
+	// 	return decorator.renderSandbox(tpl);
+	// }
 
 	setupJadeDecorator(data) {
 		const decorator = new JadeDecorator(data);
@@ -153,19 +153,19 @@ export default class BasicRenderer {
 		}
 
 		let out;
-		if (sandbox) {
-			out = this.prepareVmTpl(tplSource);
-		} else {
-			const fn = new Function('locals, jade', tplSource);
-			out = locals => fn(locals, Object.create(jade.runtime));
-		}
+		// if (sandbox) {
+		// 	out = this.prepareVmTpl(tplSource);
+		// } else {
+		const fn = new Function('locals, jade', tplSource);
+		out = locals => fn(locals, Object.create(jade.runtime));
+		// }
 
 		return out;
 	}
 
-	prepareVmTpl(tplSource) {
-		return new VMScript(`(function(locals, jade){${tplSource}})(locals,jadeRuntime)`);
-	}
+	// prepareVmTpl(tplSource) {
+	// 	return new VMScript(`(function(locals, jade){${tplSource}})(locals,jadeRuntime)`);
+	// }
 
 	/**
 	 * Returns string, which contains Jade compiled function.

@@ -9,7 +9,17 @@ export enum TQueueEventType {
 	restored = 'restored',
 	sorted = 'sorted',
 
+	/**
+	 * Generates Email and emits send-out-email event. Might be considered as outdated?
+	 */
 	sendMail = 'send-mail',
+
+	/**
+	 * Event processes RAW email. The event needs since some users want to use WEB-hook to
+	 * send-out email (e.g. use postmark)
+	 */
+	sendOutEmail = 'send-out-email',
+
 	importFinished = 'import-finished'
 }
 
@@ -48,4 +58,15 @@ export interface IBaseQueueEventContent<T = IQueueEventData> {
 
 export interface IQueueEventContent<T = IQueueEventData> extends IBaseQueueEventContent<T> {
 	instanceId: number;
+}
+
+export interface ISendOutEmailHandlerData {
+	alias: string,
+	data: Record<string, any>,
+	subject: string|null,
+	html: {
+		content: string,
+		full: string
+	},
+	recipients: string[]
 }

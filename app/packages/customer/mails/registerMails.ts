@@ -8,18 +8,19 @@ export default class CustomerRegisterMails extends BasicInstanceMail {
 			loginUrl = await frontendUrls.getLoginUrl() as string;
 		}
 
-		const html = await this.render('welcomeEmail', {email, pass, firstName, loginUrl});
-		const mail = await this.getMail();
+		const alias = 'customer.welcomeEmail';
+		const data = {email, pass, firstName, loginUrl};
 
-		mail.setSubject(this.frontController.getClientRegistry().getI18n().__('Welcome!'));
-		mail.setBodyHtml(html.full);
-		mail.setBodyText(this.createTextVersion(html.content));
-		mail.addTo(email);
+		const {html, subject} = await this.renderDbTemplate({
+			alias, data
+		});
 
-		await mail.send();
-	}
-
-	getFileName(): string {
-		return __filename;
+		await this.emitMailEvent({
+			alias,
+			data,
+			html,
+			subject,
+			recipients: [email]
+		});
 	}
 }

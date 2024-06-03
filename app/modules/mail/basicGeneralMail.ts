@@ -1,4 +1,4 @@
-import {IMailSettings} from './basicInstanceMail';
+import {IMailSettings} from '../../@types/settings';
 import BasicMail from './basicMail';
 import {IView, IViewData, TViewPathType} from '../../@types/view';
 import BasicRenderer from '../viewRenderer/renderer/basic';

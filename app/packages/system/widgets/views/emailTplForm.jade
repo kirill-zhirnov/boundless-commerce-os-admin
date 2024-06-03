@@ -1,0 +1,15 @@
+!=gHtml.pk(pk)
+
+.form-group
+	!=bs.label(__('Alias'), 'alias')
+	!=bs.textField(attrs, 'alias', {readonly: '1'})
+
+.form-group
+	!=bs.label(__('Subject'), 'subject')
+	!=bs.textArea(attrs, 'subject', {rows: 2, class: 'cm-editor', 'data-cm-class': 'code-mirror-50'})
+
+.form-group
+	!=bs.label(__('Template'), 'template')
+	!=bs.textArea(attrs, 'template', {class: 'cm-editor'})
+
+!=widget('system.formButtons.@c', buttons)

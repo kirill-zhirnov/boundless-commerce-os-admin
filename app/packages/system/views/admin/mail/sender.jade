@@ -1,0 +1,13 @@
+div(style="max-width: 600px;margin: 0 auto;")
+	p.mb-4
+		=__('Sender: %s', [settings.from])
+		br
+		=__('Reply to: %s', [settings.replyTo])
+
+	div(class="form-group")
+		.checkbox.form-check
+			label(class="form-check-label")
+				input(type="checkbox" value='1' name="useDimensions" class="form-check-input" disabled="disabled")
+				!=__("Emit Web-Hook event instead of sending Email")
+		p.hint.small.text-muted
+			=__('Instead of sending Email through our SMTP server a WebHook request will be sent with all the data so you can fully customise sending')

@@ -7,8 +7,12 @@ import InstanceSES from './transport/awsSes';
 import * as thumbnailUrl from '../../packages/cms/modules/thumbnail/url';
 import BasicMail from './basicMail';
 import {IMailTransport} from '../../@types/mail';
+import {IEmailTplModel} from '../../packages/system/models/emailTpl';
+import {compile} from '../../packages/system/modules/mustacheCompiler';
+import {IMailSettings} from '../../@types/settings';
+import {ISendOutEmailHandlerData, TQueueEventType} from '../../@types/rabbitMq';
 
-export default abstract class BasicInstanceMail extends BasicMail{
+export default abstract class BasicInstanceMail extends BasicMail {
 	protected frontController: IFrontController;
 	protected mailSettings: IMailSettings | null = null;
 
@@ -32,6 +36,23 @@ export default abstract class BasicInstanceMail extends BasicMail{
 		return html;
 	}
 
+	async renderDBPartial(alias: string, data: IViewData = {}): Promise<{subject: null|string, body: string}> {
+		const tpl = (await this.instanceRegistry.getDb().model('emailTpl').findOne({
+			where: {alias}
+		})) as IEmailTplModel|null;
+
+		if (!tpl) {
+			throw new Error(`Template "${alias}" is not found. Cant process`);
+		}
+
+		let body = compile(tpl.template, data);
+		body = this.prepareHtml(body);
+
+		const subject = tpl.subject !== null ? compile(tpl.subject, data) : null;
+
+		return {subject, body};
+	}
+
 	async render(tpl: string, data: IViewData = {}, layout: string = 'layouts/email', layoutData: IViewData = {}, inlineCss: boolean = true): Promise<{content: string, full: string}> {
 		const content = await this.renderPartial(tpl, data);
 
@@ -40,7 +61,21 @@ export default abstract class BasicInstanceMail extends BasicMail{
 		return out;
 	}
 
-	async renderLayout(content: string, layout: string = 'layouts/email', layoutData: IViewData = {}, inlineCss: boolean = true) {
+	async renderDbTemplate({alias, data = {}, layout = 'layouts/email', layoutData = {}, inlineCss = true}: {
+		alias: string,
+		data?: IViewData,
+		layout?: string,
+		layoutData?: IViewData,
+		inlineCss?: boolean
+	}): Promise<{html: {content: string, full: string}, subject: string|null}> {
+		const {body, subject} = await this.renderDBPartial(alias, data);
+
+		const html = await this.renderLayout(body, layout, layoutData, inlineCss);
+
+		return {html, subject};
+	}
+
+	async renderLayout(content: string, layout: string = 'layouts/email', layoutData: IViewData = {}, inlineCss: boolean = true): Promise<{content: string, full: string}> {
 		const frontController = await this.getFrontController();
 		const view = frontController.getView();
 
@@ -130,12 +165,14 @@ export default abstract class BasicInstanceMail extends BasicMail{
 	getInstanceRegistry() {
 		return this.instanceRegistry;
 	}
+
+	async emitMailEvent(mail: ISendOutEmailHandlerData) {
+		await this.instanceRegistry.getEventPublisher()
+			.publish(TQueueEventType.sendOutEmail, mail)
+		;
+	}
 }
 
-export interface IMailSettings {
-	from: string;
-	replyTo: string | string[];
-}
 
 export interface IMailTemplate {
 	logo: string | null;

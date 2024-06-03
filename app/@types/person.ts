@@ -1,4 +1,5 @@
 import {TPublishingStatus} from './db';
+import {IVwCountry} from './delivery';
 
 export interface IPerson {
 	person_id: number;
@@ -57,6 +58,7 @@ export interface IPersonAddress {
 	phone: string|null;
 	comment: string|null;
 	created_at: string;
+	vwCountry?: IVwCountry;
 }
 
 export enum TRoleAlias {

@@ -49,5 +49,10 @@ export default abstract class BasicMail {
 	 * Generic method, normally:
 	 * getFileName() {return __filename;}
 	 */
-	abstract getFileName(): string;
+	getFileName(): string {
+		throw new Error('Method needs to be redefined in case of file templates');
+		return '';
+	}
+
+	// abstract getFileName(): string;
 }

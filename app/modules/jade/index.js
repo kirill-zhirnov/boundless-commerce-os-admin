@@ -6,10 +6,10 @@ const runtime = require('jade/lib/runtime');
 const addWith = require('with');
 const utils = require('jade/lib/utils');
 
-import {wrapperRegistry} from '../registry/server/classes/wrapper';
+// import {wrapperRegistry} from '../registry/server/classes/wrapper';
 
-const {VM, VMScript} = require('vm2');
-const parseScript = new VMScript('parse(str, options)');
+// const {VM, VMScript} = require('vm2');
+// const parseScript = new VMScript('parse(str, options)');
 
 //Parse function was copied without any changes from node_modules/jade/lib/index.
 
@@ -84,20 +84,20 @@ jadeIndex.compile2Str = function(str, options) {
 
 	str = String(str);
 
-	if (options.sandbox) {
-		const vm = new VM({
-			timeout: wrapperRegistry.getConfig().viewRenderer.vmTimeout,
-			sandbox: {
-				parse,
-				str,
-				options
-			}
-		});
-
-		parsed = vm.run(parseScript);
-	} else {
-		parsed = parse(str, options);
-	}
+	// if (options.sandbox) {
+	// 	const vm = new VM({
+	// 		timeout: wrapperRegistry.getConfig().viewRenderer.vmTimeout,
+	// 		sandbox: {
+	// 			parse,
+	// 			str,
+	// 			options
+	// 		}
+	// 	});
+	//
+	// 	parsed = vm.run(parseScript);
+	// } else {
+	parsed = parse(str, options);
+	// }
 
 	if (options.compileDebug !== false) {
 		fn = [

@@ -155,7 +155,9 @@ export interface IOrder {
 	publishing_status: TPublishingStatus;
 	public_id: string;
 
-	orderStatus?: IOrderStatus
+	orderStatus?: IOrderStatus,
+	tax_amount: null|string;
+	// tax_calculations: {}
 }
 
 export enum TNotifyTransport {

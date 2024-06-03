@@ -129,29 +129,65 @@
 			</div>
 		</form>
 		<h5 class="mt-5 mb-3">How to use tokens?</h5>
-		<h6>Using permanent token:</h6>
-		<div class="bg-light p-2 rounded border">
-			<pre><code>// install client: yarn add boundless-api-client
+		<p class="lead">
+			API documentation: <a href="https://docs.boundless-commerce.com/" target="_blank">docs.boundless-commerce.com</a>
+		</p>
+		<div class="mb-5">
+			<h6 class="mb-2">CURL example:</h6>
+			<div class="bg-light p-2 rounded border">
+				<pre><code>curl \
+	-H "Authorization: Bearer {{values.permanent_token || 'YOUR_GENERATED_TOKEN'}}" \
+	https://v1.api.boundless-commerce.com/catalog/products</code></pre>
+			</div>
+		</div>
 
-import {BoundlessClient} from 'boundless-api-client';
-const apiClient = new BoundlessClient('&lt;YOUR PERMANENT TOKEN&gt;');
-apiClient.setInstanceId('&lt;YOUR INSTANCE ID&gt;');
+		<div
+			v-if="values.permanent_token"
+			class="mb-5"
+		>
+			<h6>Example of usage Boundless Client with a Permanent token:</h6>
+			<p>
+				Install NPM package <a href="https://www.npmjs.com/package/boundless-api-client" target="_blank">boundless-api-client</a>:
+			</p>
+			<div class="bg-light p-2 rounded border mb-2">
+				<pre><code>npm install boundless-api-client</code></pre>
+			</div>
+			<p>Then:</p>
+			<div class="bg-light p-2 rounded border">
+			<pre><code>import {BoundlessClient} from 'boundless-api-client';
+
+//Pass token to the client:
+const apiClient = new BoundlessClient('{{values.permanent_token}}');
+
+//Specify your instance ID. The instance ID is used for thumbnails generation:
+apiClient.setInstanceId('{{instanceId}}');
 
 //fetch products:
 apiClient.catalog.getProducts().then(data => console.log(data));</code></pre>
+			</div>
 		</div>
-		<h6 class="mt-5">Generate token (for server-side requests - more secure way):</h6>
-		<div class="bg-light p-2 rounded border"><pre><code>// install client: yarn add boundless-api-client jsonwebtoken
-
-import {BoundlessClient} from 'boundless-api-client';
+		<div>
+			<h6 class="mt-5">
+				Example of usage Boundless Client with a Generated token (more secure way):
+			</h6>
+			<p>
+				Install NPM packages <a href="https://www.npmjs.com/package/boundless-api-client" target="_blank">boundless-api-client</a> and <a href="https://www.npmjs.com/package/jsonwebtoken" target="_blank">jsonwebtoken</a>:
+			</p>
+			<div class="bg-light p-2 rounded border mb-2">
+				<pre><code>npm install boundless-api-client jsonwebtoken</code></pre>
+			</div>
+			<p>Then:</p>
+			<div class="bg-light p-2 rounded border"><pre><code>import {BoundlessClient} from 'boundless-api-client';
 import {generateBoundlessToken} from 'boundless-api-client/token';
 
-const token = generateBoundlessToken('&lt;YOUR CLIENT ID&gt;', '&lt;YOUR SECRET&gt;', '&lt;YOUR INSTANCE ID&gt;');
+//Specify your Client ID, Secret and Instance ID:
+const token = generateBoundlessToken('{{values.client_id}}', '{{values.secret}}', '{{instanceId}}');
 const apiClient = new BoundlessClient(token);
-apiClient.setInstanceId('&lt;YOUR INSTANCE ID&gt;');
+apiClient.setInstanceId('{{instanceId}}');
 
 //fetch products:
 apiClient.catalog.getProducts().then(data => console.log(data));</code></pre></div>
+		</div>
 	</div>
 </template>
 

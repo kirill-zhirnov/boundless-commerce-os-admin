@@ -4,7 +4,7 @@ import ExtendedSequelize from '../../../modules/db/sequelize';
 import {IPersonModelStatic} from '../../customer/models/person';
 import {IPersonProfileModelStatic} from '../../customer/models/personProfile';
 import {ICouponCodeModelStatic} from '../models/couponCode';
-import {IOrderDiscountModelStatic} from '../models/orderDiscount';
+import {IOrderDiscountModel, IOrderDiscountModelStatic} from '../models/orderDiscount';
 import {IOrdersModel, IOrdersModelStatic} from '../models/orders';
 import {IOrderServiceDeliveryModelStatic} from '../models/orderServiceDelivery';
 import {ITrackNumberModelStatic} from '../models/trackNumber';
@@ -12,14 +12,15 @@ import OrderItems from './orderItems';
 import TotalCalculator from './totalCalculator';
 import * as thumbnailUrl from '../../cms/modules/thumbnail/url';
 import FrontEndUrls from '../../../modules/url/frontendUrls';
-import {IOrder} from '../../../@types/orders';
-import {IPerson, TAddressType} from '../../../@types/person';
+import {IOrder, TDiscountType, TOrderDiscountSource} from '../../../@types/orders';
+import {IPerson, IPersonAddress, TAddressType} from '../../../@types/person';
 import {IPaymentMethodModel} from '../../payment/models/paymentMethod';
 import {IPaymentMethod} from '../../../@types/payment';
 import {TTaxStatus} from '../../../@types/product';
 import {ITaxClass} from '../../../@types/system';
 import {ISystemTax} from '../../../@types/settings';
 import moolah from 'moolah';
+import {TDateFormatType} from '../../../modules/locale';
 
 export default class OrderWidgetData {
 	protected db: ExtendedSequelize;
@@ -38,8 +39,17 @@ export default class OrderWidgetData {
 	async getOrderData() {
 		await this.fetchOrder();
 
+		const locale = this.clientRegistry.getLocale();
+		const order = this.order.toJSON() as IOrder;
+		Object.assign(order, {
+			payment_mark_up_formatted: Number(order.payment_mark_up) > 0 ? locale.formatMoney(order.payment_mark_up) : '0',
+			tax_amount_formatted: order.tax_amount !== null ? locale.formatMoney(order.tax_amount) : null,
+			created_at_formatted_long: locale.formatDate(order.created_at, TDateFormatType.long),
+			created_at_formatted_short: locale.formatDate(order.created_at, TDateFormatType.short),
+		});
+
 		const data = {
-			order: this.order.toJSON() as IOrder,
+			order,
 			items: await this.getOrderItems(),
 			customer: await this.getCustomerInfo(),
 			shipping: await this.getOrderShipping(),
@@ -86,7 +96,11 @@ export default class OrderWidgetData {
 		}
 
 		const out = await this.populateDataWithUrls(data);
-		Object.assign(out, {summary: this.calcSummary(data)});
+		Object.assign(out, {
+			summary: this.calcSummary(data),
+			shippingAddressTpl: out.shippingAddress ? this.prepareAddressForTpl(out.shippingAddress) : null,
+			billingAddressTpl: out.billingAddress ? this.prepareAddressForTpl(out.billingAddress) : null
+		});
 
 		return out;
 	}
@@ -163,7 +177,17 @@ export default class OrderWidgetData {
 			}
 		}) as IPaymentMethodModel;
 
-		return paymentMethod.toJSON() as IPaymentMethod;
+		let out = null;
+		if (paymentMethod) {
+			out = paymentMethod.toJSON();
+
+			Object.assign(out, {
+				title: paymentMethod.paymentMethodTexts[0]?.title,
+				hasMarkUp: (paymentMethod.mark_up && Number(paymentMethod.mark_up) > 0) ? true : false
+			});
+		}
+
+		return out;
 	}
 
 	protected async getOrderShipping() {
@@ -174,7 +198,13 @@ export default class OrderWidgetData {
 			this.langId
 		);
 
-		return shipping || null;
+		if (shipping) {
+			Object.assign(shipping, {
+				price_formatted: shipping.price ? this.clientRegistry.getLocale().formatMoney(shipping.price) : null
+			});
+		}
+
+		return shipping;
 	}
 
 	protected async getOrderItems() {
@@ -183,17 +213,18 @@ export default class OrderWidgetData {
 
 		//add total price for email tpls:
 		items = items.map(({...attrs}) => {
-			let total_price = null, total_price_formatted = null, final_price_formatted = null;
+			let total_price_formatted = null, final_price_formatted = null;
 
-			if (attrs.final_price !== null) {
-				total_price = moolah(attrs.final_price).times(attrs.qty).string();
-				total_price_formatted = this.clientRegistry.getLocale().formatMoney(total_price);
+			if (attrs.total_price && attrs.total_price !== null) {
+				total_price_formatted = this.clientRegistry.getLocale().formatMoney(attrs.total_price);
+			}
+
+			if (attrs.final_price && attrs.final_price !== null) {
 				final_price_formatted = this.clientRegistry.getLocale().formatMoney(attrs.final_price);
 			}
 
 			return {
 				...attrs,
-				total_price,
 				total_price_formatted,
 				final_price_formatted,
 			};
@@ -204,7 +235,7 @@ export default class OrderWidgetData {
 
 	protected async getOrderDiscounts() {
 		const OrderDiscountModel = this.db.model('orderDiscount') as IOrderDiscountModelStatic;
-		const discounts = await OrderDiscountModel.findAll({
+		const discounts = (await OrderDiscountModel.findAll({
 			include: [
 				{model: this.db.model('couponCode') as unknown as ICouponCodeModelStatic}
 			],
@@ -214,9 +245,27 @@ export default class OrderWidgetData {
 			order: [
 				['created_at', 'asc']
 			]
-		});
+		})) as IOrderDiscountModel[];
 
-		return discounts || null;
+		return discounts.map((row) => {
+			const out = row.toJSON();
+
+			let value_formatted = String(row.value);
+			if (row.discount_type == TDiscountType.percent) {
+				value_formatted = `${this.clientRegistry.getLocale().formatNumber(row.value)}%`;
+			} else if (row.discount_type == TDiscountType.fixed) {
+				value_formatted = this.clientRegistry.getLocale().formatMoney(row.value);
+			}
+
+			Object.assign(out, {
+				isManualSource: row.source == TOrderDiscountSource.manual,
+				isFixedType: row.discount_type == TDiscountType.fixed,
+				isPercentType: row.discount_type == TDiscountType.percent,
+				value_formatted
+			});
+
+			return out;
+		});
 	}
 
 	protected async getOrderTrackNums() {
@@ -288,11 +337,19 @@ export default class OrderWidgetData {
 
 		const total = calculator.calcTotal();
 
+		const subtotal_price = total.itemsSubTotal.price;
+		const discount_for_order = total.discount;
+		const total_price = total.price;
+		const locale = this.clientRegistry.getLocale();
+
 		return {
 			total_qty: total.itemsSubTotal.qty,
-			subtotal_price: total.itemsSubTotal.price,
-			discount_for_order: total.discount,
-			total_price: total.price,
+			subtotal_price,
+			subtotal_price_formatted: locale.formatMoney(subtotal_price),
+			discount_for_order,
+			discount_for_order_formatted: locale.formatMoney(discount_for_order),
+			total_price,
+			total_price_formatted: locale.formatMoney(total_price),
 		};
 	}
 
@@ -303,5 +360,55 @@ export default class OrderWidgetData {
 		});
 		const taxClasses = rows.map(row => row.toJSON()) as ITaxClass[];
 		return taxClasses;
+	}
+
+	prepareAddressForTpl(address: IPersonAddress) {
+		const out = {};
+		const name = [];
+		if (address.first_name) {
+			name.push(address.first_name);
+		}
+		if (address.last_name) {
+			name.push(address.last_name);
+		}
+
+		if (name.length) {
+			Object.assign(out, {name: name.join(' ')});
+		}
+
+		if (address.company) {
+			Object.assign(out, {company: address.company});
+		}
+
+		if (address.address_line_1) {
+			Object.assign(out, {address_line_1: address.address_line_1});
+		}
+
+		if (address.address_line_2) {
+			Object.assign(out, {address_line_2: address.address_line_2});
+		}
+
+		const cityWithCountry = [];
+		if (address.city) {
+			cityWithCountry.push(address.city);
+		}
+
+		if (address.state) {
+			cityWithCountry.push(address.state);
+		}
+
+		if (address.vwCountry?.title) {
+			cityWithCountry.push(address.vwCountry?.title);
+		}
+
+		if (cityWithCountry.length) {
+			Object.assign(out, {city_with_country: cityWithCountry.join(', ')});
+		}
+
+		if (address.zip) {
+			Object.assign(out, {zip: address.zip});
+		}
+
+		return out;
 	}
 }

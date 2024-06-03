@@ -44,11 +44,19 @@ export interface IVwInventoryItemRaw {
 		price_id: number[];
 		alias: string[];
 		currency_id: number[];
-	}
+	},
+
+	//might be added by join from basket_item or reserve_item:
+	final_price?: string|null;
+	qty?: number;
 }
 
 export type TVwInventoryItem = IVwInventoryItemRaw & {
 	prices: {}[],
+	isVariant: boolean,
+	isProduct: boolean,
+	isCustomItem: boolean,
+	total_price?: string|null;
 	// labels: {}[] - is it a bug?
 }
 

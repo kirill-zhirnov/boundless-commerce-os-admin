@@ -40,3 +40,8 @@ export interface ISystemTax {
 	calculateTaxBasedOn: TCalculateTaxBasedOn,
 	taxTitle: string
 }
+
+export interface IMailSettings {
+	from: string;
+	replyTo: string | string[];
+}

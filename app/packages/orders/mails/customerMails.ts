@@ -26,15 +26,19 @@ export default class OrdersCustomerMails extends BasicInstanceMail {
 			return;
 		}
 
-		const {subject, html} = await this.renderSubjectAndBody(order, notifyTemplate);
+		let alias = `orders.notification.${eventType}`;
+		if (statusId) {
+			alias += `.status-${statusId}`;
+		}
 
-		const mail = await this.getMail();
-		mail.setSubject(subject);
-		mail.setBodyHtml(html.full);
-		mail.setBodyText(this.createTextVersion(html.content));
-		mail.addTo(email);
-
-		await mail.send();
+		const {subject, html, data} = await this.renderSubjectAndBody(order, notifyTemplate);
+		await this.emitMailEvent({
+			alias,
+			data,
+			html,
+			subject,
+			recipients: [email]
+		});
 	}
 
 	async renderSubjectAndBody(order: IOrdersModel, {subject, template}: INotificationTemplateModel) {
@@ -44,7 +48,8 @@ export default class OrdersCustomerMails extends BasicInstanceMail {
 
 		return {
 			html,
-			subject: renderedSubject
+			subject: renderedSubject,
+			data
 		};
 	}
 
@@ -96,15 +101,11 @@ export default class OrdersCustomerMails extends BasicInstanceMail {
 
 	async getEmailData(order: IOrdersModel) {
 		const clientRegistry = (await this.getFrontController()).getClientRegistry();
-		const locale = clientRegistry.getLocale();
 		const orderData = new OrderWidgetData(this.getInstanceRegistry(), clientRegistry, order.order_id);
 		const data = await orderData.getOrderData();
 
 		const {first_name, last_name} = data.customer?.personProfile || {};
 		const trackNums = (data.trackNumbers || []).map(el => el.track_number).join(', ');
-		const totalPrice = data.summary?.total_price ? locale.formatMoney(data.summary.total_price) : '';
-
-		const itemsHtml = await this.renderPartial('order', {data});
 
 		const frontendUrls = new FrontEndUrls(this.getInstanceRegistry());
 		const orderUrl = await frontendUrls.getOrderUrlByOrderId(order.public_id);
@@ -113,19 +114,22 @@ export default class OrdersCustomerMails extends BasicInstanceMail {
 		return {
 			ORDER_URL: orderUrl || '',
 			ORDER_ID: order.order_id,
+			ORDER: data.order,
 			ORDER_PUBLIC_ID: order.public_id,
-			ORDER_SUM: totalPrice,
 			TRACK_NUM: trackNums,
 			CUSTOMER_FULLNAME: `${first_name || 'Customer'} ${last_name || ''}`,
 			CUSTOMER_FIRSTNAME: first_name || 'Customer',
 			CUSTOMER_COMMENT: data.order.orderProp?.client_comment,
-			ITEMS_LIST: itemsHtml,
+			CUSTOMER: data.customer,
 			ITEMS: data.items,
-			SITE_URL: siteUrl || ''
+			SITE_URL: siteUrl || '',
+			SUMMARY: data.summary,
+			DISCOUNTS: data.discounts,
+			SHIPPING: data.shipping,
+			SHIPPING_ADDRESS: data.shippingAddressTpl,
+			BILLING_ADDRESS: data.billingAddressTpl,
+			PAYMENT_METHOD: data.paymentMethod,
+			TAX_SETTINGS: data.taxSettings
 		};
-	}
-
-	getFileName(): string {
-		return __filename;
 	}
 }
