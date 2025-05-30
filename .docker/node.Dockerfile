@@ -1,5 +1,5 @@
 FROM node:18-alpine as main-node
-RUN apk add --update --no-cache git python3 make g++ imagemagick
+RUN apk add --update --no-cache git python3 make g++ jpeg libpng imagemagick
 RUN npm i -g ts-node
 
 RUN mkdir -p /home/node/app/node_modules && chown -R node:node /home/node/app
